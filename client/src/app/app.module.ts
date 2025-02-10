@@ -4,10 +4,18 @@ import { BrowserModule, provideClientHydration, withEventReplay } from '@angular
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthenticatorComponent } from './components/authenticator/authenticator.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AuthenticatorComponent,
+    NavbarComponent,
+    DashboardComponent,
+    MainpageComponent
   ],
   imports: [
     BrowserModule,

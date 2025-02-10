@@ -5,7 +5,8 @@
   "scripts": {
     "start": "cd src && nodemon app-server.ts",
     "fresh": "cls && npm start",
-    "setup": "npm i && npm fund && cls && npm start"
+    "setup": "npm i && npm fund && cls && npm start",
+    "client": " cd .. && cd client && ng s"
   },
   "keywords": [],
   "author": "Prakhar Tripathi",

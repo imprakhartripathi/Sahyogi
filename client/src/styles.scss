@@ -1,6 +1,4 @@
-
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
 html {
@@ -13,7 +11,37 @@ html {
     typography: Roboto,
     density: 0,
   ));
-}/* You can add global styles to this file, and also import other style files */
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// Dark theme styles
+@media (prefers-color-scheme: dark) {
+  html {
+    @include mat.theme((
+      color: (
+        theme-type: dark,
+        primary: mat.$azure-palette, // Change colors for dark mode if needed
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+  }
+}
+
+// Global styles
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0f203c; // Darker background for dark mode
+    color: white; // Text color for dark mode
+  }
+  
+}

@@ -1,0 +1,18 @@
+.dynamic-text {
+  color: black;
+  font-size: 16px;
+  font-weight: normal;
+  margin-left: 90px;
+
+  &::before {
+    content: "Light Mode";
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: white;
+
+    &::before {
+      content: "Dark Mode";
+    }
+  }
+}

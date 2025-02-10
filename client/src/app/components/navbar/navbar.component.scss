@@ -1,0 +1,13 @@
+.logo {
+  content: '';
+  display: inline-block;
+  width: 200px;
+  height: 90px;
+  background: url('../../../../public/logos-no-bg/short-logo-light.png') no-repeat center;
+  background-size: contain;
+
+  @media (prefers-color-scheme: dark) {
+    background: url('../../../../public/logos-no-bg/short-logo-dark.png') no-repeat center;
+    background-size: contain;
+  }
+}
