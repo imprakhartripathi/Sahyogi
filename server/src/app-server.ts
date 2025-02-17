@@ -21,8 +21,8 @@ mongoose
   .then(() => {
     console.log("MongoDB Connection Successful");
   })
-  .catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
   });
 
 app.listen(serverPort, () => {

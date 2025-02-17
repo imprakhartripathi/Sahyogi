@@ -1,1 +1,49 @@
-<p>authenticator works!</p>
+<div class="parent">
+  <div class="auth-container">
+    <div class="logo"></div>
+    <mat-tab-group dynamicHeight>
+      <mat-tab label="Login">
+        <div class="login">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field appearance="outline" style="margin-top: 30px;">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter your email" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+            Login
+          </button>
+        </form>
+        </div>
+      </mat-tab>
+      <mat-tab label="Sign Up">
+       <div class="signup">
+         <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+          <mat-form-field appearance="outline" style="margin-top: 30px;">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="fullName" placeholder="Enter your full name" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Enter your email" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm your password" required />
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">
+            Sign Up
+          </button>
+        </form>
+       </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
