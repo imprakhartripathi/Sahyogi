@@ -1,5 +1,7 @@
 # Full-Stack Project Setup Guide
 
+by aditi
+
 ## Project Overview  
 This project is a full-stack application consisting of an **Angular frontend** and an **Express backend**. The Angular frontend serves a client-side application, while the Express backend handles API requests and server-side logic.  
 
