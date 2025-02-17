@@ -22,7 +22,7 @@ import { MatNativeDateModule } from '@angular/material/core'; // Datepicker Adap
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
@@ -43,6 +43,7 @@ import { AuthenticatorComponent } from './components/authenticator/authenticator
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
+import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
     NavbarComponent,
     DashboardComponent,
     MainpageComponent,
+    DateFormatterPipe,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +98,7 @@ import { MainpageComponent } from './components/mainpage/mainpage.component';
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent],
 })
