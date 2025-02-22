@@ -23,7 +23,7 @@ const loginController = async (req: Request, res: Response, next: NextFunction):
     }
 
     // Generate a JWT token
-    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ email }, SECRET_KEY);
 
     res.status(200).json({ token });
   } catch (error) {

@@ -50,7 +50,7 @@ export class AuthenticatorComponent {
           (response: any) => {
             console.log('Login successful:', response);
             localStorage.setItem('token', response.token);
-            this.router.navigate(['/']); // Redirect to "/"
+            this.router.navigate(['/dashboard']); // Redirect to "/"
           },
           (error) => {
             console.error('Login failed:', error);
@@ -67,7 +67,7 @@ export class AuthenticatorComponent {
           (response: any) => {
             console.log('Signup successful:', response);
             localStorage.setItem('token', response.token);
-            this.router.navigate(['/']); // Redirect to "/"
+            this.router.navigate(['/dashboard']); // Redirect to "/"
           },
           (error) => {
             console.error('Signup failed:', error);
@@ -75,6 +75,8 @@ export class AuthenticatorComponent {
         );
     }
   }
+
+  
 
   private passwordsMatchValidator(
     group: AbstractControl

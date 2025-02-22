@@ -1,1 +1,7 @@
-<p>dashboard works!</p>
+<app-navbar></app-navbar>
+<div class="parent">
+  <h1>{{ userData.fullName }}</h1>
+  <p>{{ userData.email }}</p>
+
+  <button mat-flat-button color="warn" (click)="logout()">Log Out</button>
+</div>

@@ -24,7 +24,7 @@ const signupController = async (req: Request, res: Response, next: NextFunction)
     console.log(newUser)
 
     // Generate a JWT token
-    const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ email }, SECRET_KEY);
 
     res.status(201).json({ token });
   } catch (error) {

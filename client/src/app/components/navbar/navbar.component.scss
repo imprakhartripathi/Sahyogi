@@ -1,13 +1,90 @@
+.parent {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  border-bottom: 2px solid #13203a;
+
+  @media (prefers-color-scheme: dark) {
+    border-bottom: 2px solid #394153;
+  }
+}
 .logo {
-  content: '';
+  content: "";
   display: inline-block;
   width: 200px;
   height: 90px;
-  background: url('../../../../public/logos-no-bg/short-logo-light.png') no-repeat center;
+  background: url("../../../../public/logos-no-bg/short-logo-light.png")
+    no-repeat center;
   background-size: contain;
+  transition: 0.3s;
 
   @media (prefers-color-scheme: dark) {
-    background: url('../../../../public/logos-no-bg/short-logo-dark.png') no-repeat center;
+    background: url("../../../../public/logos-no-bg/short-logo-dark.png")
+      no-repeat center;
     background-size: contain;
+  }
+
+  &:hover {
+    scale: 1.15;
+    transition: 0.3s;
+  }
+}
+.search-spacer {
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+
+  mat-form-field {
+    margin-top: 20px;
+    width: 100%;
+    transition: 0.3s;
+
+    .btn {
+      margin: 5px;
+      transition: 0.3s;
+
+      &:hover {
+        scale: 1.15;
+        transition: 0.3s;
+      }
+    }
+  }
+}
+.icon-row {
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .btn {
+    margin: 10px;
+    transition: 0.3s;
+
+    &:hover {
+      scale: 1.5;
+      transition: 0.3s;
+    }
+  }
+
+  .create-btn {
+    margin: 10px;
+    transition: 0.3s;
+
+    &:hover {
+      scale: 1.15;
+      transition: 0.3s;
+    }
+  }
+
+  .user-img {
+    margin: 20px;
+    width: 40px;
+    transition: 0.3s;
+
+    &:hover {
+      scale: 1.25;
+      transition: 0.3s;
+    }
   }
 }

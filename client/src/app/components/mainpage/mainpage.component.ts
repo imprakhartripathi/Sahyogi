@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './mainpage.component.scss'
 })
 export class MainpageComponent {
+  
 
 }
