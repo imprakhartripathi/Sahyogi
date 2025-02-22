@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { AuthenticatorService } from './services/authenticator.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,15 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private titleService: Title, private router: Router) {}
+  constructor(
+    private titleService: Title,
+    private router: Router,
+    private authService: AuthenticatorService
+  ) {}
 
   ngOnInit(): void {
     // Listen to route changes
+     this.authService.checkTokenAge();
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd) // Only listen to navigation events

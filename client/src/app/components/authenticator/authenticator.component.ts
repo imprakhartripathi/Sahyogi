@@ -6,8 +6,8 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router'; // Import Router
+import { AuthenticatorService } from '../../services/authenticator.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-authenticator',
@@ -21,8 +21,8 @@ export class AuthenticatorComponent {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
-    private router: Router // Inject Router
+    private authService: AuthenticatorService, // Inject the service
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -44,39 +44,35 @@ export class AuthenticatorComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.http
-        .post('http://localhost:4200/login', this.loginForm.value)
-        .subscribe(
-          (response: any) => {
-            console.log('Login successful:', response);
-            localStorage.setItem('token', response.token);
-            this.router.navigate(['/dashboard']); // Redirect to "/"
-          },
-          (error) => {
-            console.error('Login failed:', error);
-          }
-        );
+      const { email, password } = this.loginForm.value;
+      this.authService.login(email, password).subscribe(
+        (response: any) => {
+          console.log('Login successful:', response);
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/dashboard']); // Redirect to dashboard
+        },
+        (error) => {
+          console.error('Login failed:', error);
+        }
+      );
     }
   }
 
   onSignUp() {
     if (this.signupForm.valid) {
-      this.http
-        .post('http://localhost:4200/signup', this.signupForm.value)
-        .subscribe(
-          (response: any) => {
-            console.log('Signup successful:', response);
-            localStorage.setItem('token', response.token);
-            this.router.navigate(['/dashboard']); // Redirect to "/"
-          },
-          (error) => {
-            console.error('Signup failed:', error);
-          }
-        );
+      const { fullName, email, password } = this.signupForm.value;
+      this.authService.signup(fullName, email, password).subscribe(
+        (response: any) => {
+          console.log('Signup successful:', response);
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/dashboard']); // Redirect to dashboard
+        },
+        (error) => {
+          console.error('Signup failed:', error);
+        }
+      );
     }
   }
-
-  
 
   private passwordsMatchValidator(
     group: AbstractControl

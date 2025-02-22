@@ -3,6 +3,7 @@ import { GetCurrentUserService } from '../../services/get-current-user.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router'; // Import Router
 import { HttpClient } from '@angular/common/http';
+import { AuthenticatorService } from '../../services/authenticator.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,8 @@ export class DashboardComponent implements OnInit {
     private getCurrentUser: GetCurrentUserService,
     private userService: UserService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private authservice: AuthenticatorService
   ) {}
 
   ngOnInit() {
@@ -50,14 +52,6 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    this.http.post('http://localhost:4200/logout', {}).subscribe(
-      () => {
-        localStorage.removeItem('token'); // Remove JWT from storage
-        this.router.navigate(['/']); // Redirect to login page
-      },
-      (error) => {
-        console.error('Logout failed:', error);
-      }
-    );
+    this.authservice.logout();
   }
 }
