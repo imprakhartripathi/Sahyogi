@@ -1,44 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { GetCurrentUserService } from '../../services/get-current-user.service';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router'; // Import Router
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { AuthenticatorService } from '../../services/authenticator.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: false,
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  user: any;
-  userData: any;
-  issuedate: any;
+  user: any; // Holds the current user data
+  userData: any; // Holds additional user data fetched by email
+  issuedate: string | null = null; // Holds the formatted "iat" date
+
   constructor(
     private getCurrentUser: GetCurrentUserService,
     private userService: UserService,
     private router: Router,
-    private http: HttpClient,
     private authservice: AuthenticatorService
   ) {}
 
   ngOnInit() {
+    this.initializeDashboard(); // Call the method to initialize the dashboard
+  }
+
+  // Method to initialize the dashboard
+  initializeDashboard() {
     this.getCurrentUser.getCurrentUser().subscribe(
       (data) => {
         this.user = data;
-        console.log(this.user.email);
+        console.log('Current User:', this.user);
+
+        // Fetch additional user data using the email
         this.fetchUser(this.user.email);
-        this.issuedate = new Date(this.user.iat * 1000)
-        console.log("Date: ", this.issuedate)
+
+        // Format the "iat" timestamp
+        if (this.user.iat) {
+          this.issuedate = this.formatDate(this.user.iat);
+          console.log('Formatted Issued Date:', this.issuedate);
+        }
       },
       (error) => {
-        console.error('Error fetching user:', error);
+        console.error('Error fetching current user:', error);
       }
     );
-    
   }
 
+  // Method to fetch additional user data by email
   fetchUser(email: string) {
     this.userService.getUserByEmail(email).subscribe(
       (data) => {
@@ -51,6 +61,13 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  // Method to format the "iat" timestamp
+  formatDate(iat: number): string {
+    const date = new Date(iat * 1000); // Convert seconds to milliseconds
+    return date.toLocaleString(); // Format the date as a readable string
+  }
+
+  // Method to log out the user
   logout() {
     this.authservice.logout();
   }

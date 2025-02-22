@@ -33,9 +33,11 @@ $primary-bg: #0f203c;
   display: flex;
   flex-direction: column;
   align-items: center; // Centers the logo and content horizontally
+  transition: 1s;
 
   @media (prefers-color-scheme: dark) {
     background-color: #4b6692;
+    transition: 1s;
   }
 
   mat-tab-group {

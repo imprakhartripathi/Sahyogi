@@ -34,12 +34,14 @@ html, body {
 }
 
 body {
+  transition: 1s;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   body {
+    transition: 1s;
     background-color: #0f203c; // Darker background for dark mode
     color: white; // Text color for dark mode
   }
