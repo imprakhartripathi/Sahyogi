@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { AuthenticatorService } from '../../services/authenticator.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
 @Component({
   selector: 'app-authenticator',
@@ -21,8 +22,9 @@ export class AuthenticatorComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthenticatorService, // Inject the service
-    private router: Router
+    private authService: AuthenticatorService,
+    private router: Router,
+    private snackBar: MatSnackBar // Inject MatSnackBar
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -49,10 +51,26 @@ export class AuthenticatorComponent {
         (response: any) => {
           console.log('Login successful:', response);
           localStorage.setItem('token', response.token);
+
+          // Show a welcome message
+          this.snackBar.open(`Welcome back!`, 'Close', {
+            duration: 5000, // Display for 3 seconds
+            horizontalPosition: 'center', // Position the snackbar
+            verticalPosition: 'bottom',
+          });
+
           this.router.navigate(['/dashboard']); // Redirect to dashboard
         },
         (error) => {
           console.error('Login failed:', error);
+
+          // Show an error message
+          this.snackBar.open('Login failed. Please try again.', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar'], // Optional: Add custom styling
+          });
         }
       );
     }
@@ -65,10 +83,26 @@ export class AuthenticatorComponent {
         (response: any) => {
           console.log('Signup successful:', response);
           localStorage.setItem('token', response.token);
+
+          // Show a welcome message
+          this.snackBar.open(`Welcome, ${fullName}!`, 'Close', {
+            duration: 5000, // Display for 3 seconds
+            horizontalPosition: 'center', // Position the snackbar
+            verticalPosition: 'bottom',
+          });
+
           this.router.navigate(['/dashboard']); // Redirect to dashboard
         },
         (error) => {
           console.error('Signup failed:', error);
+
+          // Show an error message
+          this.snackBar.open('Signup failed. Please try again.', 'Close', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar'], // Optional: Add custom styling
+          });
         }
       );
     }

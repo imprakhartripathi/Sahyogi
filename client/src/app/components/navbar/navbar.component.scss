@@ -1,9 +1,4 @@
 .parent {
-  @media (prefers-color-scheme: light) {
-    background-color: #a8d0ef;
-    transition: 1s;
-  }
-
   display: flex;
   flex-direction: row;
   width: 100vw;
@@ -13,7 +8,10 @@
   @media (prefers-color-scheme: dark) {
     border-bottom: 2px solid #394153;
     transition: 1s;
-    
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: #a8d0ef;
+    transition: 1s;
   }
 }
 .logo {
@@ -96,3 +94,106 @@
     }
   }
 }
+
+
+
+
+
+
+.sidebar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 250px;
+  height: 86.5vh;
+  border-right: 2px solid #13203a;
+  overflow-y: auto;
+  z-index: 50;
+  transition: transform 0.3s ease;
+  transition: 1s;
+
+  @media (prefers-color-scheme: dark) {
+    border-right: 2px solid #394153;
+    transition: 1s;
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: #a8d0ef;
+    transition: 1s;
+  }
+  &.hidden {
+    transform: translateX(-100%);
+  }
+
+  &.block {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+
+    img {
+      width: 70px;
+    }
+
+    .heading {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 18px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin-left: 8px;
+    }
+  }
+
+  .sidebar-nav {
+    padding: 8px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 8px;
+
+        .sidebar-link {
+          display: flex;
+          align-items: center;
+          padding: 12px 16px;
+          color: white;
+          text-decoration: none;
+          border-radius: 8px;
+          transition: background-color 0.3s ease, color 0.3s ease;
+
+          &:hover {
+            background-color: #a3baee;
+            color: #13203a;
+          }
+
+          &.active {
+            background-color: #a3baee;
+            color: #13203a;
+          }
+
+          mat-icon {
+            margin-right: 12px;
+          }
+        }
+
+        .divider {
+          margin-top: 8px;
+          border-top: 2px solid;
+          border-top-color: rgba(0, 0, 0, 0.1);
+
+          @media (prefers-color-scheme: dark) {
+            border-top-color: #394153;
+            transition: 1s;
+          }
+        }
+      }
+    }
+  }
+}
+

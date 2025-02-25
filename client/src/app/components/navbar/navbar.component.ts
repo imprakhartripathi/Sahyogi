@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { GetCurrentUserService } from '../../services/get-current-user.service';
 import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { SettingsComponent } from '../subcomponents/settings/settings.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ProfileComponent } from '../subcomponents/profile/profile.component';
+import { AiPrioritizationComponent } from '../subcomponents/ai-prioritization/ai-prioritization.component';
+import { NotificationsComponent } from '../subcomponents/notifications/notifications.component';
+import { CreatorButtonComponent } from '../subcomponents/creator-button/creator-button.component';
+import { AuthenticatorService } from '../../services/authenticator.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +19,12 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+  private settingsDialog: MatDialogRef<SettingsComponent> | null = null;
+  private profileDialog: MatDialogRef<ProfileComponent> | null = null;
+  private AIDialog: MatDialogRef<AiPrioritizationComponent> | null = null;
+  private notificationDialog: MatDialogRef<NotificationsComponent> | null =
+    null;
+  private creatorDialog: MatDialogRef<CreatorButtonComponent> | null = null;
   imgURL: string = 'user.png';
   value: any;
   user: any;
@@ -19,8 +32,10 @@ export class NavbarComponent implements OnInit {
   constructor(
     private getCurrentUser: GetCurrentUserService,
     private userService: UserService,
-    private router: Router,
-    private http: HttpClient
+    public router: Router,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private authService: AuthenticatorService,
   ) {}
 
   ngOnInit() {
@@ -35,7 +50,6 @@ export class NavbarComponent implements OnInit {
         console.error('Error fetching user:', error);
       }
     );
-    
   }
 
   fetchUser(email: string) {
@@ -50,7 +64,83 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  openProfileDialog(): void {
+    if (!this.profileDialog) {
+      this.profileDialog = this.dialog.open(ProfileComponent, {
+        // width: '1000px',
+        // height: '90%',
+        panelClass: 'custom-dialog-container',
+      });
+      this.profileDialog
+        .afterClosed()
+        .subscribe(() => (this.profileDialog = null));
+    }
+  }
+
+  openSettingsDialog(): void {
+    if (!this.settingsDialog) {
+      this.settingsDialog = this.dialog.open(SettingsComponent, {
+        // width: '1000px',
+        // height: '90%',
+        panelClass: 'custom-dialog-container',
+      });
+      this.settingsDialog
+        .afterClosed()
+        .subscribe(() => (this.settingsDialog = null));
+    }
+  }
+
+  openNotificationsDialog(): void {
+    if (!this.notificationDialog) {
+      this.notificationDialog = this.dialog.open(NotificationsComponent, {
+        // width: '1000px',
+        // height: '90%',
+        panelClass: 'custom-dialog-container',
+      });
+      this.notificationDialog
+        .afterClosed()
+        .subscribe(() => (this.notificationDialog = null));
+    }
+  }
+
+  openSupport(): void {
+    this.router.navigate(['/support']);
+  }
+
+  openAIPrioritizationDialog(): void {
+    if (!this.AIDialog) {
+      this.AIDialog = this.dialog.open(AiPrioritizationComponent, {
+        // width: '1000px',
+        // height: '90%',
+        panelClass: 'custom-dialog-container',
+      });
+      this.AIDialog.afterClosed().subscribe(() => (this.AIDialog = null));
+    }
+  }
+
+  openCreatorButtonDialog(): void {
+    if (!this.creatorDialog) {
+      this.creatorDialog = this.dialog.open(CreatorButtonComponent, {
+        // width: '1000px',
+        // height: '90%',
+        panelClass: 'custom-dialog-container',
+      });
+      this.creatorDialog
+        .afterClosed()
+        .subscribe(() => (this.creatorDialog = null));
+    }
+  }
+
   search() {
     throw new Error('Method not implemented.');
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/auth']);
+  }
+
+  isActive(url: string): boolean {
+    return this.router.url === url;
   }
 }

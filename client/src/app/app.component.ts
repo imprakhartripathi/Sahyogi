@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // Listen to route changes
-     this.authService.checkTokenAge();
+    this.authService.checkTokenAge();
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd) // Only listen to navigation events

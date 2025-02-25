@@ -44,6 +44,15 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { DateFormatterPipe } from './pipes/date-formatter.pipe';
+import { SettingsComponent } from './components/subcomponents/settings/settings.component';
+import { ProfileComponent } from './components/subcomponents/profile/profile.component';
+import { NotificationsComponent } from './components/subcomponents/notifications/notifications.component';
+import { CreatorButtonComponent } from './components/subcomponents/creator-button/creator-button.component';
+import { AiPrioritizationComponent } from './components/subcomponents/ai-prioritization/ai-prioritization.component';
+import { SupportComponent } from './components/support/support.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { ProjectsComponent } from './components/projects/projects.component';
+import { BacklogComponent } from './components/backlog/backlog.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +62,15 @@ import { DateFormatterPipe } from './pipes/date-formatter.pipe';
     DashboardComponent,
     MainpageComponent,
     DateFormatterPipe,
+    SettingsComponent,
+    ProfileComponent,
+    NotificationsComponent,
+    CreatorButtonComponent,
+    AiPrioritizationComponent,
+    SupportComponent,
+    TasksComponent,
+    ProjectsComponent,
+    BacklogComponent,
   ],
   imports: [
     BrowserModule,

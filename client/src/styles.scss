@@ -1,35 +1,41 @@
 // Custom Theming for Angular Material
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
 html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
 }
 
 // Dark theme styles
 @media (prefers-color-scheme: dark) {
   html {
-    @include mat.theme((
-      color: (
-        theme-type: dark,
-        primary: mat.$azure-palette, // Change colors for dark mode if needed
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    ));
+    @include mat.theme(
+      (
+        color: (
+          theme-type: dark,
+          primary: mat.$azure-palette,
+          // Change colors for dark mode if needed
+          tertiary: mat.$blue-palette,
+        ),
+        typography: Roboto,
+        density: 0,
+      )
+    );
   }
 }
 
 // Global styles
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -39,11 +45,25 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.loader-dialog-container {
+  border-radius: 50%; /* Adjust the radius as needed */
+  overflow: hidden; /* Ensure the content does not overflow the rounded corners */
+  width: 300px;
+  height: 300px;
+}
+
+.custom-dialog-container {
+  border-radius: 30px; /* Adjust the radius as needed */
+  overflow: hidden; /* Ensure the content does not overflow the rounded corners */
+  width: 90%;
+  height: 80%;
+
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     transition: 1s;
     background-color: #0f203c; // Darker background for dark mode
     color: white; // Text color for dark mode
   }
-  
 }

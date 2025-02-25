@@ -2,20 +2,130 @@
   <div class="logo" routerLink="/dashboard"></div>
   <div class="search-spacer">
     <mat-form-field class="search" appearance="outline">
-      <input matInput placeholder="Search Tasks or Projects" type="text">
-      <button class="btn" matSuffix mat-icon-button aria-label="Search" (click)="search()">
+      <input matInput placeholder="Search Tasks or Projects" type="text" />
+      <button
+        class="btn"
+        matSuffix
+        mat-icon-button
+        aria-label="Search"
+        (click)="search()"
+      >
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
   </div>
   <div class="icon-row">
-    <button class="create-btn" mat-flat-button><mat-icon>create</mat-icon>Create</button>
-    <button class="btn" mat-icon-button matTooltip="AI Task Prioritization"><mat-icon>assistant</mat-icon></button>
-    <button class="btn" mat-icon-button matTooltip="Support"><mat-icon>help</mat-icon></button>
-    <button class="btn" mat-icon-button matTooltip="Notifications">
+    <button
+      class="create-btn"
+      mat-flat-button
+      (click)="openCreatorButtonDialog()"
+    >
+      <mat-icon>create</mat-icon>Create
+    </button>
+    <button
+      class="btn"
+      mat-icon-button
+      matTooltip="AI Task Prioritization"
+      (click)="openAIPrioritizationDialog()"
+    >
+      <mat-icon>assistant</mat-icon>
+    </button>
+    <button
+      class="btn"
+      mat-icon-button
+      matTooltip="Support"
+      (click)="openSupport()"
+    >
+      <mat-icon>help</mat-icon>
+    </button>
+    <button
+      class="btn"
+      mat-icon-button
+      matTooltip="Notifications"
+      (click)="openNotificationsDialog()"
+    >
       <mat-icon>notifications</mat-icon>
     </button>
-    <button class="btn" mat-icon-button matTooltip="Settings"><mat-icon>settings</mat-icon></button>
-    <img matTooltip="{{userData.fullName}}'s Profile" class="user-img" [src]="imgURL" alt="{{userData.fullName}}'s Profile" />
+    <button
+      class="btn"
+      mat-icon-button
+      matTooltip="Settings"
+      (click)="openSettingsDialog()"
+    >
+      <mat-icon>settings</mat-icon>
+    </button>
+    <img
+      matTooltip="{{ userData.fullName }}'s Profile"
+      class="user-img"
+      [src]="imgURL"
+      alt="{{ userData.fullName }}'s Profile"
+      (click)="openProfileDialog()"
+    />
   </div>
+</div>
+
+<div class="block" class="sidebar">
+  <br />
+
+  <!-- Sidebar content -->
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a
+          (click)="this.router.navigateByUrl('/')"
+          [ngClass]="{ active: isActive('/') }"
+          class="sidebar-link"
+        >
+          <mat-icon>home</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <mat-divider class="divider"></mat-divider>
+      </li>
+
+      <li>
+        <a
+          (click)="this.router.navigateByUrl('/tasks')"
+          [ngClass]="{ active: isActive('/tasks') }"
+          class="sidebar-link"
+        >
+          <mat-icon>task</mat-icon>
+          <span>Tasks</span>
+        </a>
+        <mat-divider class="divider"></mat-divider>
+      </li>
+
+      <li>
+        <a
+          (click)="this.router.navigateByUrl('/projects')"
+          [ngClass]="{ active: isActive('/projects') }"
+          class="sidebar-link"
+        >
+          <mat-icon>business_center</mat-icon>
+          <span>Projects</span>
+        </a>
+        <mat-divider class="divider"></mat-divider>
+      </li>
+
+      <li>
+        <a
+          (click)="this.router.navigateByUrl('/backlog')"
+          [ngClass]="{ active: isActive('/backlog') }"
+          class="sidebar-link"
+        >
+          <mat-icon>event_busy</mat-icon>
+          <span>Backlog</span>
+        </a>
+        <mat-divider class="divider"></mat-divider>
+      </li>
+
+      <!-- Add more menu items as needed -->
+
+      <!-- <li>
+        <a (click)="logout()" class="sidebar-link">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </a>
+      </li> -->
+    </ul>
+  </nav>
 </div>
