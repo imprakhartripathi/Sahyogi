@@ -67,8 +67,9 @@ export class NavbarComponent implements OnInit {
   openProfileDialog(): void {
     if (!this.profileDialog) {
       this.profileDialog = this.dialog.open(ProfileComponent, {
-        // width: '1000px',
-        // height: '90%',
+        // width: '90%',
+        // height: '80%',
+        maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
       this.profileDialog
@@ -82,6 +83,7 @@ export class NavbarComponent implements OnInit {
       this.settingsDialog = this.dialog.open(SettingsComponent, {
         // width: '1000px',
         // height: '90%',
+        maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
       this.settingsDialog
@@ -95,6 +97,7 @@ export class NavbarComponent implements OnInit {
       this.notificationDialog = this.dialog.open(NotificationsComponent, {
         // width: '1000px',
         // height: '90%',
+        maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
       this.notificationDialog
@@ -112,6 +115,7 @@ export class NavbarComponent implements OnInit {
       this.AIDialog = this.dialog.open(AiPrioritizationComponent, {
         // width: '1000px',
         // height: '90%',
+        maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
       this.AIDialog.afterClosed().subscribe(() => (this.AIDialog = null));
@@ -123,6 +127,7 @@ export class NavbarComponent implements OnInit {
       this.creatorDialog = this.dialog.open(CreatorButtonComponent, {
         // width: '1000px',
         // height: '90%',
+        maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
       this.creatorDialog

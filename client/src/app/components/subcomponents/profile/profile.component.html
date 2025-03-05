@@ -1,1 +1,13 @@
-<p>profile works!</p>
+<div class="parent" *ngIf="user">
+  <h1>{{ userData.fullName }}</h1>
+  <p>Token Issued At: {{ issuedate }}</p> <!-- Display the formatted date -->
+  <div *ngIf="userData">
+  <h2>User Details</h2>
+  <p>Full Name: {{ userData.fullName }}</p>
+  <p>Email: {{ userData.email }}</p>
+  <!-- Add more user details as needed -->
+</div>
+
+<button mat-stroked-button (click)="logout()">Logout</button> 
+<button mat-stroked-button (click)="this.dialog.closeAll()">Close</button>
+</div>

@@ -1,0 +1,21 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent {
+    padding: 30px;
+    width: auto;
+    height: 100%;
+    background-color: $bg-light-blue;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: $primary-dark;
+
+    }
+
+    button{
+        margin: 5px;
+    }
+}

@@ -1,16 +1,14 @@
 <app-navbar></app-navbar>
 
 <div class="parent" *ngIf="user">
-  <h1>Welcome, {{ userData.fullName }}</h1>
-  <p>Token Issued At: {{ issuedate }}</p> <!-- Display the formatted date -->
+  <!-- <h1>Welcome, {{ userData.fullName }}</h1>
+  <p>Token Issued At: {{ issuedate }}</p>
   <div *ngIf="userData">
-  <h2>User Details</h2>
-  <p>Full Name: {{ userData.fullName }}</p>
-  <p>Email: {{ userData.email }}</p>
-  <!-- Add more user details as needed -->
+    <h2>User Details</h2>
+    <p>Full Name: {{ userData.fullName }}</p>
+    <p>Email: {{ userData.email }}</p>
+  </div>
+
+  <button mat-stroked-button (click)="logout()">Logout</button> -->
+  <p>Dashboard Works</p>
 </div>
-
-<button mat-stroked-button (click)="logout()">Logout</button>
-</div>
-
-

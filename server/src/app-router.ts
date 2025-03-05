@@ -4,7 +4,7 @@ const router = express.Router();
 import signupController from "./controllers/signupController";
 import loginController from "./controllers/loginController";
 import getCurrentUserController from "./controllers/getCurrentUserController";
-import genAIController from "./controllers/genAI";
+import genAIController from "./controllers/aiController";
 import userInfoController from "./controllers/userInfoController";
 import logoutController from "./controllers/logoutController";
 

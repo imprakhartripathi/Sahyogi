@@ -53,7 +53,7 @@ export class AuthenticatorComponent {
           localStorage.setItem('token', response.token);
 
           // Show a welcome message
-          this.snackBar.open(`Welcome back!`, 'Close', {
+          this.snackBar.open(`Welcome Back!   Logged  In  Successfully,  Session  is  Active  for  30  Days`, 'Close', {
             duration: 5000, // Display for 3 seconds
             horizontalPosition: 'center', // Position the snackbar
             verticalPosition: 'bottom',
@@ -85,7 +85,7 @@ export class AuthenticatorComponent {
           localStorage.setItem('token', response.token);
 
           // Show a welcome message
-          this.snackBar.open(`Welcome, ${fullName}!`, 'Close', {
+          this.snackBar.open(`Welcome to Sahyogi, ${fullName}!    Signed  Up  Successfully,  Session  is  Active  for  30  Days`, 'Close', {
             duration: 5000, // Display for 3 seconds
             horizontalPosition: 'center', // Position the snackbar
             verticalPosition: 'bottom',

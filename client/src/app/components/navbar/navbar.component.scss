@@ -1,17 +1,23 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
 .parent {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  border-bottom: 2px solid #13203a;
-  transition: 1s;
+  border-bottom: 2px solid $primary-dark;
+  transition: 0.6s;
 
   @media (prefers-color-scheme: dark) {
-    border-bottom: 2px solid #394153;
-    transition: 1s;
+    border-bottom: 2px solid $border-dark;
+    transition: 0.6s;
   }
   @media (prefers-color-scheme: light) {
-    background-color: #a8d0ef;
-    transition: 1s;
+    background-color: $bg-light-blue;
+    transition: 0.6s;
   }
 }
 .logo {
@@ -19,6 +25,7 @@
   display: inline-block;
   width: 200px;
   height: 90px;
+  margin-left: 20px;
   background: url("../../../../public/logos-no-bg/short-logo-light.png")
     no-repeat center;
   background-size: contain;
@@ -36,7 +43,7 @@
   }
 }
 .search-spacer {
-  width: 50%;
+  width: 45%;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -106,19 +113,19 @@
   left: 0;
   width: 250px;
   height: 86.5vh;
-  border-right: 2px solid #13203a;
+  border-right: 2px solid $primary-dark;
   overflow-y: auto;
   z-index: 50;
   transition: transform 0.3s ease;
-  transition: 1s;
+  transition: 0.6s;
 
   @media (prefers-color-scheme: dark) {
-    border-right: 2px solid #394153;
-    transition: 1s;
+    border-right: 2px solid $border-dark;
+    transition: 0.6s;
   }
   @media (prefers-color-scheme: light) {
-    background-color: #a8d0ef;
-    transition: 1s;
+    background-color:  $bg-light-blue;
+    transition: 0.6s;
   }
   &.hidden {
     transform: translateX(-100%);
@@ -132,7 +139,11 @@
     display: flex;
     align-items: center;
     padding: 16px;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid $primary-dark;
+
+    @media (prefers-color-scheme: dark) {
+      border-bottom: 1px solid $border-dark;
+    }
 
     img {
       width: 70px;
@@ -162,19 +173,33 @@
           display: flex;
           align-items: center;
           padding: 12px 16px;
-          color: white;
+          color: $primary-dark;
           text-decoration: none;
           border-radius: 8px;
           transition: background-color 0.3s ease, color 0.3s ease;
 
           &:hover {
-            background-color: #a3baee;
-            color: #13203a;
+            background-color: $mat-blue-light;
+            color: $bg-light-blue;
           }
 
           &.active {
-            background-color: #a3baee;
-            color: #13203a;
+            background-color: $mat-blue-light;
+            color: $bg-light-blue;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            color: white;
+
+            &:hover {
+            background-color: $mat-blue-dark;
+            color: $primary-dark;
+          }
+
+          &.active {
+            background-color: $mat-blue-dark;
+            color: $primary-dark;
+          }
           }
 
           mat-icon {
@@ -185,11 +210,11 @@
         .divider {
           margin-top: 8px;
           border-top: 2px solid;
-          border-top-color: rgba(0, 0, 0, 0.1);
+          border-top-color: $primary-dark;
 
           @media (prefers-color-scheme: dark) {
-            border-top-color: #394153;
-            transition: 1s;
+            border-top-color: $border-dark;
+            transition: 0.6s;
           }
         }
       }

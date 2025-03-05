@@ -40,7 +40,7 @@ body {
 }
 
 body {
-  transition: 1s;
+  transition: 0.6s;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -55,14 +55,14 @@ body {
 .custom-dialog-container {
   border-radius: 30px; /* Adjust the radius as needed */
   overflow: hidden; /* Ensure the content does not overflow the rounded corners */
-  width: 90%;
+  width: 80% !important;
   height: 80%;
-
+  max-width: none;
 }
 
 @media (prefers-color-scheme: dark) {
   body {
-    transition: 1s;
+    transition: 0.6s;
     background-color: #0f203c; // Darker background for dark mode
     color: white; // Text color for dark mode
   }
