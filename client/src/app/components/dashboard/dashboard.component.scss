@@ -1,7 +1,31 @@
-.root{
-    display: inline;
-}
 .parent {
-    padding: 30px;
-    margin-left: 250px;
+  position: absolute;
+  top: 90px; /* Align it correctly */
+  left: 250px; /* Ensure it’s beside the sidebar */
+  width: calc(94vw - 250px); /* Prevent unwanted overflow */
+  height: 100vh;
+  overflow: auto; /* In case scrolling is needed */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  height: 140px;
+
+  mat-card {
+    padding: 20px;
+  }
+}
+.task-card {
+  width: 100%;
 }

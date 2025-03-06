@@ -1,15 +1,45 @@
 <app-navbar></app-navbar>
 
 <div class="parent" *ngIf="user">
-  <!-- <h1>Welcome, {{ userData.fullName }}</h1>
-  <p>Token Issued At: {{ issuedate }}</p>
-  <div *ngIf="userData">
-    <h2>User Details</h2>
-    <p>Full Name: {{ userData.fullName }}</p>
-    <p>Email: {{ userData.email }}</p>
+  <div class="tasks">
+    <h2>Your Recent Tasks</h2>
+    <div class="carousel">
+      <button mat-button (click)="prevPage('recentTasks')">&#9665;</button>
+      <div class="cards-container">
+        <mat-card *ngFor="let task of pagedTasks.recentTasks" class="task-card">
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>{{ task.description }}</mat-card-content>
+        </mat-card>
+      </div>
+      <button mat-button (click)="nextPage('recentTasks')">&#9655;</button>
+    </div>
   </div>
-
-  <button mat-stroked-button (click)="logout()">Logout</button> -->
-  <p>Dashboard Works</p>
-  <h1>Prakhar Do This</h1>
+  <mat-divider></mat-divider>
+  <div class="tasks-aip">
+    <h2>Your AI Prioritized Tasks</h2>
+    <div class="carousel">
+      <button mat-button (click)="prevPage('aiTasks')">&#9665;</button>
+      <div class="cards-container">
+        <mat-card *ngFor="let task of pagedTasks.aiTasks" class="task-card">
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-content>{{ task.description }}</mat-card-content>
+        </mat-card>
+      </div>
+      <button mat-button (click)="nextPage('aiTasks')">&#9655;</button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="projects">
+    <h2>Your Projects</h2>
+    <div class="carousel">
+      <button mat-button (click)="prevPage('projects')">&#9665;</button>
+      <div class="cards-container">
+        <mat-card *ngFor="let project of pagedTasks.projects" class="task-card">
+          <mat-card-title>{{ project.name }}</mat-card-title>
+          <mat-card-content>{{ project.details }}</mat-card-content>
+        </mat-card>
+      </div>
+      <button mat-button (click)="nextPage('projects')">&#9655;</button>
+    </div>
+  </div>
 </div>

@@ -4,22 +4,29 @@ $border-dark: #394153;
 $mat-blue-dark: #a3baee;
 $mat-blue-light: #3768bb;
 
-.parent {
+.container {
+  position: relative;
+  height: 100vh; /* Ensures it doesn't stretch */
+}
+
+.navbar {
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: 100%;
   border-bottom: 2px solid $primary-dark;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  background-color: $bg-light-blue;
   transition: 0.6s;
 
   @media (prefers-color-scheme: dark) {
     border-bottom: 2px solid $border-dark;
-    transition: 0.6s;
-  }
-  @media (prefers-color-scheme: light) {
-    background-color: $bg-light-blue;
+    background-color: $primary-dark;
     transition: 0.6s;
   }
 }
+
 .logo {
   content: "";
   display: inline-block;
@@ -42,6 +49,7 @@ $mat-blue-light: #3768bb;
     transition: 0.3s;
   }
 }
+
 .search-spacer {
   width: 45%;
   justify-content: center;
@@ -64,6 +72,7 @@ $mat-blue-light: #3768bb;
     }
   }
 }
+
 .icon-row {
   margin-right: 10px;
   display: flex;
@@ -102,19 +111,15 @@ $mat-blue-light: #3768bb;
   }
 }
 
-
-
-
-
-
 .sidebar {
   position: fixed;
+  top: 90px; /* Adjust this value based on the height of your navbar */
   bottom: 0;
   left: 0;
   width: 250px;
-  height: 86.5vh;
+  height: calc(100vh - 90px); /* Adjust this value based on the height of your navbar */
   border-right: 2px solid $primary-dark;
-  overflow-y: auto;
+  overflow: hidden;
   z-index: 50;
   transition: transform 0.3s ease;
   transition: 0.6s;
@@ -124,9 +129,10 @@ $mat-blue-light: #3768bb;
     transition: 0.6s;
   }
   @media (prefers-color-scheme: light) {
-    background-color:  $bg-light-blue;
+    background-color: $bg-light-blue;
     transition: 0.6s;
   }
+
   &.hidden {
     transform: translateX(-100%);
   }
@@ -192,14 +198,14 @@ $mat-blue-light: #3768bb;
             color: white;
 
             &:hover {
-            background-color: $mat-blue-dark;
-            color: $primary-dark;
-          }
+              background-color: $mat-blue-dark;
+              color: $primary-dark;
+            }
 
-          &.active {
-            background-color: $mat-blue-dark;
-            color: $primary-dark;
-          }
+            &.active {
+              background-color: $mat-blue-dark;
+              color: $primary-dark;
+            }
           }
 
           mat-icon {
@@ -221,4 +227,3 @@ $mat-blue-light: #3768bb;
     }
   }
 }
-
