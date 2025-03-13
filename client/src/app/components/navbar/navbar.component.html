@@ -1,132 +1,138 @@
-<div class="container">
-  <div class="navbar">
-    <div class="logo" routerLink="/dashboard"></div>
-    <div class="search-spacer">
-      <mat-form-field class="search" appearance="outline">
-        <input matInput placeholder="Search Tasks or Projects" type="text" />
+<mat-sidenav-container class="container">
+  <!-- Sidebar -->
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [opened]="!isCollapsed"
+    [class.collapsed]="isCollapsed"
+  >
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a
+              (click)="this.router.navigateByUrl('/')"
+              [ngClass]="{ active: isActive('/') }"
+              class="sidebar-link"
+              matTooltipPosition="right"
+            >
+              <mat-icon>home</mat-icon>
+              <span *ngIf="!isCollapsed">Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              (click)="this.router.navigateByUrl('/tasks')"
+              [ngClass]="{ active: isActive('/tasks') }"
+              class="sidebar-link"
+              matTooltipPosition="right"
+            >
+              <mat-icon>task</mat-icon>
+              <span *ngIf="!isCollapsed">Tasks</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              (click)="this.router.navigateByUrl('/projects')"
+              [ngClass]="{ active: isActive('/projects') }"
+              class="sidebar-link"
+              matTooltipPosition="right"
+            >
+              <mat-icon>business_center</mat-icon>
+              <span *ngIf="!isCollapsed">Projects</span>
+            </a>
+          </li>
+
+          <li>
+            <a
+              (click)="this.router.navigateByUrl('/backlog')"
+              [ngClass]="{ active: isActive('/backlog') }"
+              class="sidebar-link"
+              matTooltipPosition="right"
+            >
+              <mat-icon>event_busy</mat-icon>
+              <span *ngIf="!isCollapsed">Backlog</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="vertical-spacer"></div>
+      <button
+        mat-icon-button
+        class="toggle-btn"
+        matTooltip="Collapse Sidebar"
+        (click)="toggleSidebar()"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo" routerLink="/dashboard"></div>
+      <div class="search-spacer">
+        <mat-form-field class="search" appearance="outline">
+          <input matInput placeholder="Search Tasks or Projects" type="text" />
+          <button mat-icon-button matSuffix aria-label="Search">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="icon-row">
+        <button
+          class="create-btn"
+          mat-flat-button
+          (click)="openCreatorButtonDialog()"
+        >
+          <mat-icon>create</mat-icon>Create
+        </button>
         <button
           class="btn"
-          matSuffix
           mat-icon-button
-          aria-label="Search"
-          (click)="search()"
+          matTooltip="AI Task Prioritization"
+          (click)="openAIPrioritizationDialog()"
         >
-          <mat-icon>search</mat-icon>
+          <mat-icon>assistant</mat-icon>
         </button>
-      </mat-form-field>
+        <button
+          class="btn"
+          mat-icon-button
+          matTooltip="Support"
+          (click)="openSupport()"
+        >
+          <mat-icon>help</mat-icon>
+        </button>
+        <button
+          class="btn"
+          mat-icon-button
+          matTooltip="Notifications"
+          (click)="openNotificationsDialog()"
+        >
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <button
+          class="btn"
+          mat-icon-button
+          matTooltip="Settings"
+          (click)="openSettingsDialog()"
+        >
+          <mat-icon>settings</mat-icon>
+        </button>
+        <img
+          class="user-img"
+          [src]="imgURL"
+          alt="User Profile"
+          (click)="openProfileDialog()"
+        />
+      </div>
     </div>
-    <div class="icon-row">
-      <button
-        class="create-btn"
-        mat-flat-button
-        (click)="openCreatorButtonDialog()"
-      >
-        <mat-icon>create</mat-icon>Create
-      </button>
-      <button
-        class="btn"
-        mat-icon-button
-        matTooltip="AI Task Prioritization"
-        (click)="openAIPrioritizationDialog()"
-      >
-        <mat-icon>assistant</mat-icon>
-      </button>
-      <button
-        class="btn"
-        mat-icon-button
-        matTooltip="Support"
-        (click)="openSupport()"
-      >
-        <mat-icon>help</mat-icon>
-      </button>
-      <button
-        class="btn"
-        mat-icon-button
-        matTooltip="Notifications"
-        (click)="openNotificationsDialog()"
-      >
-        <mat-icon>notifications</mat-icon>
-      </button>
-      <button
-        class="btn"
-        mat-icon-button
-        matTooltip="Settings"
-        (click)="openSettingsDialog()"
-      >
-        <mat-icon>settings</mat-icon>
-      </button>
-      <img
-        matTooltip="{{ userData.fullName }}'s Profile"
-        class="user-img"
-        [src]="imgURL"
-        alt="{{ userData.fullName }}'s Profile"
-        (click)="openProfileDialog()"
-      />
+    <div class="content">
+      <ng-content></ng-content>
     </div>
-  </div>
-
-  <div class="sidebar">
-    <br />
-    <!-- Sidebar content -->
-    <nav class="sidebar-nav">
-      <ul>
-        <li>
-          <a
-            (click)="this.router.navigateByUrl('/')"
-            [ngClass]="{ active: isActive('/') }"
-            class="sidebar-link"
-          >
-            <mat-icon>home</mat-icon>
-            <span>Dashboard</span>
-          </a>
-          <mat-divider class="divider"></mat-divider>
-        </li>
-
-        <li>
-          <a
-            (click)="this.router.navigateByUrl('/tasks')"
-            [ngClass]="{ active: isActive('/tasks') }"
-            class="sidebar-link"
-          >
-            <mat-icon>task</mat-icon>
-            <span>Tasks</span>
-          </a>
-          <mat-divider class="divider"></mat-divider>
-        </li>
-
-        <li>
-          <a
-            (click)="this.router.navigateByUrl('/projects')"
-            [ngClass]="{ active: isActive('/projects') }"
-            class="sidebar-link"
-          >
-            <mat-icon>business_center</mat-icon>
-            <span>Projects</span>
-          </a>
-          <mat-divider class="divider"></mat-divider>
-        </li>
-
-        <li>
-          <a
-            (click)="this.router.navigateByUrl('/backlog')"
-            [ngClass]="{ active: isActive('/backlog') }"
-            class="sidebar-link"
-          >
-            <mat-icon>event_busy</mat-icon>
-            <span>Backlog</span>
-          </a>
-          <mat-divider class="divider"></mat-divider>
-        </li>
-
-        <!-- Add more menu items as needed -->
-
-        <!-- <li>
-          <a (click)="logout()" class="sidebar-link">
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-          </a>
-        </li> -->
-      </ul>
-    </nav>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

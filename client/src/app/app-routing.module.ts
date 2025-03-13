@@ -9,6 +9,7 @@ import { SupportComponent } from './components/support/support.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
+import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
 
 
 const routes: Routes = [
@@ -19,13 +20,17 @@ const routes: Routes = [
   { path: 'backlog', component: BacklogComponent, data: { title: 'Sahyogi - Backlog' }, canActivate: [AuthGuard] },
 
   // Un-Guarded Paths
-  { path: 'mainpage', component: MainpageComponent, data: { title: 'Welcome to Sahyogi' } },
+  { path: 'badrequest', component: BrokenRouteComponent, data: { title: 'Error - Page Not Found' } },
+  { path: 'product', component: MainpageComponent, data: { title: 'Welcome to Sahyogi' } },
   { path: 'auth', component: AuthenticatorComponent, data: { title: 'Sahyogi - Authenticator' } },
   { path: 'support', component: SupportComponent, data: { title: 'Sahyogi - Support' } },
   
   // Redirecting Paths
   { path: 'dashboard', redirectTo: '' },
-  { path: '**', redirectTo: 'auth' }, // Redirect unknown routes
+  { path: 'mainpage', redirectTo: 'product' },
+  { path: '**', redirectTo: 'badrequest' },
+  { path: 'broken', redirectTo: 'badrequest' }
+ 
 ];
 
 @NgModule({

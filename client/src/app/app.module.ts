@@ -35,6 +35,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
+import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -53,6 +54,7 @@ import { SupportComponent } from './components/support/support.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
+import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { BacklogComponent } from './components/backlog/backlog.component';
     TasksComponent,
     ProjectsComponent,
     BacklogComponent,
+    BrokenRouteComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,12 +114,16 @@ import { BacklogComponent } from './components/backlog/backlog.component';
     MatMenuModule,
     MatStepperModule,
     MatSliderModule,
+    CdkDrag,
+    CdkDropList,
+    CdkDropListGroup,
+    
   ],
   providers: [
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent],
 })

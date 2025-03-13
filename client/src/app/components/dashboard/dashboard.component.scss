@@ -1,31 +1,133 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
 .parent {
-  position: absolute;
+  position: relative;
   top: 90px; /* Align it correctly */
-  left: 250px; /* Ensure it’s beside the sidebar */
-  width: calc(94vw - 250px); /* Prevent unwanted overflow */
-  height: 100vh;
+  width: auto;
+  height: auto;
   overflow: auto; /* In case scrolling is needed */
   padding: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-.carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 100%;
-  height: 140px;
 
   mat-card {
-    padding: 20px;
+    width: auto;
+    height: 79vh;
+
+    @media (prefers-color-scheme: light) {
+      background: rgb(230, 230, 230);
+    }
   }
 }
-.task-card {
-  width: 100%;
+
+.tasks {
+  padding: 10px;
+  justify-content: center !important;
+  align-items: center !important;
+
+  .list-container {
+    width: 46%;
+    max-width: 100%;
+    margin: 20px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .list {
+    border: solid 1px $primary-dark;
+    min-height: 60px;
+    background: $bg-light-blue;
+    border-radius: 4px;
+    overflow: hidden;
+    display: block;
+
+    @media (prefers-color-scheme: dark) {
+      border: solid 1px $border-dark;
+      background: $primary-dark;
+    }
+  }
+
+  .listbox {
+    padding: 20px 10px;
+    border-bottom: solid 1px $primary-dark;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    cursor: move;
+    background: $bg-light-blue;
+    font-size: 14px;
+
+    @media (prefers-color-scheme: dark) {
+      border-bottom: solid 1px $border-dark;
+      background: $primary-dark;
+    }
+    &.cdk-drag-disabled {
+      background: #ccc;
+      user-select: none;
+      @media (prefers-color-scheme: dark) {
+        background: $border-dark;
+        border-bottom: solid 1px $primary-dark;
+      }
+    }
+  }
+
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+      0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .listbox:last-child {
+    border: none;
+  }
+
+  .list.cdk-drop-list-dragging .listbox:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.projects {
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+
+  .project-cards {
+    display: flex;
+    flex-direction: row;
+
+    mat-card {
+      width: 46%;
+      height: 60px;
+      background: $bg-light-blue;
+      margin: 20px;
+      border: solid 1px $primary-dark;
+
+      @media (prefers-color-scheme: dark) {
+        background: $primary-dark;
+        border: solid 1px $border-dark;
+      }
+
+      p {
+        text-align: left;
+        padding: 5px;
+        margin-left: 10px;
+      }
+    }
+  }
 }

@@ -6,7 +6,7 @@
     "start": "cd src && nodemon app-server.ts",
     "fresh": "cls && npm start",
     "setup": "npm i && npm fund && cls && npm start",
-    "client": " cd .. && cd client && ng s"
+    "client": " cd .. && cd client && ng s --no-hmr"
   },
   "keywords": [],
   "author": "Prakhar Tripathi",

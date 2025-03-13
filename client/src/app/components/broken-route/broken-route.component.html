@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Bad Request - Unauthorized or Broken URL</h1>
+  
+  <div class="cards">
+    <!-- Log In Card -->
+    <mat-card class="card">
+      <img src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-83.jpg" alt="Login Illustration" />
+      <div class="content">
+        <p>Maybe you are not Logged In or you haven't Signed Up</p>
+        <button mat-flat-button color="primary" [routerLink]="'/auth'">
+          Log In or Sign Up
+        </button>
+      </div>
+    </mat-card>
+
+    <!-- Bad URL Card -->
+    <mat-card class="card">
+      <img src="https://img.freepik.com/free-vector/oops-404-error-with-broken-robot-concept-illustration_114360-1932.jpg" alt="Broken URL Illustration" />
+      <div class="content">
+        <p>Maybe you entered a bad URL, Please Try Again</p>
+        <div class="actions">
+          <button mat-flat-button color="accent" (click)="goBack()">
+            Go Back
+          </button>
+          <button mat-flat-button color="primary" [routerLink]="'/product'">
+            Explore Sahyogi
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

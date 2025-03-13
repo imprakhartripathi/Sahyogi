@@ -7,6 +7,14 @@ $mat-blue-light: #3768bb;
 .container {
   position: relative;
   height: 100vh; /* Ensures it doesn't stretch */
+  @media (prefers-color-scheme: dark) {
+    background-color: #13203a;
+    transition: 0.6s;
+  }
+  @media (prefers-color-scheme: light) {
+    background-color: white;
+    transition: 0.6s;
+  }
 }
 
 .navbar {
@@ -16,6 +24,7 @@ $mat-blue-light: #3768bb;
   border-bottom: 2px solid $primary-dark;
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 100;
   background-color: $bg-light-blue;
   transition: 0.6s;
@@ -32,7 +41,7 @@ $mat-blue-light: #3768bb;
   display: inline-block;
   width: 200px;
   height: 90px;
-  margin-left: 20px;
+  margin-left: 15px;
   background: url("../../../../public/logos-no-bg/short-logo-light.png")
     no-repeat center;
   background-size: contain;
@@ -111,117 +120,105 @@ $mat-blue-light: #3768bb;
   }
 }
 
-.sidebar {
+mat-sidenav {
   position: fixed;
-  top: 90px; /* Adjust this value based on the height of your navbar */
-  bottom: 0;
-  left: 0;
   width: 250px;
-  height: calc(100vh - 90px); /* Adjust this value based on the height of your navbar */
+  top: 98px;
+  height: calc(100vh - 98px);
+  
   border-right: 2px solid $primary-dark;
-  overflow: hidden;
-  z-index: 50;
-  transition: transform 0.3s ease;
-  transition: 0.6s;
 
   @media (prefers-color-scheme: dark) {
+    background-color: #13203a;
+    // transition: 0.6s;
     border-right: 2px solid $border-dark;
-    transition: 0.6s;
   }
   @media (prefers-color-scheme: light) {
     background-color: $bg-light-blue;
-    transition: 0.6s;
+    // transition: 0.6s;
   }
 
-  &.hidden {
-    transform: translateX(-100%);
+}
+
+mat-sidenav-content{
+   @media (prefers-color-scheme: dark) {
+    background-color: #13203a;
+    // transition: 0.6s;
   }
-
-  &.block {
-    transform: translateX(0);
+  @media (prefers-color-scheme: light) {
+    background-color: white;
+    // transition: 0.6s;
   }
+}
 
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid $primary-dark;
+.sidebar {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  
+}
+.vertical-spacer {
+  content: "";
+  height: 42vh;
+}
 
-    @media (prefers-color-scheme: dark) {
-      border-bottom: 1px solid $border-dark;
-    }
+.toggle-btn {
+  align-self: flex-end;
+  margin: 10px;
+  transition: 0.3s;
 
-    img {
-      width: 70px;
-    }
-
-    .heading {
-      font-size: 18px;
-      font-weight: bold;
-      line-height: 18px;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin-left: 8px;
-    }
+  &:hover{
+    scale: 1.5;
+    transition: 0.3s;
   }
+}
 
-  .sidebar-nav {
-    padding: 8px;
+.sidebar-nav {
+  padding: 8px;
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-      li {
-        margin-bottom: 8px;
+    li {
+      margin-bottom: 8px;
 
-        .sidebar-link {
-          display: flex;
-          align-items: center;
-          padding: 12px 16px;
-          color: $primary-dark;
-          text-decoration: none;
-          border-radius: 8px;
-          transition: background-color 0.3s ease, color 0.3s ease;
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        color: $primary-dark;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background-color: $mat-blue-light;
+          color: $bg-light-blue;
+        }
+
+        &.active {
+          background-color: $mat-blue-light;
+          color: $bg-light-blue;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          color: white;
 
           &:hover {
-            background-color: $mat-blue-light;
-            color: $bg-light-blue;
+            background-color: $mat-blue-dark;
+            color: $primary-dark;
           }
 
           &.active {
-            background-color: $mat-blue-light;
-            color: $bg-light-blue;
-          }
-
-          @media (prefers-color-scheme: dark) {
-            color: white;
-
-            &:hover {
-              background-color: $mat-blue-dark;
-              color: $primary-dark;
-            }
-
-            &.active {
-              background-color: $mat-blue-dark;
-              color: $primary-dark;
-            }
-          }
-
-          mat-icon {
-            margin-right: 12px;
+            background-color: $mat-blue-dark;
+            color: $primary-dark;
           }
         }
 
-        .divider {
-          margin-top: 8px;
-          border-top: 2px solid;
-          border-top-color: $primary-dark;
-
-          @media (prefers-color-scheme: dark) {
-            border-top-color: $border-dark;
-            transition: 0.6s;
-          }
+        mat-icon {
+          margin-right: 12px;
         }
       }
     }

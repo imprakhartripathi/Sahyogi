@@ -29,13 +29,14 @@ export class NavbarComponent implements OnInit {
   value: any;
   user: any;
   userData: any;
+  isCollapsed: boolean = false;
   constructor(
     private getCurrentUser: GetCurrentUserService,
     private userService: UserService,
     public router: Router,
     private http: HttpClient,
     private dialog: MatDialog,
-    private authService: AuthenticatorService,
+    private authService: AuthenticatorService
   ) {}
 
   ngOnInit() {
@@ -51,6 +52,14 @@ export class NavbarComponent implements OnInit {
       }
     );
   }
+
+  toggleSidebar(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  // isActive(url: string): boolean {
+  //   return this.router.url === url;
+  // }
 
   fetchUser(email: string) {
     this.userService.getUserByEmail(email).subscribe(

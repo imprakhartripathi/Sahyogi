@@ -1,45 +1,52 @@
-<app-navbar></app-navbar>
+<app-navbar>
+  <div class="parent" *ngIf="user">
+    <mat-card>
+      <div class="tasks">
+        <h2>Your Recent Tasks</h2>
+        <div cdkDropListGroup>
+          <div class="list-container">
+            <h2>To do</h2>
 
-<div class="parent" *ngIf="user">
-  <div class="tasks">
-    <h2>Your Recent Tasks</h2>
-    <div class="carousel">
-      <button mat-button (click)="prevPage('recentTasks')">&#9665;</button>
-      <div class="cards-container">
-        <mat-card *ngFor="let task of pagedTasks.recentTasks" class="task-card">
-          <mat-card-title>{{ task.title }}</mat-card-title>
-          <mat-card-content>{{ task.description }}</mat-card-content>
-        </mat-card>
+            <div
+              cdkDropList
+              [cdkDropListData]="todo"
+              class="list"
+              (cdkDropListDropped)="drop($event)"
+            >
+              @for (item of todo; track item) {
+              <div class="listbox" cdkDrag>{{ item }}</div>
+              }
+            </div>
+          </div>
+
+          <div class="list-container">
+            <h2>Done</h2>
+
+            <div
+              cdkDropList
+              [cdkDropListData]="done"
+              class="list"
+              (cdkDropListDropped)="drop($event)"
+         
+            >
+              @for (item of done; track item) {
+              <div class="listbox" [cdkDragDisabled]="true" cdkDrag>{{ item }}</div>
+              }
+            </div>
+          </div>
+        </div>
       </div>
-      <button mat-button (click)="nextPage('recentTasks')">&#9655;</button>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div class="tasks-aip">
-    <h2>Your AI Prioritized Tasks</h2>
-    <div class="carousel">
-      <button mat-button (click)="prevPage('aiTasks')">&#9665;</button>
-      <div class="cards-container">
-        <mat-card *ngFor="let task of pagedTasks.aiTasks" class="task-card">
-          <mat-card-title>{{ task.title }}</mat-card-title>
-          <mat-card-content>{{ task.description }}</mat-card-content>
-        </mat-card>
+      <div class="projects">
+        <h2>Your Recent Projects</h2>
+        <div class="project-cards">
+          <mat-card>
+            <p>Sahyogi Web App</p>
+          </mat-card>
+          <mat-card>
+            <p>Sahyogi Mobile App</p>
+          </mat-card>
+        </div>
       </div>
-      <button mat-button (click)="nextPage('aiTasks')">&#9655;</button>
-    </div>
+    </mat-card>
   </div>
-  <mat-divider></mat-divider>
-  <div class="projects">
-    <h2>Your Projects</h2>
-    <div class="carousel">
-      <button mat-button (click)="prevPage('projects')">&#9665;</button>
-      <div class="cards-container">
-        <mat-card *ngFor="let project of pagedTasks.projects" class="task-card">
-          <mat-card-title>{{ project.name }}</mat-card-title>
-          <mat-card-content>{{ project.details }}</mat-card-content>
-        </mat-card>
-      </div>
-      <button mat-button (click)="nextPage('projects')">&#9655;</button>
-    </div>
-  </div>
-</div>
+</app-navbar>

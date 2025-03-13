@@ -1,4 +1,10 @@
 .parent {
-    margin-left: 250px; //Sidebar Spacing
-    padding: 30px;
+  position: relative;
+  top: 90px; /* Align it correctly */
+  width: auto;
+  height: auto;
+  overflow: auto; /* In case scrolling is needed */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
 }

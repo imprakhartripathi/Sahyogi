@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
   templateUrl: './authenticator.component.html',
   styleUrls: ['./authenticator.component.scss'],
 })
-export class AuthenticatorComponent {
+export class AuthenticatorComponent implements OnInit{
   loginForm: FormGroup;
   signupForm: FormGroup;
 
@@ -42,6 +42,10 @@ export class AuthenticatorComponent {
         validators: this.passwordsMatchValidator,
       }
     );
+  }
+
+  ngOnInit(): void {
+      // this.authService.logout()
   }
 
   onLogin() {
