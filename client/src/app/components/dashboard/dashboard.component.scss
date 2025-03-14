@@ -60,7 +60,7 @@ $mat-blue-light: #3768bb;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    cursor: move;
+    cursor: pointer;
     background: $bg-light-blue;
     font-size: 14px;
 
@@ -71,6 +71,7 @@ $mat-blue-light: #3768bb;
     &.cdk-drag-disabled {
       background: #ccc;
       user-select: none;
+      cursor: no-drop;
       @media (prefers-color-scheme: dark) {
         background: $border-dark;
         border-bottom: solid 1px $primary-dark;
@@ -110,6 +111,7 @@ $mat-blue-light: #3768bb;
   .project-cards {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 
     mat-card {
       width: 46%;

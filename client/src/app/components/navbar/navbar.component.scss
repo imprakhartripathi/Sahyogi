@@ -46,6 +46,7 @@ $mat-blue-light: #3768bb;
     no-repeat center;
   background-size: contain;
   transition: 0.3s;
+  cursor: pointer;
 
   @media (prefers-color-scheme: dark) {
     background: url("../../../../public/logos-no-bg/short-logo-dark.png")
@@ -112,6 +113,7 @@ $mat-blue-light: #3768bb;
     margin: 20px;
     width: 40px;
     transition: 0.3s;
+    cursor: pointer;
 
     &:hover {
       scale: 1.25;
@@ -192,6 +194,7 @@ mat-sidenav-content{
         text-decoration: none;
         border-radius: 8px;
         transition: background-color 0.3s ease, color 0.3s ease;
+        cursor: pointer;
 
         &:hover {
           background-color: $mat-blue-light;
