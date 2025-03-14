@@ -131,6 +131,9 @@
         />
       </div>
     </div>
+    <div class="open-btn" *ngIf="isCollapsed">
+      <button class="toggle-btn" matTooltip="Open Sidebar" mat-icon-button (click)="toggleSidebar()"><mat-icon>chevron_right</mat-icon></button>
+    </div>
     <div class="content">
       <ng-content></ng-content>
     </div>

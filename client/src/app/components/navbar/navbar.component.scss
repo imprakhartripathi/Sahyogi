@@ -122,6 +122,29 @@ $mat-blue-light: #3768bb;
   }
 }
 
+.open-btn {
+  position: fixed; // Ensures it stays on top and in place
+  bottom: 15px; // 25px above the bottom of the screen
+  left: 0px; // Right by the left edge
+  z-index: 1000; // Ensures it's on top of everything
+  background-color: $bg-light-blue; // Adjust styling as needed
+  border-radius: 0 50% 50% 0; // Optional rounded edges on the right
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); // Optional shadow for visibility
+  transition: 0.3s;
+  @media (prefers-color-scheme: dark) {
+    background-color: $mat-blue-dark;
+  }
+
+  .toggle-btn {
+    color: $primary-dark; // Adjust to fit your theme
+    :hover{
+      scale: 1.5;
+      transition: 0.3s;
+    }
+  }
+}
+
+
 mat-sidenav {
   position: fixed;
   width: 250px;
