@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(router);
+app.use(express.json()); // <---- This is required
 
 // MongoDB Atlas connection
 mongoose

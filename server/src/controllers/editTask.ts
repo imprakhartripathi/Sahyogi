@@ -1,38 +1,55 @@
-import { Request, Response, NextFunction } from "express";
-import Task from "../models/Task";
+import { Request, Response } from "express";
+import User from "../models/Users";
 
 const editTaskController = async (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ): Promise<void> => {
   try {
-    const { userEmail, taskNumber } = req.params;
-    const { taskTitle, taskDesc, taskComplexityPoint, isDone, dateDeadline } =
-      req.body;
+    const { email, taskId, updates } = req.body;
 
-    const task = await Task.findOne({ userEmail, taskNumber });
+    if (!email || !taskId || !updates) {
+      res
+        .status(400)
+        .json({ message: "Email, task ID, and updates are required" });
+      return;
+    }
+
+    // Prevent changing restricted fields
+    const restrictedFields = [
+      "taskNumber",
+      "aiPrioritizedID",
+      "reasonForPrioritizationID",
+    ];
+    for (const field of restrictedFields) {
+      if (updates.hasOwnProperty(field)) {
+        res.status(400).json({ message: `Cannot update ${field}` });
+        return;
+      }
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    // Find the task using `_id.toString()`
+    const task = user.tasks.find((task) => task._id?.toString() === taskId);
 
     if (!task) {
       res.status(404).json({ message: "Task not found" });
       return;
     }
 
-    // Update fields if provided
-    if (taskTitle) task.taskTitle = taskTitle;
-    if (taskDesc) task.taskDesc = taskDesc;
-    if (taskComplexityPoint !== undefined)
-      task.taskComplexityPoint = taskComplexityPoint;
-    if (isDone !== undefined) task.isDone = isDone;
-    if (dateDeadline) task.dateDeadline = dateDeadline;
+    Object.assign(task, updates); // Apply updates
+    await user.save();
 
-    task.dateModified = new Date();
-
-    await task.save();
-
-    res.status(200).json({ message: "Task updated successfully", task });
+    res.json({ message: "Task updated successfully", task });
   } catch (error) {
-    next(error);
+    console.error("Error updating task:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
