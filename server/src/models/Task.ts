@@ -1,34 +1,35 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface ITask extends Document {
-  taskNumber: number;
-  userEmail: string; // Foreign key linking to User email
   taskTitle: string;
   taskDesc: string;
   taskComplexityPoint: number;
-  isDone: boolean;
-  dateCreatedOn: Date;
+  taskCompletionState: number;
   dateDeadline?: Date;
-  dateModified?: Date;
-  aiPrioritizedID: string | null;
+  aiPrioritizedID: number | null;
+  reasonForPrioritizationID: string | null;
 }
 
-const TaskSchema = new Schema<ITask>({
-  taskNumber: { type: Number, required: true },
-  userEmail: { type: String, required: true, ref: "User" }, // Foreign key reference
-  taskTitle: { type: String, required: true },
-  taskDesc: { type: String, required: true },
-  taskComplexityPoint: { type: Number, required: true },
-  isDone: { type: Boolean, default: false },
-  dateCreatedOn: {
-    type: Date,
-    required: true,
-    immutable: true,
-    default: Date.now,
-  },
-  dateDeadline: { type: Date },
-  dateModified: { type: Date },
-  aiPrioritizedID: { type: String, default: null },
-});
+enum TaskCompletionState {
+  ToDo = 102, // Processing (Task is yet to be started)
+  InProgress = 202, // Accepted (Task is currently in progress)
+  Done = 200, // OK (Task is completed successfully)
+}
 
-export default mongoose.model<ITask>("Task", TaskSchema);
+
+const TaskSchema = new Schema<ITask>(
+  {
+    taskTitle: { type: String, required: true },
+    taskDesc: { type: String, required: true },
+    taskComplexityPoint: { type: Number, required: true },
+    taskCompletionState: { type: Number, default: 100 },
+    dateDeadline: { type: Date },
+    aiPrioritizedID: { type: Number, default: null },
+    reasonForPrioritizationID: { type: String, default: null },
+  },
+  { timestamps: true }
+);
+
+const Task = mongoose.model<ITask>("Task", TaskSchema); // Export as a model
+
+export { TaskSchema, Task }; // Export both schema and model
