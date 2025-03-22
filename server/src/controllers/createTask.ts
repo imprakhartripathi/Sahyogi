@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/Users";
-import mongoose from "mongoose";
+import { ITask, Task } from "../models/Task";
 
 const createTaskController = async (
   req: Request,
@@ -8,30 +8,10 @@ const createTaskController = async (
 ): Promise<void> => {
   console.log("Request Body:", req.body);
   try {
-    const {
-      email,
-      taskTitle,
-      taskDesc,
-      taskComplexityPoint,
-      taskCompletionState,
-      dateDeadline,
-    } = req.body as {
-      email: string;
-      taskTitle: string;
-      taskDesc: string;
-      taskComplexityPoint: number;
-      taskCompletionState: number;
-      dateDeadline?: Date;
-          };
-      console.log(email, taskTitle, taskDesc, taskComplexityPoint, taskCompletionState, dateDeadline)
+    const { email, taskTitle, taskDesc, taskComplexityPoint, taskCompletionState, dateDeadline } = req.body as { email: string; taskID: number; taskTitle: string; taskDesc: string; taskComplexityPoint: number; taskCompletionState: number; dateDeadline?: Date; };
+    console.log("Email - ", email, "Task Title - ", taskTitle, "Task Desc - ", taskDesc, "Task CPoint - ", taskComplexityPoint, "Task Comp State - ", taskCompletionState, "Task Deadline - ", dateDeadline);
 
-    if (
-      !email ||
-      !taskTitle ||
-      !taskDesc ||
-      !taskComplexityPoint ||
-      !taskCompletionState
-    ) {
+    if ( !email || !taskTitle || !taskDesc || !taskComplexityPoint || !taskCompletionState ) {
       res.status(400).json({ message: "Missing required fields" });
       return;
     }
@@ -41,32 +21,18 @@ const createTaskController = async (
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
-      }
-      console.log(user);
+    }
 
-    // Determine new task number
-    // const lastTask =
-    //   user.tasks.length > 0 ? user.tasks[user.tasks.length - 1] : null;
+    console.log(user);
 
-    // Create a new task using Mongoose's built-in subdocument constructor
-    const newTask = new (user.tasks as any).constructor({
-      taskTitle,
-      taskDesc,
-      taskComplexityPoint,
-      taskCompletionState,
-      dateDeadline,
-      //   aiPrioritizedID: null, // Cannot be set at creation
-      //   reasonForPrioritizationID: null, // Cannot be set at creation
-    });
 
-      // Add the new task to the user's task array
-      console.log(newTask)
+    const newTask: ITask = new Task({ taskTitle, taskDesc, taskComplexityPoint, taskCompletionState, dateDeadline, aiPrioritizedID: null, reasonForPrioritizationID: null });
+
+    console.log("New Created Task - ", newTask)
     user.tasks.push(newTask);
     await user.save();
 
-    res
-      .status(201)
-      .json({ message: "Task created successfully", task: newTask });
+    res.status(201).json({ message: "Task created successfully - 201 ", task: newTask });
   } catch (error) {
     console.error("Error creating task:", error);
     res.status(500).json({ message: "Internal server error" });

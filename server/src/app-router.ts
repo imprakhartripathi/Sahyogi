@@ -11,6 +11,7 @@ import logoutController from "./controllers/logoutController";
 import createTaskController from "./controllers/createTask";
 import editTaskController from "./controllers/editTask";
 import deleteTaskController from "./controllers/deleteTask";
+import getTasksController from "./controllers/getTasks";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -23,6 +24,7 @@ router.post("/getuserinfo", userInfoController);
 router.get("/genai", genAIController);
 
 // Task Routes
+router.get("/tasks/get", getTasksController)
 router.post("/tasks/create", createTaskController);
 router.patch("/tasks/edit", editTaskController);
 router.delete("/tasks/delete", deleteTaskController);

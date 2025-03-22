@@ -5,13 +5,28 @@ const editTaskController = async (
   req: Request,
   res: Response
 ): Promise<void> => {
-  try {
-    const { email, taskId, updates } = req.body;
+  console.log("Request Body:", req.body);
 
-    if (!email || !taskId || !updates) {
+  try {
+    const { email, taskId, updates } = req.body as {
+      email: string;
+      taskId: string;
+      updates: Partial<{
+        taskTitle: string;
+        taskDesc: string;
+        taskComplexityPoint: number;
+        taskCompletionState: number;
+        dateDeadline?: Date;
+      }>;
+    };
+
+    console.log("Email:", email, "Task ID:", taskId, "Updates:", updates);
+
+    // Validate required fields
+    if (!email || !taskId || !updates || Object.keys(updates).length === 0) {
       res
         .status(400)
-        .json({ message: "Email, task ID, and updates are required" });
+        .json({ message: "Email, task ID, and valid updates are required" });
       return;
     }
 
@@ -23,7 +38,9 @@ const editTaskController = async (
     ];
     for (const field of restrictedFields) {
       if (updates.hasOwnProperty(field)) {
-        res.status(400).json({ message: `Cannot update ${field}` });
+        res
+          .status(400)
+          .json({ message: `Cannot update restricted field: ${field}` });
         return;
       }
     }
@@ -43,10 +60,12 @@ const editTaskController = async (
       return;
     }
 
-    Object.assign(task, updates); // Apply updates
+    // Apply updates
+    Object.assign(task, updates);
     await user.save();
 
-    res.json({ message: "Task updated successfully", task });
+    console.log("Updated Task:", task);
+    res.status(200).json({ message: "Task updated successfully", task });
   } catch (error) {
     console.error("Error updating task:", error);
     res.status(500).json({ message: "Internal server error" });
