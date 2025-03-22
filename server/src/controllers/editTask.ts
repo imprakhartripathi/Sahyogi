@@ -17,6 +17,8 @@ const editTaskController = async (
         taskComplexityPoint: number;
         taskCompletionState: number;
         dateDeadline?: Date;
+        aiPrioritizedID?: number | null;
+        reasonForPrioritizationID?: string | null;
       }>;
     };
 
@@ -31,11 +33,7 @@ const editTaskController = async (
     }
 
     // Prevent changing restricted fields
-    const restrictedFields = [
-      "taskNumber",
-      "aiPrioritizedID",
-      "reasonForPrioritizationID",
-    ];
+    const restrictedFields = ["taskNumber"]; // Removed aiPrioritizedID & reasonForPrioritizationID
     for (const field of restrictedFields) {
       if (updates.hasOwnProperty(field)) {
         res
