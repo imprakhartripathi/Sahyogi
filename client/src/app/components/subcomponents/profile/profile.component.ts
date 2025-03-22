@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GetCurrentUserService } from '../../../services/get-current-user.service';
-import { UserService } from '../../../services/user.service';
+import { GetCurrentUserService } from '../../../services/get-current-user.service/get-current-user.service';
+import { UserService } from '../../../services/user.service/user.service';
 import { Router } from '@angular/router';
-import { AuthenticatorService } from '../../../services/authenticator.service';
+import { AuthenticatorService } from '../../../services/authenticator.service/authenticator.service';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -6,7 +6,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { AuthenticatorService } from '../../services/authenticator.service';
+import { AuthenticatorService } from '../../services/authenticator.service/authenticator.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 

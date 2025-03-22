@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { GetCurrentUserService } from '../../services/get-current-user.service';
-import { UserService } from '../../services/user.service';
+import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
+import { UserService } from '../../services/user.service/user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SettingsComponent } from '../subcomponents/settings/settings.component';
@@ -9,7 +9,7 @@ import { ProfileComponent } from '../subcomponents/profile/profile.component';
 import { AiPrioritizationComponent } from '../subcomponents/ai-prioritization/ai-prioritization.component';
 import { NotificationsComponent } from '../subcomponents/notifications/notifications.component';
 import { CreatorButtonComponent } from '../subcomponents/creator-button/creator-button.component';
-import { AuthenticatorService } from '../../services/authenticator.service';
+import { AuthenticatorService } from '../../services/authenticator.service/authenticator.service';
 
 @Component({
   selector: 'app-navbar',

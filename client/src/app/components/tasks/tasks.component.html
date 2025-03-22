@@ -1,6 +1,35 @@
 <app-navbar>
 <div class="parent">
-  <h1>Aditya Do This</h1>
-  <p>Task Works</p>
+  <div>
+  <h2>Task Manager</h2>
+
+  <!-- Create Task -->
+  <h3>Create a Task</h3>
+  <label>Title:</label>
+  <input [(ngModel)]="newTask.taskTitle" />
+  
+  <label>Description:</label>
+  <input [(ngModel)]="newTask.taskDesc" />
+
+  <label>Complexity:</label>
+  <input type="number" [(ngModel)]="newTask.taskComplexityPoint" />
+
+  <button (click)="createTask()">Add Task</button>
+
+  <hr />
+
+  <!-- Display Tasks -->
+  <h3>All Tasks</h3>
+  <pre>{{ tasks | json }}</pre>
+
+  <!-- Edit and Delete Task -->
+  <div *ngFor="let task of tasks">
+    <button (click)="editTask(task.taskTitle, { taskTitle: 'Updated ' + task.taskTitle })">
+      Edit
+    </button>
+    <button (click)="deleteTask(task.taskTitle)">Delete</button>
+  </div>
+</div>
+
 </div>
 </app-navbar>

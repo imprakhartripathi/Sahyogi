@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthenticatorService } from './services/authenticator.service';
+import { AuthenticatorService } from './services/authenticator.service/authenticator.service';
 
 @Component({
   selector: 'app-root',
