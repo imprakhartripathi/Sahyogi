@@ -21,7 +21,7 @@ router.get("/getcurusr", getCurrentUserController);
 router.post("/getuserinfo", userInfoController);
 
 // AI Route
-router.get("/genai", genAIController);
+router.get("/ai/call", genAIController);
 
 // Task Routes
 router.get("/tasks/get", getTasksController)
