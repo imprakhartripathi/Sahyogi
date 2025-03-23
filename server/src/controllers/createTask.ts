@@ -8,8 +8,8 @@ const createTaskController = async (
 ): Promise<void> => {
   console.log("Request Body:", req.body);
   try {
-    const { email, taskTitle, taskDesc, taskComplexityPoint, taskCompletionState, dateDeadline } = req.body as { email: string; taskID: number; taskTitle: string; taskDesc: string; taskComplexityPoint: number; taskCompletionState: number; dateDeadline?: Date; };
-    console.log("Email - ", email, "Task Title - ", taskTitle, "Task Desc - ", taskDesc, "Task CPoint - ", taskComplexityPoint, "Task Comp State - ", taskCompletionState, "Task Deadline - ", dateDeadline);
+    const { email, taskTitle, taskDesc, taskComplexityPoint, taskCompletionState, dateDeadline } = req.body as { email: string; taskTitle: string; taskDesc: string; taskComplexityPoint: number; taskCompletionState: number; dateDeadline?: Date; };
+    console.log("Email - ", email, "Task Title - ", "Task Desc - ", taskDesc, "Task CPoint - ", taskComplexityPoint, "Task Comp State - ", taskCompletionState, "Task Deadline - ", dateDeadline);
 
     if ( !email || !taskTitle || !taskDesc || !taskComplexityPoint || !taskCompletionState ) {
       res.status(400).json({ message: "Missing required fields" });
