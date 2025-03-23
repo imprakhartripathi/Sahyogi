@@ -16,6 +16,10 @@ import createProjectsController from "./controllers/createProject";
 import getProjectsController from "./controllers/getProjects";
 import editProjectController from "./controllers/editProject";
 import deleteProjectController from "./controllers/deleteProject";
+import getProjectTasksController from "./controllers/getProjectTask";
+import createProjectTaskController from "./controllers/createProjectTask";
+import editProjectTaskController from "./controllers/editProjectTask";
+import deleteProjectTaskController from "./controllers/deleteProjectTask";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -41,10 +45,10 @@ router.delete("/projects/delete", deleteProjectController);
 
 // Task Under a Project Routes
 
-router.get("/projects/tasks/get", getTasksController);
-router.post("/projects/tasks/create", createTaskController);
-router.patch("/projects/tasks/edit", editTaskController);
-router.delete("/projects/tasks/delete", deleteTaskController);
+router.get("/projects/tasks/get", getProjectTasksController);
+router.post("/projects/tasks/create", createProjectTaskController);
+router.patch("/projects/tasks/edit", editProjectTaskController);
+router.delete("/projects/tasks/delete", deleteProjectTaskController);
 
 
 export default router;
