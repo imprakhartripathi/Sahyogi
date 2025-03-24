@@ -1,10 +1,96 @@
-.parent {
-  position: relative;
-  top: 90px; /* Align it correctly */
-  width: auto;
-  height: auto;
-  overflow: auto; /* In case scrolling is needed */
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent{
+    position: relative;
+    top: 90px; /* Align it correctly */
+    width: auto;
+    height: auto;
+    overflow: auto; /* In case scrolling is needed */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.button-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start; /* Aligns buttons to the left */
+    gap: 15px;
+    width: 100%; /* Ensures it takes full width */
+    padding-left: 10px; /* Adds slight spacing from the left */
+}
+
+.add-task-button {
+    background-color: $bg-light-blue; /* Background color set to #a8d0ef */
+    border: 2px solid $border-dark;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    
+    &:hover {
+    background-color: darken($bg-light-blue, 15%); /* Darker on hover */
+
+
+
+        transform: scale(1.05);
+    }
+}
+
+.filter-task-button {
+    background-color: white;
+    border: 2px solid $border-dark;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    &:hover {
+        background-color: darken(#f0f0f0, 15%);
+
+
+
+        transform: scale(1.05);
+    }
+}
+
+
+.task-section-container {
+    display: flex;
+    flex-direction: row; /* Align boxes horizontally */
+    justify-content: space-between; /* Space them evenly */
+    align-items: flex-start; /* Align boxes at the top */
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px;
+}
+
+.task-section {
+    flex: 1;
+    max-width: 30%;
+    height: 400px;
+    width: 250px;
+    margin: 10px;
+    padding: 15px;
+    background-color: white;
+    border: 2px solid $bg-light-blue;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05); /* Slight zoom effect */
+        background-color: darken(white, 15%); /* Darker background */
+
+
+
+        border-color: darken($bg-light-blue, 15%); /* Darker border */
+
+
+    }
 }

@@ -1,35 +1,54 @@
 <app-navbar>
-<div class="parent">
-  <div>
-  <h2>Task Manager</h2>
+  <div class="parent">
+    <div class="task-container">
+      <div class="button-container">
+        <button class="add-task-button">➕ Add Task</button>
+        <button class="filter-task-button">🔍 Filter Task</button>
+      </div>
 
-  <!-- Create Task -->
-  <h3>Create a Task</h3>
-  <label>Title:</label>
-  <input [(ngModel)]="newTask.taskTitle" />
-  
-  <label>Description:</label>
-  <input [(ngModel)]="newTask.taskDesc" />
-
-  <label>Complexity:</label>
-  <input type="number" [(ngModel)]="newTask.taskComplexityPoint" />
-
-  <button (click)="createTask()">Add Task</button>
-
-  <hr />
-
-  <!-- Display Tasks -->
-  <h3>All Tasks</h3>
-  <pre>{{ tasks | json }}</pre>
-
-  <!-- Edit and Delete Task -->
-  <div *ngFor="let task of tasks">
-    <button (click)="editTask(task.taskTitle, { taskTitle: 'Updated ' + task.taskTitle })">
-      Edit
-    </button>
-    <button (click)="deleteTask(task.taskTitle)">Delete</button>
+      <div class="task-section-container" >
+        <!-- Added container for horizontal alignment -->
+        <div class="task-section">
+          <h1>Current Task</h1>
+          <mat-card>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo </mat-panel-title>
+                <mat-panel-description>
+                  Just testing
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
+        </div>
+        <div class="task-section">
+          <h1>Completed Task</h1>
+          <mat-card>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo2 </mat-panel-title>
+                <mat-panel-description>
+                  Just testing 2
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
+        </div>
+        <div class="task-section">
+          <h1>Backlogs</h1>
+          <mat-card>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo3 </mat-panel-title>
+                <mat-panel-description>
+                  Just testing 3
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
+        </div>
+      </div>
+      <!-- Closing task-section-container -->
+    </div>
   </div>
-</div>
-
-</div>
 </app-navbar>
