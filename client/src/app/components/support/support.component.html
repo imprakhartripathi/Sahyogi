@@ -1,2 +1,95 @@
-<p>support works!</p>
-<h1>Aditi Do This</h1>
+<div class="container">
+    <div class="big-circle"></div>
+    <div class="form">
+      <div class="contact-info">
+        <h3 class="title">Let's get in touch</h3>
+        <p class="text">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto
+          consequuntur culpa animi corrupti dolorum quod.
+        </p>
+  
+        <div class="info">
+          <div class="information">
+            <mat-icon>place</mat-icon>
+            <p>Bangalore, India 560054</p>
+          </div>
+          <div class="information">
+            <mat-icon>info</mat-icon>
+            <p>tivotalhelpgmail.com</p>
+          </div>
+          <div class="information">
+            <mat-icon>call</mat-icon>
+            <p>1234-567-890</p>
+          </div>
+        </div>
+  
+        <div class="social-media">
+          <p>Connect with Us</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="contact-form">
+        <div class="circle one"></div>
+        <div class="circle two"></div>
+  
+        <form (ngSubmit)="onSubmit()" [formGroup]="supportForm" autocomplete="off">
+            <h3 class="title">Contact Us</h3>
+          
+            <div class="input-container" [ngClass]="{'focus': focusState.name}">
+              <input
+                type="text"
+                formControlName="name"
+                class="input"
+                (focus)="onFocus('name')"
+                (blur)="onBlur('name')"
+              />
+              <label>Name</label>
+              <span>Name</span>
+            </div>
+          
+            <div class="input-container" [ngClass]="{'focus': focusState.email}">
+              <input
+                type="email"
+                formControlName="email"
+                class="input"
+                (focus)="onFocus('email')"
+                (blur)="onBlur('email')"
+              />
+              <label>Email</label>
+              <span>Email</span>
+            </div>
+          
+            <div class="input-container" [ngClass]="{'focus': focusState.phone}">
+              <input
+                type="tel"
+                formControlName="phone"
+                class="input"
+                (focus)="onFocus('phone')"
+                (blur)="onBlur('phone')"
+              />
+              <label>Phone</label>
+              <span>Phone</span>
+            </div>
+          
+            <div class="input-container textarea" [ngClass]="{'focus': focusState.message}">
+              <textarea
+                formControlName="message"
+                class="input"
+                (focus)="onFocus('message')"
+                (blur)="onBlur('message')"
+              ></textarea>
+              <label>Message</label>
+              <span>Message</span>
+            </div>
+          
+            <input type="submit" value="Send" class="btn" [disabled]="supportForm.invalid" />
+          </form>
+      </div>
+    </div>
+  </div>
