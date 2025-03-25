@@ -20,6 +20,8 @@ import getProjectTasksController from "./controllers/getProjectTask";
 import createProjectTaskController from "./controllers/createProjectTask";
 import editProjectTaskController from "./controllers/editProjectTask";
 import deleteProjectTaskController from "./controllers/deleteProjectTask";
+import editUserController from "./controllers/editUser";
+import deleteUserController from "./controllers/deleteUser";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -27,6 +29,8 @@ router.post("/login", loginController);
 router.post("/logout", logoutController);
 router.get("/getcurusr", getCurrentUserController);
 router.post("/getuserinfo", userInfoController);
+router.patch("/user/edit", editUserController);
+router.delete("/user/delete", deleteUserController);
 
 // AI Route
 router.get("/ai/call", genAIController);
@@ -44,7 +48,6 @@ router.patch("/projects/edit", editProjectController);
 router.delete("/projects/delete", deleteProjectController);
 
 // Task Under a Project Routes
-
 router.get("/projects/tasks/get", getProjectTasksController);
 router.post("/projects/tasks/create", createProjectTaskController);
 router.patch("/projects/tasks/edit", editProjectTaskController);
