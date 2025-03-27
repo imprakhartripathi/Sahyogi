@@ -1,4 +1,110 @@
-.parent {
-    margin-left: 250px; //sidebar spacing
-    padding: 30px;
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.backlog-container {
+  margin-top: 100px;
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  height: calc(100vh - 2rem);
+}
+
+.calendar-card,
+.preview-card {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+}
+
+.filter-section {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+
+  mat-radio-group {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &-color {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+
+    &.created {
+      background-color: $mat-blue-light;
+    }
+
+    &.deadline {
+      background-color: #f44336; // Material red
+    }
+
+    &.both {
+      background: linear-gradient(135deg, $mat-blue-light 50%, #f44336 50%);
+    }
+  }
+}
+
+::ng-deep {
+  .created-date .mat-calendar-body-cell-content {
+    background-color: rgba($mat-blue-light, 0.3);
+    border: 1px solid $mat-blue-light;
+  }
+
+  .deadline-date .mat-calendar-body-cell-content {
+    background-color: rgba(#f44336, 0.3);
+    border: 1px solid #f44336;
+  }
+
+  .both-dates .mat-calendar-body-cell-content {
+    background: linear-gradient(
+      135deg,
+      rgba($mat-blue-light, 0.3) 50%,
+      rgba(#f44336, 0.3) 50%
+    );
+    border: 1px solid $mat-blue-light;
+    border-right-color: #f44336;
+    border-bottom-color: #f44336;
+  }
+}
+
+.task-dates {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+mat-expansion-panel {
+  margin-bottom: 0.5rem;
+}
+
+mat-icon {
+  margin-right: 0.5rem;
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+}
+
+@media (max-width: 768px) {
+  .backlog-container {
+    flex-direction: column;
+    height: auto;
+  }
 }
