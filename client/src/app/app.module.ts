@@ -35,8 +35,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
+import {ProgressSpinnerMode, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-
+import { CdkMenu, CdkMenuItem, CdkMenuTrigger } from '@angular/cdk/menu';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -55,6 +56,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
 import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
+import { TaskDetailsComponent } from './components/subcomponents/task-details/task-details.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,7 @@ import { BrokenRouteComponent } from './components/broken-route/broken-route.com
     ProjectsComponent,
     BacklogComponent,
     BrokenRouteComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,7 +120,10 @@ import { BrokenRouteComponent } from './components/broken-route/broken-route.com
     CdkDrag,
     CdkDropList,
     CdkDropListGroup,
-    
+    MatProgressSpinnerModule,
+    CdkMenu,
+    CdkMenuItem,
+    CdkMenuTrigger,
   ],
   providers: [
     provideClientHydration(withEventReplay()),
