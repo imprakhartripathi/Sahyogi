@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
     });
 
     // Take the first 2 tasks
-    this.recentTasks = sortedTasks.slice(0, 2);
+    this.recentTasks = sortedTasks.slice(0, 3);
   }
 
   getStatusText(status: number): string {
@@ -198,22 +198,6 @@ export class DashboardComponent implements OnInit {
   }
 
   calculateTaskMetrics() {
-    const currentMonth = new Date().getMonth();
-    const currentYear = new Date().getFullYear();
-
-    // Monthly metrics
-    const tasksThisMonth = this.tasks.filter((task) => {
-      const createdAt = task.createdAt ? new Date(task.createdAt) : new Date();
-      return (
-        createdAt.getMonth() === currentMonth &&
-        createdAt.getFullYear() === currentYear
-      );
-    });
-
-    const completedTasksThisMonth = tasksThisMonth.filter(
-      (task) => task.taskCompletionState === TaskState.Done
-    );
-
     // Overall metrics
     const totalTasks = this.tasks.length;
     const completedTasks = this.tasks.filter(
@@ -227,9 +211,9 @@ export class DashboardComponent implements OnInit {
     ).length;
 
     // Calculate values
-    this.totalTasksCreated = tasksThisMonth.length;
-    this.totalTasksCompleted = completedTasksThisMonth.length;
-    this.completionVelocity = this.totalTasksCompleted;
+    this.totalTasksCreated = totalTasks;
+    this.totalTasksCompleted = completedTasks;
+    this.completionVelocity = completedTasks; // You might want to calculate this differently for all-time metrics
     this.completionRate =
       totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 

@@ -101,10 +101,8 @@ $mat-blue-light: #3768bb;
 
 
 .recent-tasks {
-   display: flex;
+  display: flex;
   flex-direction: column;
-  // margin-top: 20px;
-  // padding: 20px;
   
   h2 {
     text-align: center;
@@ -115,16 +113,21 @@ $mat-blue-light: #3768bb;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    height: calc(100% - 40px); // Adjust based on your header height
+    overflow-y: auto;
   }
 
   .task-card {
     padding: 15px;
     border-radius: 8px;
+    min-height: 115px; // Changed from height to min-height
     background: #a3b9ee62;
+    display: flex;
+    flex-direction: column;
+    position: relative; // Added for footer positioning
     @media (prefers-color-scheme: light) {
       background: #3767bb65;
     }
-  
 
     .task-header {
       display: flex;
@@ -162,12 +165,21 @@ $mat-blue-light: #3768bb;
 
     .task-desc {
       margin: 0 0 10px 0;
+      flex-grow: 1; // Allows description to take available space
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      // -webkit-line-clamp: 2; // Limit to 2 lines
+      // -webkit-box-orient: vertical;
     }
 
     .task-footer {
       display: flex;
       justify-content: space-between;
       font-size: 0.8rem;
+      margin-top: auto; // Pushes footer to bottom
+      padding-top: 10px; // Add some spacing
+      border-top: 1px solid rgba(0, 0, 0, 0.1); // Optional divider
     }
   }
 

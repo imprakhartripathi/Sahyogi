@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreatorButtonComponent } from './creator-button.component';
+import { TaskCreatorComponent } from './task-creator.component';
 
-describe('CreatorButtonComponent', () => {
-  let component: CreatorButtonComponent;
-  let fixture: ComponentFixture<CreatorButtonComponent>;
+describe('TaskCreatorComponent', () => {
+  let component: TaskCreatorComponent;
+  let fixture: ComponentFixture<TaskCreatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreatorButtonComponent]
+      declarations: [TaskCreatorComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreatorButtonComponent);
+    fixture = TestBed.createComponent(TaskCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

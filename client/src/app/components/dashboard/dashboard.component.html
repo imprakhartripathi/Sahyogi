@@ -1,7 +1,7 @@
 <app-navbar>
   <div class="parent" *ngIf="user">
     <mat-card class="analytics-card">
-      <h2>Your Monthly Analytics</h2>
+      <h2>Your Analytics</h2>
       
       <div class="header-analytics">
         <div class="analytics-item">
@@ -75,7 +75,7 @@
           <p class="task-desc">{{ task.taskDesc }}</p>
           <div class="task-footer">
             <span class="task-complexity">
-              Complexity: {{ task.taskComplexityPoint }}/5
+              Complexity: {{ task.taskComplexityPoint }}
             </span>
             <span class="task-date">
               {{ task.createdAt | date:'mediumDate' }}

@@ -49,7 +49,6 @@ import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 import { SettingsComponent } from './components/subcomponents/settings/settings.component';
 import { ProfileComponent } from './components/subcomponents/profile/profile.component';
 import { NotificationsComponent } from './components/subcomponents/notifications/notifications.component';
-import { CreatorButtonComponent } from './components/subcomponents/creator-button/creator-button.component';
 import { AiPrioritizationComponent } from './components/subcomponents/ai-prioritization/ai-prioritization.component';
 import { SupportComponent } from './components/support/support.component';
 import { TasksComponent } from './components/tasks/tasks.component';
@@ -57,6 +56,9 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
 import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
 import { TaskDetailsComponent } from './components/subcomponents/task-details/task-details.component';
+import { CreatorButtonOverlayComponent } from './components/subcomponents/creator-button-overlay/creator-button-overlay.component';
+import { TaskCreatorComponent } from './components/subcomponents/task-creator/task-creator.component';
+import { ProjectCreatorComponent } from './components/subcomponents/project-creator/project-creator.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,6 @@ import { TaskDetailsComponent } from './components/subcomponents/task-details/ta
     SettingsComponent,
     ProfileComponent,
     NotificationsComponent,
-    CreatorButtonComponent,
     AiPrioritizationComponent,
     SupportComponent,
     TasksComponent,
@@ -77,6 +78,9 @@ import { TaskDetailsComponent } from './components/subcomponents/task-details/ta
     BacklogComponent,
     BrokenRouteComponent,
     TaskDetailsComponent,
+    CreatorButtonOverlayComponent,
+    TaskCreatorComponent,
+    ProjectCreatorComponent
   ],
   imports: [
     BrowserModule,
