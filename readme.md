@@ -1,9 +1,24 @@
-# Full-Stack Project Setup Guide
+# Sahyogi 🛠️🚀 – AI-Powered Task & Project Management System
 
-by aditi
+---
 
 ## Project Overview  
-This project is a full-stack application consisting of an **Angular frontend** and an **Express backend**. The Angular frontend serves a client-side application, while the Express backend handles API requests and server-side logic.  
+Sahyogi is an AI-powered task and project management tool inspired by Jira, designed for efficient project tracking and task management. It provides a streamlined interface to organize tasks, track progress, and gain AI-driven insights for better productivity.
+
+## Features
+✅ Project Tracking Board – Organize tasks with a simple, intuitive Kanban-style board. <br>
+✅ AI-Powered Task Assistance – Get smart insights and recommendations for task management. <br>
+✅ Customizable Task Organization – Manage tasks efficiently with categorization and priorities. <br>
+✅ Intuitive UI/UX – Designed for a seamless and distraction-free experience.
+
+## Tech Stack
+🔹 Frontend – Angular 19 (SSR, Dynamic Hydration)<br>
+🔹 Backend – Express.js (Node.js)<br>
+🔹 Database – MongoDB<br>
+🔹 Authentication – JWT, bcrypt<br>
+🔹 AI – Google AI (Gemini API / SI Studio) (under consideration)
+
+---
 
 ### **Project Structure**
 ```
