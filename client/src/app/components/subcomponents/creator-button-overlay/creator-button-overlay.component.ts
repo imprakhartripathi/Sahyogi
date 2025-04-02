@@ -33,7 +33,6 @@ import { ProjectCreatorComponent } from '../project-creator/project-creator.comp
       }
       h2 {
         margin-bottom: 20px;
-        color: #3f51b5;
       }
       .options-container {
         display: flex;

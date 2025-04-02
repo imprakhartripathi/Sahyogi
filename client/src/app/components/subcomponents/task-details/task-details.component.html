@@ -1,1 +1,58 @@
-<p>task-details works!</p>
+<h2 mat-dialog-title>Task Details</h2>
+<div mat-dialog-content  class="parent">
+  <form [formGroup]="taskForm">
+    <mat-form-field appearance="outline" class="full-width" style="margin-top: 10px;">
+      <mat-label>Task Title</mat-label>
+      <input matInput formControlName="taskTitle" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="taskDesc"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Complexity</mat-label>
+      <input matInput type="number" formControlName="taskComplexityPoint" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Completion Status</mat-label>
+      <mat-select formControlName="taskCompletionState">
+        <mat-option [value]="100">To Do</mat-option>
+        <mat-option [value]="200">In Progress</mat-option>
+        <mat-option [value]="300">Done</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Deadline</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateDeadline" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Close</button>
+  <button
+    mat-button
+    color="primary"
+    *ngIf="!isEditing"
+    (click)="enableEditing()"
+  >
+    Edit
+  </button>
+  <button
+    mat-button
+    color="accent"
+    *ngIf="isEditing && hasChanges"
+    (click)="saveChanges()"
+  >
+    Save Changes
+  </button>
+</div>

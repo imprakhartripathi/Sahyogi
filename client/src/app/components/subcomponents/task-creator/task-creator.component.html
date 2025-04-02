@@ -11,7 +11,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Description</mat-label>
-          <textarea matInput placeholder="Enter task description" [(ngModel)]="task.taskDesc" name="taskDesc" rows="5"></textarea>
+          <textarea matInput required placeholder="Enter task description" [(ngModel)]="task.taskDesc" name="taskDesc" rows="5"></textarea>
         </mat-form-field>
       </div>
 
@@ -25,7 +25,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Completion State</mat-label>
-          <mat-select [(ngModel)]="task.taskCompletionState" name="taskCompletionState" required>
+          <mat-select required [(ngModel)]="task.taskCompletionState" name="taskCompletionState" required>
             <mat-option [value]="100">To Do</mat-option>
             <mat-option [value]="200">In Progress</mat-option>
             <mat-option [value]="300">Done</mat-option>
@@ -34,13 +34,13 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Deadline</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="task.dateDeadline" name="dateDeadline">
+          <input matInput required [matDatepicker]="picker" [(ngModel)]="task.dateDeadline" name="dateDeadline">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <div class="actions">
-          <button mat-button type="button">Cancel</button>
+          <button mat-button (click)="onCancel()" type="button">Cancel</button>
           <button mat-raised-button color="primary" type="submit" [disabled]="!task.taskTitle">Create Task</button>
         </div>
       </div>

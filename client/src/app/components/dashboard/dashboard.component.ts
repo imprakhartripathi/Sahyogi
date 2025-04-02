@@ -8,6 +8,8 @@ import {
   Task,
 } from '../../services/task-manager.service/task-manager.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -38,7 +40,8 @@ export class DashboardComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private taskService: TaskManagerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -125,6 +128,20 @@ export class DashboardComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  openTaskDetails(task: Task): void {
+    const dialogRef = this.dialog.open(TaskDetailsComponent, {
+      width: '500px',
+      data: task,
+    });
+
+    dialogRef.afterClosed().subscribe((updatedTask) => {
+      if (updatedTask && task._id) {
+        this.updateTask(task._id, updatedTask);
+      }
+    });
+
   }
 
   // createTask(

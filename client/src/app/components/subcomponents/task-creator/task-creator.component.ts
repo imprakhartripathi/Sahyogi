@@ -1,17 +1,7 @@
 // task-creator.component.ts
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  TaskManagerService,
-  CreateTaskData,
-} from '../../../services/task-manager.service/task-manager.service';
+import { TaskManagerService, CreateTaskData } from '../../../services/task-manager.service/task-manager.service';
 import { GetCurrentUserService } from '../../../services/get-current-user.service/get-current-user.service';
 import { UserService } from '../../../services/user.service/user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -80,6 +70,10 @@ export class TaskCreatorComponent {
         });
       },
     });
+  }
+
+  onCancel() {
+    this.dialog.closeAll();
   }
 
   private resetForm() {
