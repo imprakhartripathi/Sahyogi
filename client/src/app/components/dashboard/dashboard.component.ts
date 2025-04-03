@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private taskService: TaskManagerService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -133,15 +133,24 @@ export class DashboardComponent implements OnInit {
   openTaskDetails(task: Task): void {
     const dialogRef = this.dialog.open(TaskDetailsComponent, {
       width: '500px',
-      data: task,
+      data: { task, email: this.user.email }, // Pass email separately
     });
 
-    dialogRef.afterClosed().subscribe((updatedTask) => {
-      if (updatedTask && task._id) {
-        this.updateTask(task._id, updatedTask);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.deleted) {
+          // Remove the deleted task from the list
+          this.tasks = this.tasks.filter((t) => t._id !== result.taskId);
+        } else {
+          // Update the edited task in the list
+          this.tasks = this.tasks.map((t) =>
+            t._id === result._id ? result : t
+          );
+        }
+        window.location.reload();
+        this.calculateTaskMetrics();
       }
     });
-
   }
 
   // createTask(

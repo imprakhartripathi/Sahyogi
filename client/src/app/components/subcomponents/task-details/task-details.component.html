@@ -1,7 +1,11 @@
 <h2 mat-dialog-title>Task Details</h2>
-<div mat-dialog-content  class="parent">
+<div mat-dialog-content class="parent">
   <form [formGroup]="taskForm">
-    <mat-form-field appearance="outline" class="full-width" style="margin-top: 10px;">
+    <mat-form-field
+      appearance="outline"
+      class="full-width"
+      style="margin-top: 10px"
+    >
       <mat-label>Task Title</mat-label>
       <input matInput formControlName="taskTitle" />
     </mat-form-field>
@@ -38,21 +42,28 @@
 </div>
 
 <div mat-dialog-actions align="end">
-  <button mat-button (click)="closeDialog()">Close</button>
+  <button mat-icon-button matTooltip="Close" class="btn" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
   <button
-    mat-button
-    color="primary"
+    mat-icon-button
+    matTooltip="Edit Task"
+    class="btn"
     *ngIf="!isEditing"
     (click)="enableEditing()"
   >
-    Edit
+    <mat-icon>edit</mat-icon>
   </button>
   <button
-    mat-button
-    color="accent"
+    class="btn"
+    mat-icon-button
+    matTooltip="Save Edited Task"
     *ngIf="isEditing && hasChanges"
     (click)="saveChanges()"
   >
-    Save Changes
+    <mat-icon>save</mat-icon>
+  </button>
+  <button class="btn-warn" matTooltip="Delete Task" mat-icon-button (click)="deleteTask()">
+    <mat-icon>delete</mat-icon>
   </button>
 </div>

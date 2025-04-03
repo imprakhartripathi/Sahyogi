@@ -1,6 +1,6 @@
-.parent{
-    margin: 10px;
-    padding: 10px;
+.parent {
+  margin: 10px;
+  padding: 10px;
 }
 
 .task-details-grid {
@@ -29,4 +29,21 @@ mat-dialog-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.btn-warn {
+  color: rgb(125, 0, 0);
+  transition: 0.3s;
+  &:hover {
+    scale: 1.25;
+    transition: 0.3s;
+  }
+}
+
+.btn {
+   transition: 0.3s;
+  &:hover {
+    scale: 1.25;
+    transition: 0.3s;
+  }
 }
