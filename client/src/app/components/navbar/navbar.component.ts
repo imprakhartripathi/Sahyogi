@@ -8,9 +8,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ProfileComponent } from '../subcomponents/profile/profile.component';
 import { AiPrioritizationComponent } from '../subcomponents/ai-prioritization/ai-prioritization.component';
 import { NotificationsComponent } from '../subcomponents/notifications/notifications.component';
-import { CreatorButtonComponent } from '../subcomponents/creator-button/creator-button.component';
 import { AuthenticatorService } from '../../services/authenticator.service/authenticator.service';
-
+import { CreatorButtonOverlayComponent } from '../subcomponents/creator-button-overlay/creator-button-overlay.component';
 @Component({
   selector: 'app-navbar',
   standalone: false,
@@ -24,12 +23,15 @@ export class NavbarComponent implements OnInit {
   private AIDialog: MatDialogRef<AiPrioritizationComponent> | null = null;
   private notificationDialog: MatDialogRef<NotificationsComponent> | null =
     null;
-  private creatorDialog: MatDialogRef<CreatorButtonComponent> | null = null;
+  private creatorDialog: MatDialogRef<CreatorButtonOverlayComponent> | null =
+    null;
+
   imgURL: string = 'user.png';
   value: any;
   user: any;
   userData: any;
   isCollapsed: boolean = false;
+
   constructor(
     private getCurrentUser: GetCurrentUserService,
     private userService: UserService,
@@ -133,11 +135,9 @@ export class NavbarComponent implements OnInit {
 
   openCreatorButtonDialog(): void {
     if (!this.creatorDialog) {
-      this.creatorDialog = this.dialog.open(CreatorButtonComponent, {
-        // width: '1000px',
-        // height: '90%',
-        maxWidth: 'none',
-        panelClass: 'custom-dialog-container',
+      this.creatorDialog = this.dialog.open(CreatorButtonOverlayComponent, {
+        width: '400px',
+        panelClass: 'creator-overlay-container',
       });
       this.creatorDialog
         .afterClosed()

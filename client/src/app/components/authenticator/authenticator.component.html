@@ -2,55 +2,193 @@
   <div class="auth-container">
     <div class="logo"></div>
     <mat-tab-group dynamicHeight>
+      <!-- Login Form -->
       <mat-tab label="Login">
         <div class="login">
-            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <mat-form-field appearance="outline" style="margin-top: 30px;">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Enter your email" required />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
-            Login
-          </button>
-          <div class="extra-btn" style="display: flex; flex-direction: row;">
-            <button mat-stroked-button color="primary" routerLink="/mainpage">
-            Explore Sahyogi
-          </button>
-          <button mat-stroked-button color="primary" routerLink="/support">
-            Support
-          </button>
-          </div>
-        </form>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="outline" style="margin-top: 30px">
+              <mat-label>Email</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  formControlName="email"
+                  placeholder="Enter your email"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Email is required."
+                  *ngIf="loginForm.get('email')?.hasError('required')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Please enter a valid email (e.g., example@domain.com)."
+                  *ngIf="loginForm.get('email')?.hasError('invalidEmail')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Password is required."
+                  *ngIf="loginForm.get('password')?.hasError('required')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Password must be at least 8 characters long and contain an uppercase letter, a number, and a special character."
+                  *ngIf="loginForm.get('password')?.hasError('weakPassword')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid"
+            >
+              Login
+            </button>
+            <div class="extra-btn" style="display: flex; flex-direction: row">
+              <button mat-stroked-button color="primary" routerLink="/mainpage">
+                Explore Sahyogi
+              </button>
+              <button mat-stroked-button color="primary" routerLink="/support">
+                Support
+              </button>
+            </div>
+          </form>
         </div>
       </mat-tab>
+
+      <!-- Sign Up Form -->
       <mat-tab label="Sign Up">
-       <div class="signup">
-         <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
-          <mat-form-field appearance="outline" style="margin-top: 30px;">
-            <mat-label>Full Name</mat-label>
-            <input matInput formControlName="fullName" placeholder="Enter your full name" required />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" placeholder="Enter your email" required />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm your password" required />
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid">
-            Sign Up
-          </button>
-        </form>
-       </div>
+        <div class="signup">
+          <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+            <mat-form-field appearance="outline" style="margin-top: 30px">
+              <mat-label>Full Name</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  formControlName="fullName"
+                  placeholder="Enter your full name"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Full name is required."
+                  *ngIf="signupForm.get('fullName')?.hasError('required')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Full name cannot contain numbers or special characters."
+                  *ngIf="signupForm.get('fullName')?.hasError('invalidName')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  formControlName="email"
+                  placeholder="Enter your email"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Email is required."
+                  *ngIf="signupForm.get('email')?.hasError('required')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Please enter a valid email (e.g., example@domain.com)."
+                  *ngIf="signupForm.get('email')?.hasError('invalidEmail')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Password is required."
+                  *ngIf="signupForm.get('password')?.hasError('required')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Password must be at least 8 characters long, include an uppercase letter, a number, and a special character."
+                  *ngIf="signupForm.get('password')?.hasError('weakPassword')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Confirm Password</mat-label>
+              <div class="input-container">
+                <input
+                  matInput
+                  type="password"
+                  formControlName="confirmPassword"
+                  placeholder="Confirm your password"
+                  required
+                />
+                <mat-icon
+                  matTooltip="Confirm password is required."
+                  *ngIf="
+                    signupForm.get('confirmPassword')?.hasError('required')
+                  "
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+                <mat-icon
+                  matTooltip="Passwords do not match."
+                  *ngIf="signupForm.hasError('passwordsMismatch')"
+                  class="error-info-icon"
+                  >info</mat-icon
+                >
+              </div>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="signupForm.invalid"
+            >
+              Sign Up
+            </button>
+          </form>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>
