@@ -6,6 +6,8 @@ import {
 import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskState } from '../../services/task-manager.service/task-manager.service';
+import { ProjectTransferService } from '../../services/project-transfer.service/project-transfer.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -21,7 +23,9 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private projectService: ProjectManagerService,
     private getCurrentUser: GetCurrentUserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private projectTransferService: ProjectTransferService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +45,15 @@ export class ProjectsComponent implements OnInit {
         });
       },
     });
+  }
+
+  goToProject(project: Project) {
+    console.log(
+      'Redirecting to the detailed Project Page with data: ',
+      project
+    );
+    this.projectTransferService.setProject(project);
+    this.router.navigate(['/project', project._id]);
   }
 
   private fetchProjects(email: string): void {

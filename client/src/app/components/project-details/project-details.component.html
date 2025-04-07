@@ -1,0 +1,93 @@
+<app-navbar>
+  <div class="parent" *ngIf="user">
+    <mat-card class="analytics-card">
+      <h2>Project Analytics</h2>
+      
+      <div class="header-analytics">
+        <div class="analytics-item">
+          <h1>{{ totalTasksCreated }}</h1>
+          <p>Total Tasks Created</p>
+        </div>
+
+        <div class="analytics-item">
+          <h1>{{ tasksInProgress }}</h1>
+          <p>Tasks In Progress</p>
+        </div>
+        
+        <div class="analytics-item">
+          <h1>{{ totalTasksCompleted }}</h1>
+          <p>Tasks Completed</p>
+        </div>
+      </div>
+
+      <p class="velocity">
+        Your task completion velocity is {{ completionVelocity }}
+      </p>
+
+      <div class="task-analytics">
+        <div class="progress-container">
+          <div class="spinner-wrapper">
+            <mat-progress-spinner
+              [value]="taskCompletionPercentage"
+              mode="determinate"
+              color="primary"
+            ></mat-progress-spinner>
+            <div class="spinner-text">{{ taskCompletionPercentage | number:'1.0-0' }}%</div>
+          </div>
+          <p>Task Completion Percentage</p>
+        </div>
+
+        <div class="progress-container">
+          <div class="spinner-wrapper">
+            <mat-progress-spinner
+              [value]="tasksInProgressPercentage"
+              mode="determinate"
+              color="warn"
+            ></mat-progress-spinner>
+            <div class="spinner-text">{{ tasksInProgressPercentage | number:'1.0-0' }}%</div>
+          </div>
+          <p>Tasks In Progress</p>
+        </div>
+
+        <div class="progress-container">
+          <div class="spinner-wrapper">
+            <mat-progress-spinner
+              [value]="tasksNotPickedPercentage"
+              mode="determinate"
+              color="accent"
+            ></mat-progress-spinner>
+            <div class="spinner-text">{{ tasksNotPickedPercentage | number:'1.0-0' }}%</div>
+          </div>
+          <p>Tasks Not Picked Up Yet</p>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card class="recent-tasks">
+      <h2>Your Project's Tasks</h2>
+      <div class="tasks">
+        <div class="task-card" *ngFor="let task of projectTasks">
+          <div class="box" (click)="openTaskDetails(task)">
+            <div class="task-header">
+            <h3>{{ task.taskTitle }}</h3>
+            <span class="task-status" [ngClass]="getStatusClass(task.taskCompletionState)">
+              {{ getStatusText(task.taskCompletionState) }}
+            </span>
+          </div>
+          <p class="task-desc">{{ task.taskDesc }}</p>
+          <div class="task-footer">
+            <span class="task-complexity">
+              Complexity: {{ task.taskComplexityPoint }}
+            </span>
+            <span class="task-date">
+              {{ task.createdAt | date:'mediumDate' }}
+            </span>
+          </div>
+          </div>
+        </div>
+        <div class="no-tasks" *ngIf="projectTasks.length === 0">
+          No recent tasks found
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</app-navbar>

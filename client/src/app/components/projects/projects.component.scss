@@ -35,6 +35,7 @@ $mat-blue-light: #3768bb;
   flex-direction: column;
   justify-content: space-between;
   min-height: 50%;
+  cursor: pointer;
 
   @media (prefers-color-scheme: light) {
     background: rgb(240, 240, 240);
