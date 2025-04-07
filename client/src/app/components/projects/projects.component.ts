@@ -16,7 +16,6 @@ import { TaskState } from '../../services/task-manager.service/task-manager.serv
 export class ProjectsComponent implements OnInit {
   user: any;
   projects: Project[] = [];
-  isLoading = true;
   error: string | null = null;
 
   constructor(
@@ -33,7 +32,6 @@ export class ProjectsComponent implements OnInit {
           this.fetchProjects(this.user.email);
         } else {
           this.error = 'User email not found';
-          this.isLoading = false;
         }
       },
       error: (error) => {
@@ -41,7 +39,6 @@ export class ProjectsComponent implements OnInit {
         this.snackBar.open('Failed to load user data', 'Close', {
           duration: 3000,
         });
-        this.isLoading = false;
       },
     });
   }
@@ -65,12 +62,10 @@ export class ProjectsComponent implements OnInit {
         });
 
         this.animateProgress();
-        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error fetching projects:', err);
         this.error = 'Failed to load projects';
-        this.isLoading = false;
       },
     });
   }
