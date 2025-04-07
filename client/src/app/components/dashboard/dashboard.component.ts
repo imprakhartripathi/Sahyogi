@@ -133,6 +133,8 @@ export class DashboardComponent implements OnInit {
   openTaskDetails(task: Task): void {
     const dialogRef = this.dialog.open(TaskDetailsComponent, {
       width: '500px',
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
       data: { task, email: this.user.email }, // Pass email separately
     });
 

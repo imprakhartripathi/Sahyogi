@@ -6,14 +6,17 @@ const getProjectsController = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { email } = req.body; // Email sent in request body
+    const { email } = req.query; // Email sent in request
 
     if (!email) {
       res.status(400).json({ message: "Email is required" });
       return;
     }
 
-    const user = await User.findOne({ email }).select("-password"); // Exclude password
+   // Convert email to string since req.query returns string | string[] | undefined
+       const emailString = Array.isArray(email) ? email[0] : email;
+       
+       const user = await User.findOne({ email: emailString }).select("-password");
 
     if (!user) {
       res.status(404).json({ message: "User not found" });
