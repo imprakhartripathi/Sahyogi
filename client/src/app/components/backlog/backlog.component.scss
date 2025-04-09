@@ -1,110 +1,209 @@
 $primary-dark: #13203a;
-$bg-light-blue: #a8d0ef;
-$border-dark: #394153;
-$mat-blue-dark: #a3baee;
+$bg-dark: #121212;
+$card-dark: #1e1e1e;
+$text-light: #e0e0e0;
+$border-dark: #333;
 $mat-blue-light: #3768bb;
+$mat-red: #ff5252;
 
 .backlog-container {
   margin-top: 100px;
   display: flex;
   gap: 2rem;
   padding: 1rem;
-  height: calc(100vh - 2rem);
+ max-height: 80vh;
+  // background: $bg-dark;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: $text-light;
 }
 
 .calendar-card,
 .preview-card {
   flex: 1;
-  height: 100%;
-  overflow: auto;
+  height: auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  background: $card-dark;
+  min-height: 500px;
+  border: 1px solid $border-dark;
+
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.calendar-card {
+  mat-card-content {
+    margin-top: -25px;
+  }
+}
+
+.preview-card {
+  mat-card-header {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
+    color: $text-light;
+    padding: 16px;
+    border-radius: 12px 12px 0 0;
+    
+    mat-card-title {
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+  }
+
+  mat-expantion-panel{
+    margin: 10px;
+
+  }
 }
 
 .filter-section {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   display: flex;
   justify-content: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
 
   mat-radio-group {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
+    
+    mat-radio-button {
+      color: $text-light;
+    }
   }
 }
 
 .legend {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 2rem;
   margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
 
   &-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-size: 0.85rem;
   }
 
   &-color {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
     &.created {
-      background-color: $mat-blue-light;
+      background: $mat-blue-light;
     }
 
     &.deadline {
-      background-color: #f44336; // Material red
+      background: $mat-red;
     }
 
     &.both {
-      background: linear-gradient(135deg, $mat-blue-light 50%, #f44336 50%);
+      background: linear-gradient(135deg, $mat-blue-light 50%, $mat-red 50%);
     }
   }
 }
 
 ::ng-deep {
+  .mat-calendar {
+    background: $card-dark;
+    color: $text-light;
+
+    .mat-calendar-header {
+      color: $text-light;
+    }
+
+    .mat-calendar-body-cell-content {
+      color: $text-light;
+      border-color: transparent !important;
+    }
+
+    .mat-calendar-body-selected {
+      background: $mat-blue-light;
+      color: white;
+    }
+
+    .mat-calendar-table-header {
+      color: rgba($text-light, 0.7);
+    }
+  }
+
   .created-date .mat-calendar-body-cell-content {
-    background-color: rgba($mat-blue-light, 0.3);
-    border: 1px solid $mat-blue-light;
+    background: rgba($mat-blue-light, 0.2);
   }
 
   .deadline-date .mat-calendar-body-cell-content {
-    background-color: rgba(#f44336, 0.3);
-    border: 1px solid #f44336;
+    background: rgba($mat-red, 0.2);
   }
 
   .both-dates .mat-calendar-body-cell-content {
     background: linear-gradient(
       135deg,
-      rgba($mat-blue-light, 0.3) 50%,
-      rgba(#f44336, 0.3) 50%
+      rgba($mat-blue-light, 0.2) 50%,
+      rgba($mat-red, 0.2) 50%
     );
-    border: 1px solid $mat-blue-light;
-    border-right-color: #f44336;
-    border-bottom-color: #f44336;
   }
 }
 
 .task-dates {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    strong {
+      color: rgba($text-light, 0.9);
+    }
+  }
 }
 
 mat-expansion-panel {
-  margin-bottom: 0.5rem;
-}
+  background: $card-dark;
+  color: $text-light;
+  border: 1px solid $border-dark;
 
-mat-icon {
-  margin-right: 0.5rem;
-  font-size: 18px;
-  height: 18px;
-  width: 18px;
+  mat-expansion-panel-header {
+    color: $text-light;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.05) !important;
+    }
+  }
+
+  p {
+    color: rgba($text-light, 0.8);
+  }
 }
 
 @media (max-width: 768px) {
   .backlog-container {
     flex-direction: column;
-    height: auto;
+    margin-top: 80px;
+  }
+
+  .legend {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
   }
 }
