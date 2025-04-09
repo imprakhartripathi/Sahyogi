@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskManagerService, TaskState, Task } from './../../services/task-manager.service/task-manager.service'
+import { TaskManagerService, TaskState, Task } from '../../services/task-manager.service/task-manager.service';
 import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
-import { UserService } from '../../services/user.service/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -10,48 +12,73 @@ import { UserService } from '../../services/user.service/user.service';
   styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
+  user: any;
+  tasks: Task[] = [];
+
+  todoTasks: Task[] = [];
+  inProgressTasks: Task[] = [];
+  doneTasks: Task[] = [];
+
+  constructor(
+    private taskService: TaskManagerService,
+    private getCurrentUser: GetCurrentUserService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+  ) {}
+
   ngOnInit(): void {
-    this.loadTasks();
-  }
-
-  // Load tasks
-  loadTasks() {
-    this.taskService.getTasks(this.email).subscribe((response) => {
-      this.tasks = response;
+    this.getCurrentUser.getCurrentUser().subscribe({
+      next: (data) => {
+        this.user = data;
+        this.loadTasks(this.user.email);
+      },
+      error: (error) => {
+        console.error('Failed to load user:', error);
+        this.snackBar.open('Failed to load user data', 'Close', { duration: 3000 });
+      }
     });
   }
 
-  // Create a new task
-  createTask() {
-    this.taskService
-      .createTask({ ...this.newTask, email: this.email })
-      .subscribe(() => {
-        this.loadTasks();
-        this.newTask = {
-          // Reset input fields
-          taskTitle: '',
-          taskDesc: '',
-          taskComplexityPoint: 1,
-          taskCompletionState: TaskState.ToDo,
-          aiPrioritizedID: null,
-          reasonForPrioritizationID: null,
-        };
-      });
-  }
-
-  // Edit a task
-  editTask(taskId: string, updatedTask: Partial<Task>) {
-    this.taskService
-      .editTask({ email: this.email, taskId, updates: updatedTask })
-      .subscribe(() => {
-        this.loadTasks();
-      });
-  }
-
-  // Delete a task
-  deleteTask(taskId: string) {
-    this.taskService.deleteTask({ email: this.email, taskId }).subscribe(() => {
-      this.loadTasks();
+  loadTasks(email: string): void {
+    this.taskService.getTasks(email).subscribe({
+      next: (tasks) => {
+        this.tasks = tasks;
+        this.categorizeTasks();
+      },
+      error: (err) => {
+        console.error('Error loading tasks:', err);
+        this.snackBar.open('Failed to load tasks', 'Close', { duration: 3000 });
+      }
     });
   }
+
+  categorizeTasks(): void {
+    this.todoTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.ToDo);
+    this.inProgressTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.InProgress);
+    this.doneTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.Done);
+  }
+
+   openTaskDetails(task: Task): void {
+      const dialogRef = this.dialog.open(TaskDetailsComponent, {
+        width: '500px',
+        panelClass: 'task-creator-dialog',
+        maxWidth: 'none',
+        data: { task, email: this.user.email }, // Pass email separately
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          if (result.deleted) {
+            // Remove the deleted task from the list
+            this.tasks = this.tasks.filter((t) => t._id !== result.taskId);
+          } else {
+            // Update the edited task in the list
+            this.tasks = this.tasks.map((t) =>
+              t._id === result._id ? result : t
+            );
+          }
+          window.location.reload();
+        }
+      });
+    }
 }
