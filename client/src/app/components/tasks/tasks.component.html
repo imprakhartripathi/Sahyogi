@@ -6,24 +6,44 @@
         <button class="filter-task-button">🔍 Filter Task</button>
       </div>
 
-      <div class="task-section-container" >
+      <div class="task-section-container" cdkDropListGroup >
         <!-- Added container for horizontal alignment -->
-        <div class="task-section">
+        <div class="task-section" cdkDropList>
           <h1>Current Task</h1>
-          <mat-card>
+          <mat-card cdkDrag>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title> Demo </mat-panel-title>
+                <mat-panel-title> Demo1 </mat-panel-title>
                 <mat-panel-description>
-                  Just testing
+                  Just testing1
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
+          <mat-card cdkDrag>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo1.1 </mat-panel-title>
+                <mat-panel-description>
+                  Just testing1.1
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
+          <mat-card cdkDrag>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo1.2 </mat-panel-title>
+                <mat-panel-description>
+                  Just testing1.2
                 </mat-panel-description>
               </mat-expansion-panel-header>
               </mat-expansion-panel>
           </mat-card>
         </div>
-        <div class="task-section">
+        <div class="task-section" cdkDropList>
           <h1>Completed Task</h1>
-          <mat-card>
+          <mat-card cdkDrag>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title> Demo2 </mat-panel-title>
@@ -33,10 +53,20 @@
               </mat-expansion-panel-header>
               </mat-expansion-panel>
           </mat-card>
+          <mat-card cdkDrag>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Demo2.1 </mat-panel-title>
+                <mat-panel-description>
+                  Just testing2.1
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              </mat-expansion-panel>
+          </mat-card>
         </div>
-        <div class="task-section">
+        <div class="task-section" cdkDropList>
           <h1>Backlogs</h1>
-          <mat-card>
+          <mat-card cdkDrag>
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title> Demo3 </mat-panel-title>

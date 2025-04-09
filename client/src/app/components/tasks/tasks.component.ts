@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskManagerService, TaskState, Task } from './../../services/task-manager.service/task-manager.service'
+import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
+import { UserService } from '../../services/user.service/user.service';
 
 @Component({
   selector: 'app-tasks',
@@ -8,6 +11,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
   ngOnInit(): void {
-      console.log("Hello")
+    this.loadTasks();
+  }
+
+  // Load tasks
+  loadTasks() {
+    this.taskService.getTasks(this.email).subscribe((response) => {
+      this.tasks = response;
+    });
+  }
+
+  // Create a new task
+  createTask() {
+    this.taskService
+      .createTask({ ...this.newTask, email: this.email })
+      .subscribe(() => {
+        this.loadTasks();
+        this.newTask = {
+          // Reset input fields
+          taskTitle: '',
+          taskDesc: '',
+          taskComplexityPoint: 1,
+          taskCompletionState: TaskState.ToDo,
+          aiPrioritizedID: null,
+          reasonForPrioritizationID: null,
+        };
+      });
+  }
+
+  // Edit a task
+  editTask(taskId: string, updatedTask: Partial<Task>) {
+    this.taskService
+      .editTask({ email: this.email, taskId, updates: updatedTask })
+      .subscribe(() => {
+        this.loadTasks();
+      });
+  }
+
+  // Delete a task
+  deleteTask(taskId: string) {
+    this.taskService.deleteTask({ email: this.email, taskId }).subscribe(() => {
+      this.loadTasks();
+    });
   }
 }
