@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectManagerService } from '../../services/project-manager.service/project-manager.service';
 import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProjectTransferService } from '../../services/project-transfer.service/project-transfer.service';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
@@ -18,7 +17,7 @@ import {
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.scss',
 })
-export class ProjectDetailsComponent implements OnInit, OnDestroy {
+export class ProjectDetailsComponent implements OnInit {
   project: any;
   user: any;
   projectTasks: ProjectTask[] = [];
@@ -35,7 +34,6 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private projectService: ProjectManagerService,
     private taskService: ProjectTaskManagerService,
-    private projectTransferService: ProjectTransferService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -43,37 +41,48 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.project = this.projectTransferService.getProject();
-    if (this.project) {
+    const projectId = this.route.snapshot.paramMap.get('_id');
+
+    if (projectId) {
       this.getCurrentUser.getCurrentUser().subscribe({
-        next: (data) => {
-          this.user = data;
-          this.fetchProjectTasks(this.user.email); // Use dynamic email from logged-in user
+        next: (user) => {
+          this.user = user;
+
+          this.projectService.getProjects(user.email).subscribe({
+            next: (projects) => {
+              const project = projects.find((p) => p._id === projectId);
+              if (project) {
+                this.project = project;
+                this.fetchProjectTasks(user.email, projectId); // ✅ updated to pass projectId
+              } else {
+                this.snackBar.open('Project not found', 'Close', {
+                  duration: 3000,
+                });
+              }
+            },
+            error: () => {
+              this.snackBar.open('Failed to fetch projects', 'Close', {
+                duration: 3000,
+              });
+            },
+          });
         },
-        error: (error) => {
-          console.error('Error fetching current user:', error);
+        error: () => {
           this.snackBar.open('Failed to load user data', 'Close', {
             duration: 3000,
           });
         },
       });
     } else {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        console.warn('No project in service, fallback to ID:', id);
-        // Optional: fetch project and tasks using ID
-      }
+      this.snackBar.open('No project ID in route', 'Close', {
+        duration: 3000,
+      });
     }
   }
 
-  ngOnDestroy(): void {
-    this.projectTransferService.clearProject();
-  }
-
-  fetchProjectTasks(email: string) {
-    this.taskService.getProjectTasks(email).subscribe({
+  fetchProjectTasks(email: string, projectId: string) {
+    this.taskService.getProjectTasks(email, projectId).subscribe({
       next: (tasks) => {
-        console.log("Project Tasks: ", tasks)
         this.projectTasks = tasks;
         this.calculateTaskMetrics(tasks);
       },

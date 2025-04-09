@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
 import User from "../models/Users";
-//sends user info to the frontend using the email
+
+// Sends tasks of a specific project for a given user (by email and projectId)
 const getProjectTasksController = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const { email } = req.query;
+    const { email, projectId } = req.query;
 
-    if (!email) {
-      res.status(400).json({ message: "Email is required" });
+    if (!email || !projectId) {
+      res.status(400).json({ message: "Email and Project ID are required" });
       return;
     }
 
-    // Convert email to string since req.query returns string | string[] | undefined
     const emailString = Array.isArray(email) ? email[0] : email;
+    const projectIdString = Array.isArray(projectId) ? projectId[0] : projectId;
 
     const user = await User.findOne({ email: emailString }).select("-password");
 
@@ -23,12 +24,20 @@ const getProjectTasksController = async (
       return;
     }
 
-    // Extract all tasks from all projects
-    const allTasks = user.projects.flatMap((project) => project.projectTasks);
+    const project = user.projects.find(
+      (proj) => String(proj._id) === projectIdString
+    );
 
-    res.json(allTasks);
+    if (!project) {
+      res.status(404).json({ message: "Project not found" });
+      return;
+    }
+
+    const tasks = project.projectTasks;
+
+    res.json(tasks);
   } catch (error) {
-    console.error("Error fetching Tasks:", error);
+    console.error("Error fetching tasks:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

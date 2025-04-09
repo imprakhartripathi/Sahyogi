@@ -6,7 +6,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 export enum ProjectTaskState {
   ToDo = 100,
@@ -45,13 +45,15 @@ export class ProjectTaskManagerService {
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Get tasks for a user
-  getProjectTasks(email: string): Observable<ProjectTask[]> {
-    const params = new HttpParams().set('email', email);
-    return this.http.get<ProjectTask[]>(`${this.baseUrl}/get`, { params }).pipe(
-      tap((response) => console.log('API Response:', response)),
-      catchError(this.handleError)
-    );
+  // ✅ Get tasks for a specific user and project
+  getProjectTasks(email: string, projectId: string): Observable<ProjectTask[]> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('projectId', projectId);
+
+    return this.http
+      .get<ProjectTask[]>(`${this.baseUrl}/get`, { params })
+      .pipe(catchError(this.handleError));
   }
 
   // ✅ Create a new task (needs projectId)

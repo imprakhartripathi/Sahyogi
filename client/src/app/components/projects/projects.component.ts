@@ -6,7 +6,6 @@ import {
 import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskState } from '../../services/task-manager.service/task-manager.service';
-import { ProjectTransferService } from '../../services/project-transfer.service/project-transfer.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +23,6 @@ export class ProjectsComponent implements OnInit {
     private projectService: ProjectManagerService,
     private getCurrentUser: GetCurrentUserService,
     private snackBar: MatSnackBar,
-    private projectTransferService: ProjectTransferService,
     private router: Router
   ) {}
 
@@ -52,7 +50,6 @@ export class ProjectsComponent implements OnInit {
       'Redirecting to the detailed Project Page with data: ',
       project
     );
-    this.projectTransferService.setProject(project);
     this.router.navigate(['/project', project._id]);
   }
 
