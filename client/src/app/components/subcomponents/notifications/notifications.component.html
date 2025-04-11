@@ -1,1 +1,14 @@
-<p>notifications works!</p>
+<div class="notification-wrapper" *ngIf="showNotification">
+    <div class="notification-card">
+      <div class="notification-header">
+        <span class="icon">♡</span>
+        <span class="title">Protect your new Galaxy</span>
+        <button class="close-btn" (click)="closeNotification()">✕</button>
+      </div>
+      <p class="description">
+        Sign up for Samsung Care+. You'll be covered in case of any unexpected damages to your phone.
+      </p>
+      <button class="continue-btn">Continue</button>
+    </div>
+  </div>
+  

@@ -1,37 +1,12 @@
 <app-navbar>
   <div class="backlog-container">
     <mat-card class="calendar-card">
-      <mat-card-header>
-        <mat-card-title>Task Calendar</mat-card-title>
-      </mat-card-header>
       <mat-card-content>
         <mat-calendar 
           [(selected)]="selectedDate"
           (selectedChange)="onDateSelected($event)"
           [dateClass]="dateClass">
         </mat-calendar>
-  
-        <div class="filter-section">
-          <mat-radio-group [(ngModel)]="selectedFilter">
-            <mat-radio-button value="created" color="primary">Created Date</mat-radio-button>
-            <mat-radio-button value="deadline" color="warn">Deadline</mat-radio-button>
-          </mat-radio-group>
-        </div>
-  
-        <div class="legend">
-          <div class="legend-item">
-            <span class="legend-color created"></span>
-            <span>Task Created</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color deadline"></span>
-            <span>Task Deadline</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-color both"></span>
-            <span>Both</span>
-          </div>
-        </div>
       </mat-card-content>
     </mat-card>
   
@@ -55,14 +30,8 @@
           <mat-expansion-panel *ngFor="let task of filteredTasks">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <mat-icon>{{getStatusIcon(task.status)}}</mat-icon>
-                {{task.title}}
+                <h3>{{task.title}}</h3>
               </mat-panel-title>
-              <mat-panel-description>
-                <mat-chip [color]="getPriorityColor(task.priority)" selected>
-                  {{task.priority}}
-                </mat-chip>
-              </mat-panel-description>
             </mat-expansion-panel-header>
   
             <p>{{task.description}}</p>
@@ -78,6 +47,28 @@
           </mat-expansion-panel>
         </mat-accordion>
       </mat-card-content>
+      
+      <div class="filter-section">
+        <mat-radio-group [(ngModel)]="selectedFilter">
+          <mat-radio-button value="created" color="primary">Created Date</mat-radio-button>
+          <mat-radio-button value="deadline" color="warn">Deadline</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-color created"></span>
+          <span>Task Created</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color deadline"></span>
+          <span>Task Deadline</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color both"></span>
+          <span>Both</span>
+        </div>
+      </div>
     </mat-card>
   </div>
 </app-navbar>
