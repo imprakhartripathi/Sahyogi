@@ -1,0 +1,98 @@
+<!-- task-creator.component.html -->
+<div class="parent">
+  <h2 mat-dialog-title>Create a Task</h2>
+  <form class="task-form" (ngSubmit)="onSubmit()">
+    <div class="form-columns">
+      <div class="left-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Task Title</mat-label>
+          <input
+            matInput
+            placeholder="Enter task title"
+            [(ngModel)]="task.taskTitle"
+            name="taskTitle"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            required
+            placeholder="Enter task description"
+            [(ngModel)]="task.taskDesc"
+            name="taskDesc"
+            rows="5"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="right-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Complexity Points</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Enter complexity points"
+            [(ngModel)]="task.taskComplexityPoint"
+            name="taskComplexityPoint"
+            min="1"
+            max="100"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Completion State</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="task.taskCompletionState"
+            name="taskCompletionState"
+            required
+          >
+            <mat-option [value]="100">To Do</mat-option>
+            <mat-option [value]="200">In Progress</mat-option>
+            <mat-option [value]="300">Done</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Deadline</mat-label>
+          <input
+            matInput
+            required
+            [matDatepicker]="picker"
+            [(ngModel)]="task.dateDeadline"
+            name="dateDeadline"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-button (click)="onCancel()" type="button">Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="
+              !(
+                task.taskTitle &&
+                task.taskDesc &&
+                task.taskComplexityPoint &&
+                task.taskCompletionState &&
+                task.dateDeadline
+              )
+            "
+          >
+            Create Task
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,7 +1,7 @@
 <app-navbar>
   <div class="parent" *ngIf="user">
     <mat-card class="analytics-card">
-      <h2>Your Analytics</h2>
+      <h2>Project Analytics</h2>
       
       <div class="header-analytics">
         <div class="analytics-item">
@@ -63,9 +63,9 @@
       </div>
     </mat-card>
     <mat-card class="recent-tasks">
-      <h2>Your Recent Tasks</h2>
+      <h2>Your Project's Tasks</h2>
       <div class="tasks">
-        <div class="task-card" *ngFor="let task of recentTasks">
+        <div class="task-card" *ngFor="let task of projectTasks">
           <div class="box" (click)="openTaskDetails(task)">
             <div class="task-header">
             <h3>{{ task.taskTitle }}</h3>
@@ -84,7 +84,7 @@
           </div>
           </div>
         </div>
-        <div class="no-tasks" *ngIf="recentTasks.length === 0">
+        <div class="no-tasks" *ngIf="projectTasks.length === 0">
           No recent tasks found
         </div>
       </div>

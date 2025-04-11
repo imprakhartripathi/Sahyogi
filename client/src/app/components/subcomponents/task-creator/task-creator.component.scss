@@ -1,0 +1,48 @@
+/* task-creator.component.scss */
+.parent {
+  padding: 24px;
+  margin: 0 auto;
+  width: 90%
+}
+
+h2 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-columns {
+  display: flex;
+  gap: 24px;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: auto; /* Pushes buttons to the bottom */
+}
+
+/* Make textarea fill available height */
+mat-form-field textarea {
+  min-height: 200px;
+  resize: vertical;
+}

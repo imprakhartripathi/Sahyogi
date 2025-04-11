@@ -52,6 +52,14 @@ body {
   height: 300px;
 }
 
+.task-creator-dialog {
+  border-radius: 30px; /* Adjust the radius as needed */
+  overflow: hidden; /* Ensure the content does not overflow the rounded corners */
+  width: 80% !important;
+  height: auto;
+  max-width: none;
+}
+
 .custom-dialog-container {
   border-radius: 30px; /* Adjust the radius as needed */
   overflow: hidden; /* Ensure the content does not overflow the rounded corners */

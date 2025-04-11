@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 export enum TaskState {
   ToDo = 100,
@@ -10,26 +10,43 @@ export enum TaskState {
 }
 
 export interface Task {
+  _id?: string;  // Make optional if it might not exist in all cases
   taskTitle: string;
   taskDesc: string;
   taskComplexityPoint: number;
   taskCompletionState: number;
   dateDeadline?: Date;
-  aiPrioritizedID: number | null;
-  reasonForPrioritizationID: string | null;
+  createdAt?: Date;
+  aiPrioritizedID?: number | null;
+  reasonForPrioritizationID?: string | null;
+}
+
+// Add a specific interface for create task payload
+export interface CreateTaskData {
+  email: string;
+  taskTitle: string;
+  taskDesc: string;
+  taskComplexityPoint: number;
+  taskCompletionState: number;
+  dateDeadline?: Date;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskManagerService {
-  private baseUrl = 'http://localhost:4200/tasks'; // Base API URL
+  private baseUrl = 'http://localhost:4200/tasks'; // Relative path
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Get tasks by email
-  getTasks(email: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/get`, { email });
+  // ✅ Get tasks by email (updated to match Postman working request)
+  getTasks(email: string): Observable<Task[]> {
+    const params = new HttpParams().set('email', email);
+    return this.http.get<Task[]>(`${this.baseUrl}/get`, { params }).pipe(
+      tap((response) => console.log('API Response:', response)),
+      catchError(this.handleError)
+    );
   }
 
   // ✅ Create a task

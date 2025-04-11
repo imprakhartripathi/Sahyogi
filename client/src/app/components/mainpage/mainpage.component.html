@@ -1,6 +1,272 @@
-<div class="parent">
-  <p>MainPage Works!</p>
-  <h1>Radhika Do This</h1>
+<nav>
+  <div class="nav__header">
+    <div class="nav__logo">
+      <a routerLink="/" class="logo">Sahyogi</a>
+    </div>
+    <!-- <div class="nav__menu__btn" (click)="toggleMenu()">
+      <i [class]="isMenuOpen ? 'ri-close-line' : 'ri-menu-line'"></i>
+    </div> -->
+  </div>
+  <ul class="nav__links" [class.open]="isMenuOpen" (click)="closeMenu()">
+    <li><a fragment="home" routerLink="/support">Support</a></li>
+    <!-- <li><a fragment="features" routerLink=".">Features</a></li> -->
+    <!-- <li><a fragment="tasks" routerLink=".">Tasks</a></li> -->
+    <!-- <li><a fragment="projects" routerLink=".">Projects</a></li> -->
+    <li><button class="btn" routerLink="/auth">Sign Up</button></li>
+  </ul>
+</nav>
 
-  <button mat-stroked-button routerLink="/auth">Go To Auth</button>
-</div>
+<header class="section__container header__container" id="home">
+  <!-- <img src="assets/task1.png" alt="header" />
+  <img src="assets/task2.png" alt="header" />
+  <img src="assets/task3.png" alt="header" />
+  <img src="assets/task4.png" alt="header" /> -->
+  
+  <h1>Organize, Track &<br />Complete Your <span>Tasks & Projects</span></h1>
+  <p>
+    Your productivity starts here. Manage your tasks and projects efficiently, and achieve your goals faster.
+  </p>
+  <div class="header__btns">
+    <button class="btn" routerLink="/auth">Get Started</button>
+    <!-- <a href="#">
+      <span><i class="ri-play-fill"></i></span>
+      How It Works?
+    </a> -->
+  </div>
+</header>
+
+<section class="steps" id="features">
+  <div class="section__container steps__container">
+    <h2 class="section__header">
+      Manage Tasks in 4 <span>Quick Easy Steps</span>
+    </h2>
+    <p class="section__description">
+      Follow our simple, step-by-step guide to efficiently manage your tasks and boost your productivity.
+    </p>
+    <div class="steps__grid">
+      <div class="steps__card">
+        <span><i class="ri-task-line"></i></span>
+        <h4>Create Tasks</h4>
+        <p>
+          Easily create tasks with due dates, priorities, and descriptions to keep everything organized.
+        </p>
+      </div>
+      <div class="steps__card">
+        <span><i class="ri-team-line"></i></span>
+        <h4>Task & Project Management </h4>
+        <p>
+          Create, assign, and track tasks and projects in real time.
+        </p>
+      </div>
+      <div class="steps__card">
+        <span><i class="ri-calendar-check-line"></i></span>
+        <h4>Track Progress</h4>
+        <p>
+          Monitor the progress of your tasks and projects with intuitive dashboards.
+        </p>
+      </div>
+      <div class="steps__card">
+        <span><i class="ri-checkbox-circle-line"></i></span>
+        <h4>Complete Tasks</h4>
+        <p>
+          Mark tasks as completed and celebrate your achievements with your team.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section__container explore__container" id="tasks">
+  <h2 class="section__header">
+  What We Offer With <span>Sahyogi</span>
+  </h2>
+  <p class="section__description">
+    Categorize your tasks to stay organized and focused on what matters most.
+  </p>
+  <div class="explore__grid">
+    <div class="explore__card">
+      <span><i class="ri-briefcase-line"></i></span>
+      <h4>Work</h4>
+      <p>200+ tasks</p>
+    </div>
+    <div class="explore__card">
+      <span><i class="ri-home-line"></i></span>
+      <h4>Personal</h4>
+      <p>150+ tasks</p>
+    </div>
+    <div class="explore__card">
+      <span><i class="ri-shopping-cart-line"></i></span>
+      <h4>Shopping</h4>
+      <p>50+ tasks</p>
+    </div>
+    <div class="explore__card">
+      <span><i class="ri-heart-line"></i></span>
+      <h4>Health</h4>
+      <p>30+ tasks</p>
+    </div>
+    <div class="explore__card">
+      <span><i class="ri-book-line"></i></span>
+      <h4>Education</h4>
+      <p>100+ tasks</p>
+    </div>
+    <div class="explore__card">
+      <span><i class="ri-todo-line"></i></span>
+      <h4>Miscellaneous</h4>
+      <p>75+ tasks</p>
+    </div>
+  </div>
+  <div class="explore__btn">
+    <button class="btn">View All Categories</button>
+  </div>
+</section>
+
+<section class="section__container job__container" id="projects">
+  <h2 class="section__header"><span>Projects</span> You're Managing</h2>
+  <p class="section__description">
+    Stay on top of your projects with detailed task lists and progress tracking.
+  </p>
+
+  <div class="job__grid">
+    <div class="job__card">
+      <div class="job__card__header">
+        <img src="assets/project1.png" alt="project" />
+        <div>
+          <h5>Website Redesign</h5>
+          <h6>Due: 2024-07-15</h6>
+        </div>
+      </div>
+      <h4>Complete UI/UX Design</h4>
+      <p>
+        Redesign the website to improve user experience and modernize the look.
+      </p>
+      <div class="job__card__footer">
+        <span>5 Tasks</span>
+        <span>In Progress</span>
+      </div>
+    </div>
+    <div class="job__card">
+      <div class="job__card__header">
+        <img src="assets/project2.png" alt="project" />
+        <div>
+          <h5>Marketing Campaign</h5>
+          <h6>Due: 2024-06-30</h6>
+        </div>
+      </div>
+      <h4>Launch Social Media Ads</h4>
+      <p>
+        Create and launch social media ads for the new product launch.
+      </p>
+      <div class="job__card__footer">
+        <span>8 Tasks</span>
+        <span>Todo</span>
+      </div>
+    </div>
+    <div class="job__card">
+      <div class="job__card__header">
+        <img src="assets/project3.png" alt="project" />
+        <div>
+          <h5>Product Development</h5>
+          <h6>Due: 2024-08-01</h6>
+        </div>
+      </div>
+      <h4>Develop New Features</h4>
+      <p>
+        Add new features to the product based on customer feedback.
+      </p>
+      <div class="job__card__footer">
+        <span>12 Tasks</span>
+        <span>Done</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="offers-container">
+    <h2>What We Offer</h2>
+    <p class="subtitle">Explore the features and benefits that make TaskMaster the best task management tool.</p>
+    
+    <div class="offers-grid">
+      <!-- Card 1 -->
+      <div class="offer-card">
+        <div class="offer-number">01</div>
+        <h3 class="offer-title">AI Prioritization</h3>
+        <p class="offer-description">Automatically prioritize tasks based on urgency, dependencies, and deadlines.</p>
+      </div>
+      
+      <!-- Card 2 -->
+      <div class="offer-card">
+        <div class="offer-number">02</div>
+        <h3 class="offer-title">Advanced Analytics & Insights</h3>
+        <p class="offer-description">AI-powered insights to track productivity, predict task completion, and prevent burnout.</p>
+      </div>
+      
+      <!-- Card 3 -->
+      <div class="offer-card">
+        <div class="offer-number">03</div>
+        <h3 class="offer-title">Progress Tracking</h3>
+        <p class="offer-description">Track the progress of your tasks and projects with ease.</p>
+      </div>
+    </div>
+  </div>
+
+<section class="testimonials-section">
+  <div class="container">
+    <h2>What Our Users Say</h2>
+    <p class="subtitle">Hear from our satisfied users about how TaskMaster has transformed their productivity.</p>
+    
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <div class="quote-icon">"</div>
+        <p class="testimonial-text">{{testimonial.quote}}</p>
+        <div class="client-info">
+          <img *ngIf="testimonial.avatar" [src]="testimonial.avatar" alt="{{testimonial.name}}" class="avatar">
+          <div class="client-details">
+            <h4 class="client-name">{{testimonial.name}}</h4>
+            <p class="client-role">{{testimonial.role}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="section__container footer__container">
+    <div class="footer__col">
+      <div class="footer__logo">
+        <a href="#" class="logo">Sahyogi</a>
+      </div>
+      <p>
+        Sahyogi is designed to help you manage your tasks efficiently and achieve your goals faster.
+      </p>
+    </div>
+    <div class="footer__col">
+      <h4>Follow Us</h4>
+      <ul class="footer__links">
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Youtube</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h4>Contact Us</h4>
+      <ul class="footer__links">
+        <li>
+          <a href="#">
+            <span><i class="ri-phone-fill"></i></span> +91 9435xxxxxx
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span><i class="ri-map-pin-2-fill"></i></span> 123 Main Street, City, Delhi
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bar">
+    Copyright © 2024 Sahyogi. All rights reserved.
+  </div>
+</footer>

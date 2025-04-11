@@ -1,0 +1,85 @@
+<div class="parent">
+  <h2 mat-dialog-title>Task Details</h2>
+  <form class="task-form" [formGroup]="taskForm">
+    <div class="form-columns">
+      <div class="left-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Task Title</mat-label>
+          <input matInput formControlName="taskTitle" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="taskDesc"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="right-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Complexity</mat-label>
+          <input matInput type="number" formControlName="taskComplexityPoint" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Completion Status</mat-label>
+          <mat-select formControlName="taskCompletionState">
+            <mat-option [value]="100">To Do</mat-option>
+            <mat-option [value]="200">In Progress</mat-option>
+            <mat-option [value]="300">Done</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Deadline</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dateDeadline"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div mat-dialog-actions align="end">
+          <button
+            mat-icon-button
+            matTooltip="Close"
+            class="btn"
+            (click)="closeDialog()"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Edit Task"
+            class="btn"
+            *ngIf="!isEditing"
+            (click)="enableEditing()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            class="btn"
+            mat-icon-button
+            matTooltip="Save Edited Task"
+            *ngIf="isEditing && hasChanges"
+            (click)="saveChanges()"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+          <button
+            class="btn-warn"
+            matTooltip="Delete Task"
+            mat-icon-button
+            (click)="deleteTask()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

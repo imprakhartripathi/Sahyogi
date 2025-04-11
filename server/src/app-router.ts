@@ -22,6 +22,7 @@ import editProjectTaskController from "./controllers/editProjectTask";
 import deleteProjectTaskController from "./controllers/deleteProjectTask";
 import editUserController from "./controllers/editUser";
 import deleteUserController from "./controllers/deleteUser";
+import handleSupportMail from "./controllers/supportMailClient";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -31,6 +32,9 @@ router.get("/getcurusr", getCurrentUserController);
 router.post("/getuserinfo", userInfoController);
 router.patch("/user/edit", editUserController);
 router.delete("/user/delete", deleteUserController);
+
+// Mail Clients
+router.get('/mail/support', handleSupportMail);
 
 // AI Route
 router.get("/ai/call", genAIController);
