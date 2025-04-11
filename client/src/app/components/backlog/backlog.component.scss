@@ -11,8 +11,7 @@ $mat-red: #ff5252;
   display: flex;
   gap: 2rem;
   padding: 1rem;
- max-height: 80vh;
-  // background: $bg-dark;
+  max-height: 80vh;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -47,22 +46,21 @@ $mat-red: #ff5252;
     background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
     color: $text-light;
     padding: 16px;
-    border-radius: 12px 12px 0 0;
+    border-radius: 20px 20px 0 0;
     
     mat-card-title {
       font-weight: 500;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
   }
 
   mat-expantion-panel{
     margin: 10px;
-
   }
 }
 
 .filter-section {
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;  // Reduced from 1.5rem
   display: flex;
   justify-content: center;
   padding: 0.5rem;
@@ -71,7 +69,7 @@ $mat-red: #ff5252;
 
   mat-radio-group {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;  // Reduced from 1.5rem
     
     mat-radio-button {
       color: $text-light;
@@ -81,12 +79,13 @@ $mat-red: #ff5252;
 
 .legend {
   display: flex;
+  bottom:10px;
   justify-content: center;
-  gap: 2rem;
-  margin-top: 1rem;
-  padding: 0.75rem;
+  gap: 1rem;  // Reduced from 2rem
+  margin-top: 0.5rem;  // Reduced from 1rem
+  padding: 0.5rem;  // Reduced from 0.75rem
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  border-radius: 80px;
 
   &-item {
     display: flex;
@@ -98,7 +97,7 @@ $mat-red: #ff5252;
   &-color {
     width: 14px;
     height: 14px;
-    border-radius: 50%;
+    border-radius: 60%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
     &.created {
@@ -203,7 +202,7 @@ mat-expansion-panel {
   .legend {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;  // Reduced from 1rem
     justify-content: center;
   }
 }
