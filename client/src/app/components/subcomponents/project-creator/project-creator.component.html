@@ -1,1 +1,96 @@
-<p>project-creator works!</p>
+<div class="parent">
+  <h2 mat-dialog-title>Create a Project</h2>
+  <form class="project-form" (ngSubmit)="onSubmit()">
+    <div class="form-columns">
+      <div class="left-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Project Title</mat-label>
+          <input
+            matInput
+            placeholder="Enter project title"
+            [(ngModel)]="project.projectTitle"
+            name="projectTitle"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            required
+            placeholder="Enter project description"
+            [(ngModel)]="project.projectDesc"
+            name="projectDesc"
+            rows="5"
+          ></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="right-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Complexity Points</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Enter complexity points"
+            [(ngModel)]="project.projectComplexityPoint"
+            name="projectComplexityPoint"
+            min="1"
+            max="100"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Completion State</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="project.projectCompletionState"
+            name="projectCompletionState"
+          >
+            <mat-option
+              *ngFor="let state of projectStates"
+              [value]="state"
+            >
+              {{ state }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Deadline</mat-label>
+          <input
+            matInput
+            required
+            [matDatepicker]="picker"
+            [(ngModel)]="project.projectDeadline"
+            name="projectDeadline"
+          />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-button (click)="onCancel()" type="button">Cancel</button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="
+              !(
+                project.projectTitle &&
+                project.projectDesc &&
+                project.projectComplexityPoint &&
+                project.projectCompletionState &&
+                project.projectDeadline
+              )
+            "
+          >
+            Create Project
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

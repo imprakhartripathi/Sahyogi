@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectManagerService } from '../../services/project-manager.service/project-manager.service';
+import { Project, ProjectManagerService } from '../../services/project-manager.service/project-manager.service';
 import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,11 @@ import {
   ProjectTaskState,
   ProjectTask,
 } from '../../services/project-task-manager.service/project-task-manager.service';
+
+import { ProjectCompletionState } from '../../services/project-manager.service/project-manager.service';
+import { ProjectTaskCreatorComponent } from '../subcomponents/project-task-creator/project-task-creator.component';
+import { ProjectTaskDetailsComponent } from '../subcomponents/project-task-details/project-task-details.component';
+import { ProjectEditorComponent } from '../subcomponents/project-editor/project-editor.component';
 
 @Component({
   selector: 'app-project-details',
@@ -150,7 +155,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   openTaskDetails(task: ProjectTask): void {
-    const dialogRef = this.dialog.open(TaskDetailsComponent, {
+    const dialogRef = this.dialog.open(ProjectTaskDetailsComponent, {
       width: '500px',
       panelClass: 'task-creator-dialog',
       maxWidth: 'none',
@@ -173,11 +178,76 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
+  createProjectTask() {
+    const dialogRef = this.dialog.open(ProjectTaskCreatorComponent, {
+      width: '500px',
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
+      data: { email: this.user.email, projectId: this.project._id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        window.location.reload(); // ✅ Use global window object directly
+      }
+    });
+  }
+
+  openProjectDetails(project: Project): void {
+    const dialogRef = this.dialog.open(ProjectEditorComponent, {
+      width: '600px',
+      data: {
+        project: project,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'updated') {
+        // Optionally refetch or update the UI
+        window.location.reload(); // ✅ Use global window object directly
+      }
+    });
+  }
+
   getStatusText(status: number): string {
     return ['To Do', 'In Progress', 'Done'][status] ?? 'Unknown';
   }
 
   getStatusClass(status: number): string {
     return ['todo', 'in-progress', 'done'][status] ?? '';
+  }
+
+  getStatusTextForProject(status: ProjectCompletionState): string {
+    switch (status) {
+      case ProjectCompletionState.YetToPickUp:
+        return 'Yet To Pick Up';
+      case ProjectCompletionState.PikedUp:
+        return 'Picked Up';
+      case ProjectCompletionState.InImplementation:
+        return 'In Implementation Phase';
+      case ProjectCompletionState.InTesting:
+        return 'In Testing Phase';
+      case ProjectCompletionState.Finished:
+        return 'Finished';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  getStatusClassForProject(status: ProjectCompletionState): string {
+    switch (status) {
+      case ProjectCompletionState.YetToPickUp:
+        return 'yet-to-pick-up';
+      case ProjectCompletionState.PikedUp:
+        return 'picked-up';
+      case ProjectCompletionState.InImplementation:
+        return 'in-implementation';
+      case ProjectCompletionState.InTesting:
+        return 'in-testing';
+      case ProjectCompletionState.Finished:
+        return 'finished';
+      default:
+        return '';
+    }
   }
 }

@@ -1,0 +1,70 @@
+<div class="parent">
+  <h2>Create Project Task</h2>
+
+  <form [formGroup]="taskForm" (ngSubmit)="createTask()" class="task-form">
+    <div class="form-columns">
+      <!-- Left column -->
+      <div class="left-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="taskTitle" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="taskDesc" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Right column -->
+      <div class="right-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Complexity Point</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="taskComplexityPoint"
+            min="1"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="taskCompletionState">
+            <mat-option *ngFor="let state of taskStates" [value]="state.value">
+              {{ state.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Deadline</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dateDeadline"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="actions">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="isSubmitting"
+          >
+            {{ isSubmitting ? "Creating..." : "Create Task" }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <p *ngIf="successMessage" class="text-green-600">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="text-red-600">{{ errorMessage }}</p>
+  </form>
+</div>

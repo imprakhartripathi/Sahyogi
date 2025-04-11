@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-support',
@@ -19,7 +20,7 @@ export class SupportComponent {
     message: false,
   };
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private fb: FormBuilder, public location: Location) {
     this.supportForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
