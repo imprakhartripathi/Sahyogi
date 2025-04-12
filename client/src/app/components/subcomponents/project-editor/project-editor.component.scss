@@ -15,6 +15,7 @@ h2 {
 }
 
 .form-columns {
+  margin-top: 10px;
   display: flex;
   gap: 24px;
 }
@@ -41,6 +42,6 @@ h2 {
 }
 
 mat-form-field textarea {
-  min-height: 200px;
-  resize: vertical;
+  min-height: 315px;
+  // resize: vertical;
 }

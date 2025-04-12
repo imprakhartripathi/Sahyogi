@@ -16,7 +16,7 @@
         <!-- Description -->
         <mat-card-content>
           <div class="description">
-            {{ project.projectDesc }}
+            {{ project.projectDesc | truncate: 150 }}
           </div>
 
           <mat-divider class="divider"></mat-divider>

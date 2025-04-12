@@ -15,6 +15,7 @@ import { ProjectCompletionState } from '../../services/project-manager.service/p
 import { ProjectTaskCreatorComponent } from '../subcomponents/project-task-creator/project-task-creator.component';
 import { ProjectTaskDetailsComponent } from '../subcomponents/project-task-details/project-task-details.component';
 import { ProjectEditorComponent } from '../subcomponents/project-editor/project-editor.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-project-details',
@@ -42,7 +43,8 @@ export class ProjectDetailsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private getCurrentUser: GetCurrentUserService
+    private getCurrentUser: GetCurrentUserService,
+    public Location: Location
   ) {}
 
   ngOnInit(): void {
@@ -159,7 +161,7 @@ export class ProjectDetailsComponent implements OnInit {
       width: '500px',
       panelClass: 'task-creator-dialog',
       maxWidth: 'none',
-      data: { task, projectId: this.project._id },
+      data: { email: this.user.email, projectId: this.project._id, task: task },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -174,6 +176,7 @@ export class ProjectDetailsComponent implements OnInit {
           );
         }
         this.calculateTaskMetrics(this.projectTasks);
+        window.location.reload(); // ✅ Use global window object directly
       }
     });
   }
@@ -196,25 +199,43 @@ export class ProjectDetailsComponent implements OnInit {
   openProjectDetails(project: Project): void {
     const dialogRef = this.dialog.open(ProjectEditorComponent, {
       width: '600px',
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
       data: {
+        email: this.user.email,
         project: project,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'updated') {
-        // Optionally refetch or update the UI
-        window.location.reload(); // ✅ Use global window object directly
-      }
+      window.location.reload(); // ✅ Use global window object directly
     });
   }
 
-  getStatusText(status: number): string {
-    return ['To Do', 'In Progress', 'Done'][status] ?? 'Unknown';
+  getStatusText(status: ProjectTaskState): string {
+    switch (status) {
+      case ProjectTaskState.ToDo:
+        return 'To Do';
+      case ProjectTaskState.InProgress:
+        return 'In Progress';
+      case ProjectTaskState.Done:
+        return 'Done';
+      default:
+        return 'Unknown';
+    }
   }
 
-  getStatusClass(status: number): string {
-    return ['todo', 'in-progress', 'done'][status] ?? '';
+  getStatusClass(status: ProjectTaskState): string {
+    switch (status) {
+      case ProjectTaskState.ToDo:
+        return 'todo';
+      case ProjectTaskState.InProgress:
+        return 'in-progress';
+      case ProjectTaskState.Done:
+        return 'done';
+      default:
+        return '';
+    }
   }
 
   getStatusTextForProject(status: ProjectCompletionState): string {

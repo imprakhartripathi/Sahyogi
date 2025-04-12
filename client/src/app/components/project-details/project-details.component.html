@@ -2,6 +2,13 @@
   <div class="parent" *ngIf="user">
     <mat-card class="analytics-card">
       <div class="head">
+        <button
+          mat-icon-button
+          (click)="this.Location.back()"
+          matTooltip="Go Back"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
         <h2>Your Project Details & Analytics</h2>
         <button
           mat-icon-button
@@ -28,7 +35,7 @@
             <!-- Description -->
             <mat-card-content>
               <div class="description">
-                {{ project.projectDesc | truncate: 450 }}
+                <p>{{ project.projectDesc | truncate : 450 }}</p>
               </div>
 
               <mat-divider class="divider"></mat-divider>
@@ -69,8 +76,6 @@
           </div>
         </mat-card>
       </div>
-
-      
     </mat-card>
     <mat-card class="recent-tasks">
       <div class="head">
@@ -85,6 +90,13 @@
       </div>
       <div class="header-analytics">
         <div class="analytics-item">
+          <h1>
+            {{ totalTasksCreated - (tasksInProgress + totalTasksCompleted) }}
+          </h1>
+          <p>Tasks To Do</p>
+        </div>
+
+        <div class="analytics-item">
           <h1>{{ tasksInProgress }}</h1>
           <p>Tasks In Progress</p>
         </div>
@@ -92,11 +104,6 @@
         <div class="analytics-item">
           <h1>{{ totalTasksCompleted }}</h1>
           <p>Tasks Completed</p>
-        </div>
-
-        <div class="analytics-item">
-          <h1>{{ totalTasksCreated - (tasksInProgress + totalTasksCompleted )}}</h1>
-          <p>Tasks To Do</p>
         </div>
       </div>
       <div class="tasks">
