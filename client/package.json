@@ -1,12 +1,13 @@
 {
-  "name": "client",
-  "version": "0.0.0",
+  "name": "sahyogi",
+  "version": "1.5.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "ngrok": "ngrok http --url=solid-factually-donkey.ngrok-free.app 5000",
     "serve:ssr:client": "node dist/client/server/server.mjs"
   },
   "private": true,
