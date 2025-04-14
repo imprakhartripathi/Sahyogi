@@ -52,7 +52,7 @@ const createTaskController = async (req: Request, res: Response): Promise<void> 
     await createNotification(
       email,
       "New Task Assigned",
-      `Task "${taskTitle}" has been added to your list.`,
+      `Task ${taskTitle} has been added to your list.`,
       NotificationType.Task
     );
 
