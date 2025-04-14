@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User, { IUser } from "../models/Users";
 import { SECRET_KEY } from "./jsonWebToken-Config";
+import { createEmailNotification } from "./notifyByEmail";
+import { NotificationType } from "../models/Notifications";
 
 const signupController = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -25,6 +27,27 @@ const signupController = async (req: Request, res: Response, next: NextFunction)
 
     // Generate a JWT token
     const token = jwt.sign({ email }, SECRET_KEY);
+
+     // Get current login timestamp
+        const signupTime = new Date().toLocaleString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          weekday: "short",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        });
+    
+        // Send email notification
+        await createEmailNotification(
+          email,
+          `Welcome To Sahyogi ❤️`,
+          `You just Signed Up on a device on **${signupTime}**. Thank You for choosing Sahyogi, Welcome by Team Sahyogi`,
+          NotificationType.System
+        );
 
     res.status(201).json({ token });
   } catch (error) {
