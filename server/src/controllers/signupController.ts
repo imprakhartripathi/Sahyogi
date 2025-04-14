@@ -45,7 +45,7 @@ const signupController = async (req: Request, res: Response, next: NextFunction)
         await createEmailNotification(
           email,
           `Welcome To Sahyogi ❤️`,
-          `You just Signed Up on a device on **${signupTime}**. Thank You for choosing Sahyogi, Welcome by Team Sahyogi`,
+          `You just Signed Up on a device on **${signupTime}**. Thank You for choosing Sahyogi.`,
           NotificationType.System
         );
 
