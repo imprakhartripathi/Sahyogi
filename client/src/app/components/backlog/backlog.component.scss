@@ -21,7 +21,7 @@ $mat-red: #ff5252;
 .calendar-card,
 .preview-card {
   flex: 1;
-  height: auto;
+  height: 79vh;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -57,6 +57,11 @@ $mat-red: #ff5252;
   mat-expantion-panel{
     margin: 10px;
   }
+}
+
+.box {
+  margin-top: 15px;
+  margin: 10px;
 }
 
 .filter-section {
