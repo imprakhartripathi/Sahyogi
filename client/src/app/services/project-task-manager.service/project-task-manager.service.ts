@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../../enviroments/enviroment';
 
 export enum ProjectTaskState {
   ToDo = 100,
@@ -40,7 +41,7 @@ export interface CreateProjectTaskData {
   providedIn: 'root',
 })
 export class ProjectTaskManagerService {
-  private baseUrl = 'http://localhost:4200/projects/tasks';
+  private baseUrl = `${environment.backendUrl}/projects/tasks`;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {}

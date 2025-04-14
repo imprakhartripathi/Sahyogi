@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { environment } from '../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-support',
@@ -43,7 +44,7 @@ export class SupportComponent {
         .set('message', message);
 
       this.http
-        .get('http://localhost:4200/mail/support', { params })
+        .get(`${environment.backendUrl}/mail/support`, { params })
         .subscribe({
           next: () => {
             alert('Support message sent!');

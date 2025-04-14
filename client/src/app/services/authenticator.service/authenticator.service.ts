@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { GetCurrentUserService } from '../get-current-user.service/get-current-user.service';
+import { environment } from '../../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root', // Provide the service at the root level
@@ -52,12 +53,12 @@ export class AuthenticatorService {
 
   // Login method
   login(email: string, password: string) {
-    return this.http.post('http://localhost:4200/login', { email, password });
+    return this.http.post(`${environment.backendUrl}/login`, { email, password });
   }
 
   // Signup method
   signup(fullName: string, email: string, password: string) {
-    return this.http.post('http://localhost:4200/signup', {
+    return this.http.post(`${environment.backendUrl}/signup`, {
       fullName,
       email,
       password,

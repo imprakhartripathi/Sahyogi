@@ -8,6 +8,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Task } from '../task-manager.service/task-manager.service';
+import { environment } from '../../../enviroments/enviroment';
 
 export enum ProjectCompletionState {
   YetToPickUp = 'Yet To Pick Up',
@@ -46,7 +47,7 @@ export interface CreateProjectData {
   providedIn: 'root',
 })
 export class ProjectManagerService {
-  private baseUrl = 'http://localhost:4200/projects'; // Match your backend path
+  private baseUrl = `${environment.backendUrl}/projects`; // Match your backend path
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {}
