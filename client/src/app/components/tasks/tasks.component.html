@@ -10,11 +10,21 @@
         <!-- Current Task (In Progress) -->
         <div class="task-section" cdkDropList>
           <h1>Current Task</h1>
-          <mat-card *ngFor="let task of inProgressTasks" cdkDrag style="margin-bottom: 10px;">
+          <mat-card
+            *ngFor="let task of inProgressTasks"
+            cdkDrag
+            style="margin-bottom: 10px"
+          >
             <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title>{{ task.taskTitle }}</mat-panel-title>
-                <mat-panel-description>{{ task.taskDesc }}</mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
             </mat-expansion-panel>
           </mat-card>
@@ -26,8 +36,14 @@
           <mat-card *ngFor="let task of doneTasks" cdkDrag>
             <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title>{{ task.taskTitle }}</mat-panel-title>
-                <mat-panel-description>{{ task.taskDesc }}</mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
             </mat-expansion-panel>
           </mat-card>
@@ -39,8 +55,14 @@
           <mat-card *ngFor="let task of todoTasks" cdkDrag>
             <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title>{{ task.taskTitle }}</mat-panel-title>
-                <mat-panel-description>{{ task.taskDesc }}</mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
             </mat-expansion-panel>
           </mat-card>
