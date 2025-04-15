@@ -1,5 +1,8 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { environment } from '../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-support',
@@ -8,14 +11,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./support.component.scss'],
 })
 export class SupportComponent {
-  supportForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', Validators.pattern(/^\d{10}$/)), // Optional validation
-    message: new FormControl('', Validators.required),
-  });
+  supportForm: FormGroup;
+  inProgress: boolean = false;
 
-  // Object to track focus state for each input field
   focusState: { [key in 'name' | 'email' | 'phone' | 'message']: boolean } = {
     name: false,
     email: false,
@@ -23,17 +21,53 @@ export class SupportComponent {
     message: false,
   };
 
+  constructor(private http: HttpClient, private fb: FormBuilder, public location: Location) {
+    this.supportForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      message: ['', Validators.required],
+    });
+  }
+
   onSubmit() {
+    console.log('Submit triggered'); // Debug check
+
     if (this.supportForm.valid) {
-      console.log('Form Submitted:', this.supportForm.value);
-      alert('Form submitted successfully!');
-      this.supportForm.reset();
+      this.inProgress = true;
+      const { name, email, phone, message } = this.supportForm.value;
+
+      const params = new HttpParams()
+        .set('name', name)
+        .set('email', email)
+        .set('phone', phone)
+        .set('message', message);
+
+      this.http
+        .get(`${environment.backendUrl}/mail/support`, { params })
+        .subscribe({
+          next: () => {
+            alert('Support message sent!');
+            this.supportForm.reset();
+            this.focusState = {
+              name: false,
+              email: false,
+              phone: false,
+              message: false,
+            };
+            this.inProgress = false;
+          },
+          error: () => {
+            alert('Failed to send support message.');
+            this.inProgress = false;
+          },
+        });
     } else {
-      alert('Please fill out the form correctly.');
+      alert('Please fill out all required fields correctly.');
+      this.supportForm.markAllAsTouched(); // Show validation errors if form is invalid
     }
   }
 
-  // Fix: Explicitly type 'field' using keyof focusState
   onFocus(field: keyof typeof this.focusState) {
     this.focusState[field] = true;
   }

@@ -4,7 +4,7 @@ import path from "path";
 import cors from "cors";
 import bodyParser from "body-parser";
 import router from "./app-router";
-import { clientPort, serverPort } from "./serversettings";
+import { localClientPort, ngrokPort, serverPort } from "./serversettings";
 import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
@@ -20,7 +20,7 @@ if (!mongoDBurl) {
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: [clientPort] }));
+app.use(cors({ credentials: true, origin: [localClientPort, ngrokPort] }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));

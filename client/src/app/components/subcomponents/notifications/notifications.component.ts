@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
   standalone: false,
-  
   templateUrl: './notifications.component.html',
-  styleUrl: './notifications.component.scss'
+  styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent {
-
 }

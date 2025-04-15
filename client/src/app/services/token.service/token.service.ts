@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TokenService {
-  private apiUrl = 'http://localhost:4200/getcurusr'; // Adjust as needed
+  private apiUrl = `${environment.backendUrl}/getcurusr`; // Adjust as needed
 
   constructor(private http: HttpClient) {}
 

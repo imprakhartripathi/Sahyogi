@@ -25,7 +25,6 @@ $mat-blue-light: #3768bb;
   box-sizing: border-box;
 }
 
-
 .project-card {
   width: 100%;
   padding: 20px;
@@ -35,6 +34,7 @@ $mat-blue-light: #3768bb;
   flex-direction: column;
   justify-content: space-between;
   min-height: 50%;
+  cursor: pointer;
 
   @media (prefers-color-scheme: light) {
     background: rgb(240, 240, 240);
@@ -77,13 +77,15 @@ $mat-blue-light: #3768bb;
   }
 }
 
-
-
 .description {
-  margin-top: 12px;
+  margin-top: 20px;
   margin-bottom: 12px;
   font-size: 14px;
   color: #838383;
+  white-space: normal; // ✅ allow wrapping
+  word-wrap: break-word; // ✅ break long words
+  overflow-wrap: break-word; // ✅ ensure no horizontal scroll
+  max-width: 100%; // ✅ prevent overflow beyond container
 
   @media (prefers-color-scheme: light) {
     color: $primary-dark;

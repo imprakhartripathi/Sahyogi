@@ -1,0 +1,47 @@
+.parent {
+  padding: 24px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+h2 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-columns {
+  margin-top: 10px;
+  display: flex;
+  gap: 24px;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: auto;
+}
+
+mat-form-field textarea {
+  min-height: 315px;
+  // resize: vertical;
+}

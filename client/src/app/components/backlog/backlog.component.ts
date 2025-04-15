@@ -1,131 +1,134 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  status: 'todo' | 'in-progress' | 'done';
-  createdDate: Date;
-  deadline: Date;
-  priority: 'low' | 'medium' | 'high';
-}
+import { GetCurrentUserService } from '../../services/get-current-user.service/get-current-user.service';
+import { UserService } from '../../services/user.service/user.service';
+import { Router } from '@angular/router';
+import {
+  Task,
+  TaskManagerService,
+} from '../../services/task-manager.service/task-manager.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-backlog',
   standalone: false,
   templateUrl: './backlog.component.html',
   styleUrls: ['./backlog.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
-export class BacklogComponent {
+export class BacklogComponent implements OnInit {
   selectedDate: Date | null = null;
   selectedFilter: 'created' | 'deadline' = 'created';
-  tasks: Task[] = [
-    {
-      id: 1,
-      title: 'Implement authentication',
-      description: 'Create login and registration pages with JWT support',
-      status: 'done',
-      createdDate: new Date(2025, 3, 15),
-      deadline: new Date(2025, 6, 1),
-      priority: 'high'
-    },
-    {
-      id: 2,
-      title: 'Design dashboard UI',
-      description: 'Create mockups for the main dashboard interface',
-      status: 'in-progress',
-      createdDate: new Date(2025, 5, 20),
-      deadline: new Date(2025, 6, 10),
-      priority: 'medium'
-    },
-    {
-      id: 3,
-      title: 'Database schema',
-      description: 'Design the initial database schema for the application',
-      status: 'todo',
-      createdDate: new Date(2025, 5, 10),
-      deadline: new Date(2025, 5, 30),
-      priority: 'high'
-    },
-    {
-      id: 4,
-      title: 'API documentation',
-      description: 'Write Swagger documentation for all endpoints',
-      status: 'todo',
-      createdDate: new Date(2025, 5, 25),
-      deadline: new Date(2025, 6, 15),
-      priority: 'low'
-    }
-    // ... rest of your tasks array remains the same
-  ];
+  tasks: Task[] = [];
+  user: any;
+  userData: any;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(
+    private datePipe: DatePipe,
+    private getCurrentUser: GetCurrentUserService,
+    private userService: UserService,
+    private router: Router,
+    private taskService: TaskManagerService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
-  // Update this method to accept Date | null
+  ngOnInit(): void {
+    this.initializeDashboard();
+  }
+
+  initializeDashboard(): void {
+    this.getCurrentUser.getCurrentUser().subscribe({
+      next: (data) => {
+        this.user = data;
+        this.fetchUser(data.email);
+        this.fetchTasks(data.email);
+      },
+      error: () => {
+        this.snackBar.open('Failed to load user data', 'Close', {
+          duration: 3000,
+        });
+      },
+    });
+  }
+
+  fetchUser(email: string): void {
+    this.userService.getUserByEmail(email).subscribe({
+      next: (data) => (this.userData = data),
+      error: () => {
+        this.snackBar.open('Failed to load user details', 'Close', {
+          duration: 3000,
+        });
+      },
+    });
+  }
+
+  fetchTasks(email: string): void {
+    this.taskService.getTasks(email).subscribe({
+      next: (data) => (this.tasks = data),
+      error: () => {
+        this.snackBar.open('Failed to load tasks', 'Close', { duration: 3000 });
+      },
+    });
+  }
+
   onDateSelected(date: Date | null): void {
     this.selectedDate = date;
   }
 
-  // Update this method to handle null dates
   dateClass = (date: Date): string[] => {
-    if (!this.tasks.length) return [];
-    
-    const dateStr = this.datePipe.transform(date, 'yyyy-MM-dd') || '';
-    
-    const hasCreatedTask = this.tasks.some(task => 
-      this.datePipe.transform(task.createdDate, 'yyyy-MM-dd') === dateStr
+    const dateStr = this.datePipe.transform(date, 'yyyy-MM-dd');
+    const hasCreated = this.tasks.some(
+      (task) =>
+        this.datePipe.transform(task.createdAt, 'yyyy-MM-dd') === dateStr
     );
-    
-    const hasDeadlineTask = this.tasks.some(task => 
-      this.datePipe.transform(task.deadline, 'yyyy-MM-dd') === dateStr
+    const hasDeadline = this.tasks.some(
+      (task) =>
+        this.datePipe.transform(task.dateDeadline, 'yyyy-MM-dd') === dateStr
     );
 
-    if (hasCreatedTask && hasDeadlineTask) {
-      return ['both-dates'];
-    } else if (hasCreatedTask) {
-      return ['created-date'];
-    } else if (hasDeadlineTask) {
-      return ['deadline-date'];
-    }
-
+    if (hasCreated && hasDeadline) return ['both-dates'];
+    if (hasCreated) return ['created-date'];
+    if (hasDeadline) return ['deadline-date'];
     return [];
   };
 
-  // Update this getter to handle null selectedDate
   get filteredTasks(): Task[] {
-    if (!this.selectedDate) {
-      console.log('No date selected');
-      return [];
-    }
-    
-    const filtered = this.tasks.filter(task => {
-      const dateStr = this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
-      if (this.selectedFilter === 'created') {
-        return this.datePipe.transform(task.createdDate, 'yyyy-MM-dd') === dateStr;
-      } else {
-        return this.datePipe.transform(task.deadline, 'yyyy-MM-dd') === dateStr;
-      }
+    if (!this.selectedDate) return [];
+
+    const selectedDateStr = this.datePipe.transform(
+      this.selectedDate,
+      'yyyy-MM-dd'
+    );
+    return this.tasks.filter((task) => {
+      const dateToCheck =
+        this.selectedFilter === 'created' ? task.createdAt : task.dateDeadline;
+      return (
+        this.datePipe.transform(dateToCheck, 'yyyy-MM-dd') === selectedDateStr
+      );
     });
-    
-    console.log('Filtered tasks:', filtered);
-    return filtered;
   }
-  // ... rest of your methods remain the same
+
   getPriorityColor(priority: string): string {
     switch (priority) {
-      case 'high': return 'warn';
-      case 'medium': return 'accent';
-      default: return 'primary';
+      case 'high':
+        return 'warn';
+      case 'medium':
+        return 'accent';
+      default:
+        return 'primary';
     }
   }
 
   getStatusIcon(status: string): string {
     switch (status) {
-      case 'done': return 'check_circle';
-      case 'in-progress': return 'hourglass_empty';
-      default: return 'radio_button_unchecked';
+      case 'done':
+        return 'check_circle';
+      case 'in-progress':
+        return 'hourglass_empty';
+      default:
+        return 'radio_button_unchecked';
     }
   }
 }

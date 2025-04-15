@@ -1,0 +1,381 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent {
+  position: relative;
+  top: 90px;
+  width: auto;
+  height: auto;
+  overflow: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 2%;
+
+  mat-card {
+    width: 50%;
+    height: 79vh;
+    padding: 20px;
+    @media (prefers-color-scheme: light) {
+      background: rgb(230, 230, 230);
+    }
+  }
+}
+
+.analytics-card {
+  display: flex;
+  flex-direction: column;
+  .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.details {
+  .project-card {
+    width: 100%;
+    height: auto;
+    max-height: 63vh;
+    padding: 20px;
+    border: 1px solid $border-dark;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (prefers-color-scheme: light) {
+      background: rgb(240, 240, 240);
+    }
+  }
+
+  .header-row {
+    position: relative; /* Required for absolute positioning */
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    min-width: 0; /* Prevents overflow issues */
+
+    .title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1; /* Takes all available space */
+      min-width: 0; /* Allows text truncation */
+      padding-right: 16px; /* Prevents text from overlapping badge */
+    }
+
+    .completion-badge {
+      position: absolute;
+      right: 0; /* Locks to right edge */
+      top: 50%; /* Vertically centers */
+      transform: translateY(-50%); /* Fine-tunes vertical centering */
+
+      /* mat-stroked-button style */
+      white-space: nowrap;
+      padding: 0 12px;
+      border: 1px solid currentColor;
+      border-radius: 16px;
+      line-height: 32px;
+      font-size: 14px;
+      font-weight: 500;
+      background: transparent;
+    }
+  }
+
+  .description {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #838383;
+    white-space: normal; // ✅ allow wrapping
+    word-wrap: break-word; // ✅ break long words
+    overflow-wrap: break-word; // ✅ ensure no horizontal scroll
+    max-width: 100%; // ✅ prevent overflow beyond container
+
+    @media (prefers-color-scheme: light) {
+      color: $primary-dark;
+    }
+  }
+
+  .analytics-card {
+    display: flex;
+    flex-direction: column;
+    h2 {
+      text-align: center;
+    }
+  }
+
+  .header-analytics {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .analytics-item {
+      flex: 1;
+      text-align: center;
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .velocity {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: normal;
+  }
+
+  .task-analytics {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: center;
+
+    .progress-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .spinner-wrapper {
+        position: relative;
+        width: 100px;
+        height: 100px;
+
+        mat-progress-spinner {
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        .spinner-text {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 16px;
+          font-weight: normal;
+        }
+      }
+
+      p {
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dates {
+    display: flex;
+    justify-content: center;
+    gap: 40px; // spacing between the two blocks
+    margin-top: 16px;
+
+    .date-block {
+      text-align: center;
+      min-width: 100px; // prevents cutoff
+      max-width: 150px; // optional for responsiveness
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      .date {
+        font-size: 16px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .label {
+        font-size: 14px;
+        color: gray;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+.header-analytics {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-bottom: 20px;
+
+  .analytics-item {
+    flex: 1;
+    text-align: center;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
+.velocity {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+.task-analytics {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+
+  .progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .spinner-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+
+      mat-progress-spinner {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .spinner-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+  }
+}
+
+.recent-tasks {
+  display: flex;
+  flex-direction: column;
+
+  .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+  }
+
+  .tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: calc(100% - 40px); // Adjust based on your header height
+    overflow-y: auto;
+  }
+
+  .task-card {
+    padding: 15px;
+    border-radius: 8px;
+    min-height: 110px; // Changed from height to min-height
+    background: #a3b9ee62;
+    display: flex;
+    flex-direction: column;
+    position: relative; // Added for footer positioning
+    cursor: pointer;
+    @media (prefers-color-scheme: light) {
+      background: #3767bb65;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .task-status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+
+        &.todo {
+          background: #ffeb3b;
+          color: #000;
+        }
+
+        &.in-progress {
+          background: #2196f3;
+          color: #fff;
+        }
+
+        &.done {
+          background: #4caf50;
+          color: #fff;
+        }
+      }
+    }
+
+    .task-desc {
+      margin: 0 0 10px 0;
+      flex-grow: 1; // Allows description to take available space
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2; // Limit to 2 lines
+      -webkit-box-orient: vertical;
+    }
+
+    .task-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: auto; // Pushes footer to bottom
+      padding-top: 10px; // Add some spacing
+    }
+  }
+
+  .no-tasks {
+    text-align: center;
+    padding: 20px;
+  }
+}

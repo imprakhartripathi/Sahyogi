@@ -22,6 +22,8 @@ import editProjectTaskController from "./controllers/editProjectTask";
 import deleteProjectTaskController from "./controllers/deleteProjectTask";
 import editUserController from "./controllers/editUser";
 import deleteUserController from "./controllers/deleteUser";
+import handleSupportMail from "./controllers/supportMailClient";
+import { getNotificationsByEmail, updateNotificationReadState } from "./controllers/notificationsController";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -31,6 +33,9 @@ router.get("/getcurusr", getCurrentUserController);
 router.post("/getuserinfo", userInfoController);
 router.patch("/user/edit", editUserController);
 router.delete("/user/delete", deleteUserController);
+
+// Mail Clients
+router.get('/mail/support', handleSupportMail);
 
 // AI Route
 router.get("/ai/call", genAIController);
@@ -52,6 +57,10 @@ router.get("/projects/tasks/get", getProjectTasksController);
 router.post("/projects/tasks/create", createProjectTaskController);
 router.patch("/projects/tasks/edit", editProjectTaskController);
 router.delete("/projects/tasks/delete", deleteProjectTaskController);
+
+// Notifications
+router.get("/user/notifications/get", getNotificationsByEmail);
+router.put("/user/notifications/read", updateNotificationReadState)
 
 
 export default router;

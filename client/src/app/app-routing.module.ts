@@ -10,6 +10,8 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { BacklogComponent } from './components/backlog/backlog.component';
 import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { title } from 'process';
 
 
 const routes: Routes = [
@@ -18,6 +20,7 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent, data: { title: 'Sahyogi - Task Management' }, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent, data: { title: 'Sahyogi - Project Management' }, canActivate: [AuthGuard] },
   { path: 'backlog', component: BacklogComponent, data: { title: 'Sahyogi - Backlog' }, canActivate: [AuthGuard] },
+  { path: 'project/:_id', component: ProjectDetailsComponent, data: { title: 'Sahyogi - Project Details' }, canActivate: [AuthGuard] },
 
   // Un-Guarded Paths
   { path: 'badrequest', component: BrokenRouteComponent, data: { title: 'Error - Page Not Found' } },

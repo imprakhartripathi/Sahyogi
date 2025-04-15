@@ -1,96 +1,112 @@
 <div class="container">
-    <div class="big-circle"></div>
-    <div class="form">
-      <div class="contact-info">
-        <h3 class="title">Let's get in touch</h3>
-        <p class="text">
-          Hello There, Welcome to Sahyogi Support! <br>
-          We are really sorry if you are facing any issues with our app, you can tell us about any bugs or faults that you might heve noticed here. <br>
-          We are here to help you!
-        </p>
-  
-        <div class="info">
-          <div class="information">
-            <!-- <mat-icon>place</mat-icon> -->
-            <p>GLA University, Mathura</p>
-          </div>
-          <div class="information">
-            <!-- <mat-icon>info</mat-icon> -->
-            <p>support&#64;sahyogi.com</p>
-          </div>
-          <div class="information">
-            <!-- <mat-icon>call</mat-icon> -->
-            <p>1234-567-890</p>
-          </div>
+  <div class="big-circle"></div>
+  <div class="form">
+    <div class="contact-info">
+      <h3 class="title">Let's get in touch</h3>
+      <p class="text">
+        Hello There, Welcome to Sahyogi Support! <br />
+        We are really sorry if you are facing any issues with our app, you can
+        tell us about any bugs or faults that you might have noticed here.
+        <br />
+        We are here to help you!
+      </p>
+
+      <div class="info">
+        <div class="information">
+          <p>Mathura, India</p>
         </div>
-  
-        <div class="social-media">
-          <p>Connect with Us</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
+        <div class="information">
+          <p>mailclient.sahyogi&#64;gmail.com</p>
         </div>
       </div>
-  
-      <div class="contact-form">
-        <div class="circle one"></div>
-        <div class="circle two"></div>
-  
-        <form (ngSubmit)="onSubmit()" [formGroup]="supportForm" autocomplete="off">
-            <h3 class="title">Contact Us</h3>
-          
-            <div class="input-container" [ngClass]="{'focus': focusState.name}">
-              <input
-                type="text"
-                formControlName="name"
-                class="input"
-                (focus)="onFocus('name')"
-                (blur)="onBlur('name')"
-              />
-              <label>Name</label>
-              <span>Name</span>
-            </div>
-          
-            <div class="input-container" [ngClass]="{'focus': focusState.email}">
-              <input
-                type="email"
-                formControlName="email"
-                class="input"
-                (focus)="onFocus('email')"
-                (blur)="onBlur('email')"
-              />
-              <label>Email</label>
-              <span>Email</span>
-            </div>
-          
-            <div class="input-container" [ngClass]="{'focus': focusState.phone}">
-              <input
-                type="tel"
-                formControlName="phone"
-                class="input"
-                (focus)="onFocus('phone')"
-                (blur)="onBlur('phone')"
-              />
-              <label>Phone</label>
-              <span>Phone</span>
-            </div>
-          
-            <div class="input-container textarea" [ngClass]="{'focus': focusState.message}">
-              <textarea
-                formControlName="message"
-                class="input"
-                (focus)="onFocus('message')"
-                (blur)="onBlur('message')"
-              ></textarea>
-              <label>Message</label>
-              <span>Message</span>
-            </div>
-          
-            <input type="submit" value="Send" class="btn" [disabled]="supportForm.invalid" />
-          </form>
-      </div>
+
+      <!-- <div class="social-media">
+        <p>Connect with Us</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div> -->
+      <button (click)="this.location.back()" class="btn-back">Go Back</button>
+    </div>
+
+    <div class="contact-form">
+      <div class="circle one"></div>
+      <div class="circle two"></div>
+
+      <!-- ✅ Only ONE form tag here -->
+      <form
+        (ngSubmit)="onSubmit()"
+        [formGroup]="supportForm"
+        autocomplete="off"
+      >
+        <h3 class="title">Contact Us</h3>
+
+        <!-- Name -->
+        <div class="input-container" [ngClass]="{ focus: focusState.name }">
+          <input
+            type="text"
+            formControlName="name"
+            class="input"
+            (focus)="onFocus('name')"
+            (blur)="onBlur('name')"
+          />
+          <label>Name</label>
+          <span>Name</span>
+        </div>
+
+        <!-- Email -->
+        <div class="input-container" [ngClass]="{ focus: focusState.email }">
+          <input
+            type="email"
+            formControlName="email"
+            class="input"
+            (focus)="onFocus('email')"
+            (blur)="onBlur('email')"
+          />
+          <label>Email</label>
+          <span>Email</span>
+          <div
+            *ngIf="supportForm.get('email')?.invalid && supportForm.get('email')?.touched"
+            class="error"
+          >
+            Please enter a valid email.
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="input-container" [ngClass]="{ focus: focusState.phone }">
+          <input
+            type="tel"
+            formControlName="phone"
+            class="input"
+            (focus)="onFocus('phone')"
+            (blur)="onBlur('phone')"
+          />
+          <label>Phone</label>
+          <span>Phone</span>
+        </div>
+
+        <!-- Message -->
+        <div
+          class="input-container textarea"
+          [ngClass]="{ focus: focusState.message }"
+        >
+          <textarea
+            formControlName="message"
+            class="input"
+            (focus)="onFocus('message')"
+            (blur)="onBlur('message')"
+          ></textarea>
+          <label>Message</label>
+          <span>Message</span>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn" [disabled]="supportForm.invalid">Submit</button>
+      </form>
     </div>
   </div>
+</div>

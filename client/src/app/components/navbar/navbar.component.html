@@ -58,11 +58,11 @@
           </li>
         </ul>
       </nav>
-      <div class="vertical-spacer"></div>
+      <!-- <div class="vertical-spacer"></div> -->
       <button
         mat-icon-button
-        class="toggle-btn"
-        matTooltip="Collapse Sidebar"
+        class="toggle-btn-sidebar"
+        matTooltip="Undock Sidebar"
         (click)="toggleSidebar()"
       >
         <mat-icon>chevron_left</mat-icon>
@@ -132,7 +132,7 @@
       </div>
     </div>
     <div class="open-btn" *ngIf="isCollapsed">
-      <button class="toggle-btn" matTooltip="Open Sidebar" mat-icon-button (click)="toggleSidebar()"><mat-icon>chevron_right</mat-icon></button>
+      <button class="toggle-btn" matTooltip="Dock Sidebar" mat-icon-button (click)="toggleSidebar()"><mat-icon>chevron_right</mat-icon></button>
     </div>
     <div class="content">
       <ng-content></ng-content>

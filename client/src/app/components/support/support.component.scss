@@ -147,6 +147,26 @@ textarea.input {
   color: #fff;
 }
 
+
+.btn-back {
+  padding: 0.6rem 1.3rem;
+  background-color:#1a70bc;
+  border: 2px solid #fafafa;
+  font-size: 0.95rem;
+  line-height: 1;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0;
+  outline: none;
+}
+
+.btn-back:hover {
+  background-color: #2d93eb;
+}
+
 .contact-info {
   padding: 2.3rem 2.2rem;
   position: relative;
@@ -163,6 +183,7 @@ textarea.input {
 
 .information {
   display: flex;
+  flex-direction: row;
   color: #555;
   margin: 0.7rem 0;
   font-size: 0.95rem;

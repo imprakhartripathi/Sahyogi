@@ -137,20 +137,25 @@ $mat-blue-light: #3768bb;
 
   .toggle-btn {
     color: $primary-dark; // Adjust to fit your theme
-    :hover{
+    transition: 0.3s;
+
+    align-self: flex-end;
+    margin: 10px;
+    transition: 0.3s;
+
+    &:hover {
       scale: 1.5;
       transition: 0.3s;
     }
   }
 }
 
-
 mat-sidenav {
   position: fixed;
   width: 250px;
   top: 98px;
   height: calc(100vh - 98px);
-  
+
   border-right: 2px solid $primary-dark;
 
   @media (prefers-color-scheme: dark) {
@@ -162,11 +167,10 @@ mat-sidenav {
     background-color: $bg-light-blue;
     // transition: 0.6s;
   }
-
 }
 
-mat-sidenav-content{
-   @media (prefers-color-scheme: dark) {
+mat-sidenav-content {
+  @media (prefers-color-scheme: dark) {
     background-color: #13203a;
     // transition: 0.6s;
   }
@@ -180,19 +184,20 @@ mat-sidenav-content{
   padding: 10px;
   display: flex;
   flex-direction: column;
-  
 }
 .vertical-spacer {
   content: "";
   height: 42vh;
 }
 
-.toggle-btn {
-  align-self: flex-end;
+.toggle-btn-sidebar {
+  position: fixed; // Ensures it stays on top and in place
+  bottom: 15px; // 25px above the bottom of the screen
+  left: 180px;
   margin: 10px;
   transition: 0.3s;
 
-  &:hover{
+  &:hover {
     scale: 1.5;
     transition: 0.3s;
   }

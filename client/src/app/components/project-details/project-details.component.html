@@ -1,0 +1,138 @@
+<app-navbar>
+  <div class="parent" *ngIf="user">
+    <mat-card class="analytics-card">
+      <div class="head">
+        <button
+          mat-icon-button
+          (click)="this.Location.back()"
+          matTooltip="Go Back"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2>Your Project Details & Analytics</h2>
+        <button
+          mat-icon-button
+          (click)="openProjectDetails(project)"
+          matTooltip="Edit Project Details"
+        >
+          <mat-icon>create</mat-icon>
+        </button>
+      </div>
+
+      <div class="details">
+        <mat-card class="project-card">
+          <div class="box">
+            <!-- Header: Title & State -->
+            <mat-card-header>
+              <div class="header-row">
+                <span class="title">{{ project.projectTitle }}</span>
+                <span class="completion-badge">
+                  {{ project.projectCompletionState }}
+                </span>
+              </div>
+            </mat-card-header>
+
+            <!-- Description -->
+            <mat-card-content>
+              <div class="description">
+                <p>{{ project.projectDesc | truncate : 450 }}</p>
+              </div>
+
+              <mat-divider class="divider"></mat-divider>
+
+              <!-- Metrics -->
+              <div class="analytics-card">
+                <div class="header-analytics">
+                  <div class="analytics-item">
+                    <h1>{{ project.projectComplexityPoint }}</h1>
+                    <p>Project Complexity</p>
+                  </div>
+
+                  <div class="analytics-item">
+                    <h1>{{ project.projectTasks.length }}</h1>
+                    <p>Tasks Created</p>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+
+            <!-- Footer -->
+            <mat-card-actions>
+              <div class="dates">
+                <div class="date-block">
+                  <div class="date">
+                    {{ project.createdAt | date : "d MMM, y" }}
+                  </div>
+                  <div class="label">Created At</div>
+                </div>
+                <div class="date-block">
+                  <div class="date">
+                    {{ project.projectDeadline | date : "d MMM, y" }}
+                  </div>
+                  <div class="label">Deadline</div>
+                </div>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+    </mat-card>
+    <mat-card class="recent-tasks">
+      <div class="head">
+        <h2>Your Project's Tasks</h2>
+        <button
+          mat-icon-button
+          (click)="createProjectTask()"
+          matTooltip="Create Task"
+        >
+          <mat-icon>add_box</mat-icon>
+        </button>
+      </div>
+      <div class="header-analytics">
+        <div class="analytics-item">
+          <h1>
+            {{ totalTasksCreated - (tasksInProgress + totalTasksCompleted) }}
+          </h1>
+          <p>Tasks To Do</p>
+        </div>
+
+        <div class="analytics-item">
+          <h1>{{ tasksInProgress }}</h1>
+          <p>Tasks In Progress</p>
+        </div>
+
+        <div class="analytics-item">
+          <h1>{{ totalTasksCompleted }}</h1>
+          <p>Tasks Completed</p>
+        </div>
+      </div>
+      <div class="tasks">
+        <div class="task-card" *ngFor="let task of projectTasks">
+          <div class="box" (click)="openTaskDetails(task)">
+            <div class="task-header">
+              <h3>{{ task.taskTitle }}</h3>
+              <span
+                class="task-status"
+                [ngClass]="getStatusClass(task.taskCompletionState)"
+              >
+                {{ getStatusText(task.taskCompletionState) }}
+              </span>
+            </div>
+            <p class="task-desc">{{ task.taskDesc }}</p>
+            <div class="task-footer">
+              <span class="task-complexity">
+                Complexity: {{ task.taskComplexityPoint }}
+              </span>
+              <span class="task-date">
+                {{ task.createdAt | date : "mediumDate" }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="no-tasks" *ngIf="projectTasks.length === 0">
+          No recent tasks found
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</app-navbar>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '../../../enviroments/enviroment';
 
 export enum TaskState {
   ToDo = 100,
@@ -35,7 +36,7 @@ export interface CreateTaskData {
   providedIn: 'root',
 })
 export class TaskManagerService {
-  private baseUrl = 'http://localhost:4200/tasks'; // Relative path
+  private baseUrl = `${environment.backendUrl}/tasks`; // Relative path
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient) {}

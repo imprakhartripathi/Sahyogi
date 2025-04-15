@@ -59,6 +59,11 @@ import { TaskDetailsComponent } from './components/subcomponents/task-details/ta
 import { CreatorButtonOverlayComponent } from './components/subcomponents/creator-button-overlay/creator-button-overlay.component';
 import { TaskCreatorComponent } from './components/subcomponents/task-creator/task-creator.component';
 import { ProjectCreatorComponent } from './components/subcomponents/project-creator/project-creator.component';
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { ProjectTaskCreatorComponent } from './components/subcomponents/project-task-creator/project-task-creator.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { ProjectTaskDetailsComponent } from './components/subcomponents/project-task-details/project-task-details.component';
+import { ProjectEditorComponent } from './components/subcomponents/project-editor/project-editor.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +85,12 @@ import { ProjectCreatorComponent } from './components/subcomponents/project-crea
     TaskDetailsComponent,
     CreatorButtonOverlayComponent,
     TaskCreatorComponent,
-    ProjectCreatorComponent
+    ProjectCreatorComponent,
+    ProjectDetailsComponent,
+    ProjectTaskCreatorComponent,
+    TruncatePipe,
+    ProjectTaskDetailsComponent,
+    ProjectEditorComponent
   ],
   imports: [
     BrowserModule,

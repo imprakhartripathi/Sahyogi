@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import User from "../models/Users";
 import { ITask, Task } from "../models/Task";
+import { createNotification } from "./notificationsController";
+import { createEmailNotification } from "./notifyByEmail";
+import { NotificationType } from "../models/Notifications";
 
 const createProjectTaskController = async (
   req: Request,
@@ -70,6 +73,21 @@ const createProjectTaskController = async (
     console.log("New Created Task - ", newTask);
     project.projectTasks.push(newTask); // Add the task to the specific project
     await user.save();
+
+    // 🔔 Create a notification after saving the task
+        await createNotification(
+          email,
+          "New Project Task Created",
+          `Task "${taskTitle}" has been added to your Project ${project.projectTitle}.`,
+          NotificationType.Task
+        );
+    
+        await createEmailNotification(
+          email,
+          `New Project Task Created: ${taskTitle} in Project: ${project.projectTitle}`,
+          `You Created a New Task, "${taskTitle} - ${taskDesc}" with complexity ${taskComplexityPoint}, due on ${dateDeadline}`,
+          NotificationType.ProjectTask // or "info", "update", etc. depending on your NotificationType enum
+        );
 
     res
       .status(201)

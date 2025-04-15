@@ -2,7 +2,8 @@
   <div class="parent">
     <div class="project-grid">
       <mat-card class="project-card" *ngFor="let project of projects">
-        <!-- Header: Title & State -->
+        <div class="box" (click)="goToProject(project)">
+          <!-- Header: Title & State -->
         <mat-card-header>
           <div class="header-row">
             <span class="title">{{ project.projectTitle }}</span>
@@ -15,7 +16,7 @@
         <!-- Description -->
         <mat-card-content>
           <div class="description">
-            {{ project.projectDesc }}
+            {{ project.projectDesc | truncate: 150 }}
           </div>
 
           <mat-divider class="divider"></mat-divider>
@@ -68,6 +69,7 @@
             </div>
           </div>
         </mat-card-actions>
+        </div>
       </mat-card>
     </div>
   </div>

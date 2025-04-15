@@ -1,0 +1,50 @@
+<div class="parent">
+  <h2 mat-dialog-title>Edit Project</h2>
+
+  <form [formGroup]="projectForm" (ngSubmit)="onSave()" class="project-form" mat-dialog-content>
+    <div class="form-columns">
+      <div class="left-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Project Title</mat-label>
+          <input matInput formControlName="projectTitle" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Complexity Points</mat-label>
+          <input matInput type="number" min="1" formControlName="projectComplexityPoint" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Completion State</mat-label>
+          <mat-select formControlName="projectCompletionState" required>
+            <mat-option value="Yet To Pick Up">Yet To Pick Up</mat-option>
+            <mat-option value="Piked Up">Piked Up</mat-option>
+            <mat-option value="In Implementation Phase">In Implementation Phase</mat-option>
+            <mat-option value="In Testing Phase">In Testing Phase</mat-option>
+            <mat-option value="Finished">Finished</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Project Deadline</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="projectDeadline" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="right-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Project Description</mat-label>
+          <textarea matInput formControlName="projectDesc" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="closeDialog()">Cancel</button>
+      <button mat-button color="warn" type="button" (click)="onDelete()">Delete</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="projectForm.invalid">Save</button>
+    </div>
+  </form>
+</div>
