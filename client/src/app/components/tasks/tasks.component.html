@@ -6,49 +6,68 @@
         <button class="filter-task-button">🔍 Filter Task</button>
       </div>
 
-      <div class="task-section-container" >
-        <!-- Added container for horizontal alignment -->
-        <div class="task-section">
+      <div class="task-section-container" cdkDropListGroup>
+        <!-- Current Task (In Progress) -->
+        <div class="task-section" cdkDropList>
           <h1>Current Task</h1>
-          <mat-card>
-            <mat-expansion-panel>
+          <mat-card
+            *ngFor="let task of inProgressTasks"
+            cdkDrag
+            style="margin-bottom: 10px"
+          >
+            <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title> Demo </mat-panel-title>
-                <mat-panel-description>
-                  Just testing
-                </mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
-              </mat-expansion-panel>
+            </mat-expansion-panel>
           </mat-card>
         </div>
-        <div class="task-section">
+
+        <!-- Completed Tasks -->
+        <div class="task-section" cdkDropList>
           <h1>Completed Task</h1>
-          <mat-card>
-            <mat-expansion-panel>
+          <mat-card *ngFor="let task of doneTasks" cdkDrag>
+            <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title> Demo2 </mat-panel-title>
-                <mat-panel-description>
-                  Just testing 2
-                </mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
-              </mat-expansion-panel>
+            </mat-expansion-panel>
           </mat-card>
         </div>
-        <div class="task-section">
+
+        <!-- Backlogs (To Do) -->
+        <div class="task-section" cdkDropList>
           <h1>Backlogs</h1>
-          <mat-card>
-            <mat-expansion-panel>
+          <mat-card *ngFor="let task of todoTasks" cdkDrag>
+            <mat-expansion-panel (click)="openTaskDetails(task)">
               <mat-expansion-panel-header>
-                <mat-panel-title> Demo3 </mat-panel-title>
-                <mat-panel-description>
-                  Just testing 3
-                </mat-panel-description>
+                <div style="display: flex; flex-direction: column">
+                  <mat-panel-title>{{
+                    task.taskTitle | truncate : 20
+                  }}</mat-panel-title>
+                  <mat-panel-description>{{
+                    task.taskDesc | truncate : 30
+                  }}</mat-panel-description>
+                </div>
               </mat-expansion-panel-header>
-              </mat-expansion-panel>
+            </mat-expansion-panel>
           </mat-card>
         </div>
       </div>
-      <!-- Closing task-section-container -->
     </div>
   </div>
 </app-navbar>
