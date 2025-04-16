@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskCreatorComponent } from '../subcomponents/task-creator/task-creator.component';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-tasks',
@@ -24,7 +25,7 @@ export class TasksComponent implements OnInit {
     private taskService: TaskManagerService,
     private getCurrentUser: GetCurrentUserService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -35,8 +36,10 @@ export class TasksComponent implements OnInit {
       },
       error: (error) => {
         console.error('Failed to load user:', error);
-        this.snackBar.open('Failed to load user data', 'Close', { duration: 3000 });
-      }
+        this.snackBar.open('Failed to load user data', 'Close', {
+          duration: 3000,
+        });
+      },
     });
   }
 
@@ -49,44 +52,107 @@ export class TasksComponent implements OnInit {
       error: (err) => {
         console.error('Error loading tasks:', err);
         this.snackBar.open('Failed to load tasks', 'Close', { duration: 3000 });
-      }
+      },
     });
   }
 
   categorizeTasks(): void {
-    this.todoTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.ToDo);
-    this.inProgressTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.InProgress);
-    this.doneTasks = this.tasks.filter(task => task.taskCompletionState === TaskState.Done);
+    this.todoTasks = this.tasks.filter(
+      (task) => task.taskCompletionState === TaskState.ToDo
+    );
+    this.inProgressTasks = this.tasks.filter(
+      (task) => task.taskCompletionState === TaskState.InProgress
+    );
+    this.doneTasks = this.tasks.filter(
+      (task) => task.taskCompletionState === TaskState.Done
+    );
   }
 
-   openTaskDetails(task: Task): void {
-      const dialogRef = this.dialog.open(TaskDetailsComponent, {
-        width: '500px',
-        panelClass: 'task-creator-dialog',
-        maxWidth: 'none',
-        data: { task, email: this.user.email }, // Pass email separately
-      });
-  
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          if (result.deleted) {
-            // Remove the deleted task from the list
-            this.tasks = this.tasks.filter((t) => t._id !== result.taskId);
-          } else {
-            // Update the edited task in the list
-            this.tasks = this.tasks.map((t) =>
-              t._id === result._id ? result : t
-            );
-          }
-          window.location.reload();
+  openTaskDetails(task: Task): void {
+    const dialogRef = this.dialog.open(TaskDetailsComponent, {
+      width: '500px',
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
+      data: { task, email: this.user.email }, // Pass email separately
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        if (result.deleted) {
+          // Remove the deleted task from the list
+          this.tasks = this.tasks.filter((t) => t._id !== result.taskId);
+        } else {
+          // Update the edited task in the list
+          this.tasks = this.tasks.map((t) =>
+            t._id === result._id ? result : t
+          );
         }
-      });
+        window.location.reload();
+      }
+    });
   }
-  
+
   createTask(): void {
-      this.dialog.open(TaskCreatorComponent, {
-        panelClass: 'task-creator-dialog',
-        maxWidth: 'none',
-      });
+    this.dialog.open(TaskCreatorComponent, {
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
+    });
+  }
+
+  onTaskDrop(
+    event: CdkDragDrop<Task[]>,
+    targetState: 'ToDo' | 'InProgress' | 'Done'
+  ): void {
+    if (event.previousContainer === event.container) {
+      return; // Same container, no need to update
     }
+
+    const movedTask = event.previousContainer.data[event.previousIndex];
+
+    // Transfer task in UI
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    // Update task state
+    let newState: TaskState;
+    switch (targetState) {
+      case 'ToDo':
+        newState = TaskState.ToDo;
+        break;
+      case 'InProgress':
+        newState = TaskState.InProgress;
+        break;
+      case 'Done':
+        newState = TaskState.Done;
+        break;
+    }
+
+    // Only update if the state actually changed
+    if (movedTask.taskCompletionState !== newState) {
+      movedTask.taskCompletionState = newState;
+      this.taskService
+        .editTask({
+          email: this.user.email,
+          taskId: movedTask._id!,
+          updates: { taskCompletionState: newState },
+        })
+        .subscribe({
+          next: () => {
+            this.snackBar.open('Task updated successfully', 'Close', {
+              duration: 2000,
+            });
+          },
+          error: (err) => {
+            console.error('Failed to update task:', err);
+            this.snackBar.open('Failed to update task state', 'Close', {
+              duration: 3000,
+            });
+          },
+        });
+    }
+  }
 }
