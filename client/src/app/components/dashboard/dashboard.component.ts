@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
   recentTasks: Task[] = []; // Add this property
 
+  isLoading: boolean = false;
+
   // Task metrics
   totalTasksCreated: number = 0;
   totalTasksCompleted: number = 0;
@@ -49,45 +51,56 @@ export class DashboardComponent implements OnInit {
   }
 
   initializeDashboard() {
+    this.isLoading = true;
     this.getCurrentUser.getCurrentUser().subscribe({
       next: (data) => {
         this.user = data;
         this.fetchUser(this.user.email);
         this.fetchTasks(this.user.email);
+
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching current user:', error);
         this.snackBar.open('Failed to load user data', 'Close', {
           duration: 3000,
         });
+        this.isLoading = false;
       },
     });
   }
 
   fetchUser(email: string) {
+    this.isLoading = true;
     this.userService.getUserByEmail(email).subscribe({
       next: (data) => {
         this.userData = data;
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching user data:', error);
         this.snackBar.open('Failed to load user details', 'Close', {
           duration: 3000,
         });
+        this.isLoading = false;
       },
     });
   }
 
   fetchTasks(email: string) {
+    this.isLoading = true;
     this.taskService.getTasks(email).subscribe({
       next: (tasks) => {
         this.tasks = tasks;
         this.calculateTaskMetrics();
         this.updateRecentTasks();
+
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error fetching tasks:', error);
         this.snackBar.open('Failed to load tasks', 'Close', { duration: 3000 });
+        this.isLoading = false;
       },
     });
   }
@@ -178,7 +191,7 @@ export class DashboardComponent implements OnInit {
 
   updateTask(taskId: string, updates: Partial<Task>) {
     if (!this.user?.email) return;
-
+    this.isLoading = true;
     this.taskService
       .editTask({
         email: this.user.email,
@@ -191,19 +204,21 @@ export class DashboardComponent implements OnInit {
             duration: 3000,
           });
           this.fetchTasks(this.user.email);
+          this.isLoading = false;
         },
         error: (error) => {
           console.error('Error updating task:', error);
           this.snackBar.open('Failed to update task', 'Close', {
             duration: 3000,
           });
+          this.isLoading = false;
         },
       });
   }
 
   deleteTask(taskId: string) {
     if (!this.user?.email) return;
-
+    this.isLoading = true;
     this.taskService
       .deleteTask({
         email: this.user.email,
@@ -215,12 +230,14 @@ export class DashboardComponent implements OnInit {
             duration: 3000,
           });
           this.fetchTasks(this.user.email);
+          this.isLoading = false;
         },
         error: (error) => {
           console.error('Error deleting task:', error);
           this.snackBar.open('Failed to delete task', 'Close', {
             duration: 3000,
           });
+          this.isLoading = false;
         },
       });
   }

@@ -4,6 +4,7 @@ import { GetCurrentUserService } from '../../services/get-current-user.service/g
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TaskCreatorComponent } from '../subcomponents/task-creator/task-creator.component';
 
 @Component({
   selector: 'app-tasks',
@@ -79,6 +80,13 @@ export class TasksComponent implements OnInit {
           }
           window.location.reload();
         }
+      });
+  }
+  
+  createTask(): void {
+      this.dialog.open(TaskCreatorComponent, {
+        panelClass: 'task-creator-dialog',
+        maxWidth: 'none',
       });
     }
 }

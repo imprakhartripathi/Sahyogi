@@ -2,71 +2,45 @@
   <div class="parent">
     <div class="task-container">
       <div class="button-container">
-        <button class="add-task-button">➕ Add Task</button>
-        <button class="filter-task-button">🔍 Filter Task</button>
+        <button mat-raised-button (click)="createTask()" class="add-task-button">Add Task</button>
+        <!-- <button class="filter-task-button">🔍 Filter Task</button> -->
       </div>
 
       <div class="task-section-container" cdkDropListGroup>
-        <!-- Current Task (In Progress) -->
+
+        <!-- To Do -->
         <div class="task-section" cdkDropList>
-          <h1>Current Task</h1>
-          <mat-card
-            *ngFor="let task of inProgressTasks"
-            cdkDrag
-            style="margin-bottom: 10px"
-          >
-            <mat-expansion-panel (click)="openTaskDetails(task)">
-              <mat-expansion-panel-header>
-                <div style="display: flex; flex-direction: column">
-                  <mat-panel-title>{{
-                    task.taskTitle | truncate : 20
-                  }}</mat-panel-title>
-                  <mat-panel-description>{{
-                    task.taskDesc | truncate : 30
-                  }}</mat-panel-description>
-                </div>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
+          <h1>To Do</h1>
+          <mat-card class="task-card" *ngFor="let task of todoTasks" cdkDrag (click)="openTaskDetails(task)">
+            <div class="task-card-content">
+              <div class="task-title">{{ task.taskTitle }}</div>
+              <div class="task-desc">{{ task.taskDesc | truncate : 50 }}</div>
+            </div>
           </mat-card>
         </div>
 
-        <!-- Completed Tasks -->
+        <!-- In Progress -->
         <div class="task-section" cdkDropList>
-          <h1>Completed Task</h1>
-          <mat-card *ngFor="let task of doneTasks" cdkDrag>
-            <mat-expansion-panel (click)="openTaskDetails(task)">
-              <mat-expansion-panel-header>
-                <div style="display: flex; flex-direction: column">
-                  <mat-panel-title>{{
-                    task.taskTitle | truncate : 20
-                  }}</mat-panel-title>
-                  <mat-panel-description>{{
-                    task.taskDesc | truncate : 30
-                  }}</mat-panel-description>
-                </div>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
+          <h1>In Progress</h1>
+          <mat-card class="task-card" *ngFor="let task of inProgressTasks" cdkDrag (click)="openTaskDetails(task)">
+            <div class="task-card-content">
+              <div class="task-title">{{ task.taskTitle }}</div>
+              <div class="task-desc">{{ task.taskDesc | truncate : 50 }}</div>
+            </div>
           </mat-card>
         </div>
 
-        <!-- Backlogs (To Do) -->
+        <!-- Done -->
         <div class="task-section" cdkDropList>
-          <h1>Backlogs</h1>
-          <mat-card *ngFor="let task of todoTasks" cdkDrag>
-            <mat-expansion-panel (click)="openTaskDetails(task)">
-              <mat-expansion-panel-header>
-                <div style="display: flex; flex-direction: column">
-                  <mat-panel-title>{{
-                    task.taskTitle | truncate : 20
-                  }}</mat-panel-title>
-                  <mat-panel-description>{{
-                    task.taskDesc | truncate : 30
-                  }}</mat-panel-description>
-                </div>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
+          <h1>Done</h1>
+          <mat-card class="task-card" *ngFor="let task of doneTasks" cdkDrag (click)="openTaskDetails(task)">
+            <div class="task-card-content">
+              <div class="task-title">{{ task.taskTitle }}</div>
+              <div class="task-desc">{{ task.taskDesc | truncate : 50 }}</div>
+            </div>
           </mat-card>
         </div>
+
       </div>
     </div>
   </div>

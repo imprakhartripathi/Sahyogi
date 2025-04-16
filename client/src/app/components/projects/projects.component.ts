@@ -19,6 +19,8 @@ export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
   error: string | null = null;
 
+  isLoading: boolean = false;
+
   constructor(
     private projectService: ProjectManagerService,
     private getCurrentUser: GetCurrentUserService,
@@ -27,13 +29,16 @@ export class ProjectsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.getCurrentUser.getCurrentUser().subscribe({
       next: (data) => {
         this.user = data;
         if (this.user?.email && typeof this.user.email === 'string') {
           this.fetchProjects(this.user.email);
+          this.isLoading = false;
         } else {
           this.error = 'User email not found';
+          this.isLoading = false;
         }
       },
       error: (error) => {
@@ -41,6 +46,7 @@ export class ProjectsComponent implements OnInit {
         this.snackBar.open('Failed to load user data', 'Close', {
           duration: 3000,
         });
+        this.isLoading = false;
       },
     });
   }
@@ -54,6 +60,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   private fetchProjects(email: string): void {
+    this.isLoading = true;
     this.projectService.getProjects(email).subscribe({
       next: (projects) => {
         this.projects = projects.map((project) => {
@@ -70,12 +77,13 @@ export class ProjectsComponent implements OnInit {
             completionRate: 0, // will be animated later
           };
         });
-
+        this.isLoading = false;
         this.animateProgress();
       },
       error: (err) => {
         console.error('Error fetching projects:', err);
         this.error = 'Failed to load projects';
+        this.isLoading = false;
       },
     });
   }

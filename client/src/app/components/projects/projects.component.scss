@@ -4,6 +4,14 @@ $border-dark: #394153;
 $mat-blue-dark: #a3baee;
 $mat-blue-light: #3768bb;
 
+mat-progress-bar {
+  position: fixed;
+  display: block;
+  width: 110%;
+  top: 98px;
+  margin-left: -40px;
+}
+
 .parent {
   position: relative;
   top: 90px;

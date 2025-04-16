@@ -1,40 +1,41 @@
 <app-navbar>
   <div class="parent">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
     <div class="project-grid">
       <mat-card class="project-card" *ngFor="let project of projects">
         <div class="box" (click)="goToProject(project)">
           <!-- Header: Title & State -->
-        <mat-card-header>
-          <div class="header-row">
-            <span class="title">{{ project.projectTitle }}</span>
-            <span class="completion-badge">
-              {{ project.projectCompletionState }}
-            </span>
-          </div>
-        </mat-card-header>
-
-        <!-- Description -->
-        <mat-card-content>
-          <div class="description">
-            {{ project.projectDesc | truncate: 150 }}
-          </div>
-
-          <mat-divider class="divider"></mat-divider>
-
-          <!-- Metrics -->
-          <div class="analytics-card">
-            <div class="header-analytics">
-              <div class="analytics-item">
-                <h1>{{ project.projectComplexityPoint }}</h1>
-                <p>Project Complexity</p>
-              </div>
-
-              <div class="analytics-item">
-                <h1>{{ project.projectTasks.length }}</h1>
-                <p>Tasks Created</p>
-              </div>
+          <mat-card-header>
+            <div class="header-row">
+              <span class="title">{{ project.projectTitle }}</span>
+              <span class="completion-badge">
+                {{ project.projectCompletionState }}
+              </span>
             </div>
-            <!-- <div class="task-analytics">
+          </mat-card-header>
+
+          <!-- Description -->
+          <mat-card-content>
+            <div class="description">
+              {{ project.projectDesc | truncate : 150 }}
+            </div>
+
+            <mat-divider class="divider"></mat-divider>
+
+            <!-- Metrics -->
+            <div class="analytics-card">
+              <div class="header-analytics">
+                <div class="analytics-item">
+                  <h1>{{ project.projectComplexityPoint }}</h1>
+                  <p>Project Complexity</p>
+                </div>
+
+                <div class="analytics-item">
+                  <h1>{{ project.projectTasks.length }}</h1>
+                  <p>Tasks Created</p>
+                </div>
+              </div>
+              <!-- <div class="task-analytics">
               <div class="progress-container">
                 <div class="spinner-wrapper">
                   <mat-progress-spinner
@@ -49,26 +50,26 @@
                 <p>Task Completion Percentage</p>
               </div>
             </div> -->
-          </div>
-        </mat-card-content>
+            </div>
+          </mat-card-content>
 
-        <!-- Footer -->
-        <mat-card-actions>
-          <div class="dates">
-            <div class="date-block">
-              <div class="date">
-                {{ project.createdAt | date : "d MMM, y" }}
+          <!-- Footer -->
+          <mat-card-actions>
+            <div class="dates">
+              <div class="date-block">
+                <div class="date">
+                  {{ project.createdAt | date : "d MMM, y" }}
+                </div>
+                <div class="label">Created At</div>
               </div>
-              <div class="label">Created At</div>
-            </div>
-            <div class="date-block">
-              <div class="date">
-                {{ project.projectDeadline | date : "d MMM, y" }}
+              <div class="date-block">
+                <div class="date">
+                  {{ project.projectDeadline | date : "d MMM, y" }}
+                </div>
+                <div class="label">Deadline</div>
               </div>
-              <div class="label">Deadline</div>
             </div>
-          </div>
-        </mat-card-actions>
+          </mat-card-actions>
         </div>
       </mat-card>
     </div>

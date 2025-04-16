@@ -1,8 +1,9 @@
 <app-navbar>
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <div class="parent" *ngIf="user">
     <mat-card class="analytics-card">
       <h2>Your Analytics</h2>
-      
+
       <div class="header-analytics">
         <div class="analytics-item">
           <h1>{{ totalTasksCreated }}</h1>
@@ -13,7 +14,7 @@
           <h1>{{ tasksInProgress }}</h1>
           <p>Tasks In Progress</p>
         </div>
-        
+
         <div class="analytics-item">
           <h1>{{ totalTasksCompleted }}</h1>
           <p>Tasks Completed</p>
@@ -32,7 +33,9 @@
               mode="determinate"
               color="primary"
             ></mat-progress-spinner>
-            <div class="spinner-text">{{ taskCompletionPercentage | number:'1.0-0' }}%</div>
+            <div class="spinner-text">
+              {{ taskCompletionPercentage | number : "1.0-0" }}%
+            </div>
           </div>
           <p>Task Completion Percentage</p>
         </div>
@@ -44,7 +47,9 @@
               mode="determinate"
               color="warn"
             ></mat-progress-spinner>
-            <div class="spinner-text">{{ tasksInProgressPercentage | number:'1.0-0' }}%</div>
+            <div class="spinner-text">
+              {{ tasksInProgressPercentage | number : "1.0-0" }}%
+            </div>
           </div>
           <p>Tasks In Progress</p>
         </div>
@@ -56,7 +61,9 @@
               mode="determinate"
               color="accent"
             ></mat-progress-spinner>
-            <div class="spinner-text">{{ tasksNotPickedPercentage | number:'1.0-0' }}%</div>
+            <div class="spinner-text">
+              {{ tasksNotPickedPercentage | number : "1.0-0" }}%
+            </div>
           </div>
           <p>Tasks Not Picked Up Yet</p>
         </div>
@@ -68,20 +75,23 @@
         <div class="task-card" *ngFor="let task of recentTasks">
           <div class="box" (click)="openTaskDetails(task)">
             <div class="task-header">
-            <h3>{{ task.taskTitle }}</h3>
-            <span class="task-status" [ngClass]="getStatusClass(task.taskCompletionState)">
-              {{ getStatusText(task.taskCompletionState) }}
-            </span>
-          </div>
-          <p class="task-desc">{{ task.taskDesc }}</p>
-          <div class="task-footer">
-            <span class="task-complexity">
-              Complexity: {{ task.taskComplexityPoint }}
-            </span>
-            <span class="task-date">
-              {{ task.createdAt | date:'mediumDate' }}
-            </span>
-          </div>
+              <h3>{{ task.taskTitle }}</h3>
+              <span
+                class="task-status"
+                [ngClass]="getStatusClass(task.taskCompletionState)"
+              >
+                {{ getStatusText(task.taskCompletionState) }}
+              </span>
+            </div>
+            <p class="task-desc">{{ task.taskDesc }}</p>
+            <div class="task-footer">
+              <span class="task-complexity">
+                Complexity: {{ task.taskComplexityPoint }}
+              </span>
+              <span class="task-date">
+                {{ task.createdAt | date : "mediumDate" }}
+              </span>
+            </div>
           </div>
         </div>
         <div class="no-tasks" *ngIf="recentTasks.length === 0">

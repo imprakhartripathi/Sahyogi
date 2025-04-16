@@ -4,6 +4,14 @@ $border-dark: #394153;
 $mat-blue-dark: #a3baee;
 $mat-blue-light: #3768bb;
 
+mat-progress-bar {
+  position: fixed;
+  display: block;
+  width: 110%;
+  top: 98px;
+  margin-left: -40px;
+}
+
 .parent {
   position: relative;
   top: 90px;
@@ -76,7 +84,7 @@ $mat-blue-light: #3768bb;
       position: relative;
       width: 100px;
       height: 100px;
-      
+
       mat-progress-spinner {
         width: 100% !important;
         height: 100% !important;
@@ -99,11 +107,10 @@ $mat-blue-light: #3768bb;
   }
 }
 
-
 .recent-tasks {
   display: flex;
   flex-direction: column;
-  
+
   h2 {
     text-align: center;
     margin-bottom: 20px;

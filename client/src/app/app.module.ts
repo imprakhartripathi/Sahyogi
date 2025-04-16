@@ -64,7 +64,7 @@ import { ProjectTaskCreatorComponent } from './components/subcomponents/project-
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ProjectTaskDetailsComponent } from './components/subcomponents/project-task-details/project-task-details.component';
 import { ProjectEditorComponent } from './components/subcomponents/project-editor/project-editor.component';
-
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,6 +138,7 @@ import { ProjectEditorComponent } from './components/subcomponents/project-edito
     CdkMenu,
     CdkMenuItem,
     CdkMenuTrigger,
+    MatProgressBarModule
   ],
   providers: [
     provideClientHydration(withEventReplay()),

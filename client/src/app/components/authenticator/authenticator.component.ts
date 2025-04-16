@@ -20,6 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class AuthenticatorComponent implements OnInit {
   loginForm: FormGroup;
   signupForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -53,10 +54,12 @@ export class AuthenticatorComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token);
+          this.isLoading = false;
           this.snackBar.open(
             `Welcome Back! Logged In Successfully, Session is Active for 30 Days`,
             'Close',
@@ -78,6 +81,7 @@ export class AuthenticatorComponent implements OnInit {
             verticalPosition: 'bottom',
             panelClass: ['error-snackbar'],
           });
+          this.isLoading = false;
         }
       );
     }
@@ -85,10 +89,12 @@ export class AuthenticatorComponent implements OnInit {
 
   onSignUp() {
     if (this.signupForm.valid) {
+      this.isLoading = true;
       const { fullName, email, password } = this.signupForm.value;
       this.authService.signup(fullName, email, password).subscribe(
         (response: any) => {
           localStorage.setItem('token', response.token);
+          this.isLoading = false;
           this.snackBar.open(
             `Welcome to Sahyogi, ${fullName}! Signed Up Successfully, Session is Active for 30 Days`,
             'Close',
@@ -110,6 +116,7 @@ export class AuthenticatorComponent implements OnInit {
             verticalPosition: 'bottom',
             panelClass: ['error-snackbar'],
           });
+          this.isLoading = false;
         }
       );
     }

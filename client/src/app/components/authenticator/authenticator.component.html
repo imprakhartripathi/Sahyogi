@@ -1,6 +1,9 @@
 <div class="parent">
+  <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
   <div class="auth-container">
+    <!-- <mat-progress-bar mode="indeterminate" ></mat-progress-bar> -->
     <div class="logo"></div>
+
     <mat-tab-group dynamicHeight>
       <!-- Login Form -->
       <mat-tab label="Login">
@@ -59,10 +62,11 @@
               mat-raised-button
               color="primary"
               type="submit"
-              [disabled]="loginForm.invalid"
+              [disabled]="loginForm.invalid || isLoading"
             >
-              Login
+              {{ isLoading ? "Processing" : "Log In" }}
             </button>
+
             <div class="extra-btn" style="display: flex; flex-direction: row">
               <button mat-stroked-button color="primary" routerLink="/mainpage">
                 Explore Sahyogi
@@ -183,9 +187,9 @@
               mat-raised-button
               color="primary"
               type="submit"
-              [disabled]="signupForm.invalid"
+              [disabled]="signupForm.invalid || isLoading"
             >
-              Sign Up
+              {{ isLoading ? "Processing" : "Sign Up" }}
             </button>
           </form>
         </div>
