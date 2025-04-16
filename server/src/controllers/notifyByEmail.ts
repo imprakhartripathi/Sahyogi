@@ -47,18 +47,6 @@ export const createEmailNotification = async (
       throw new Error("User not found for email: " + userEmail);
     }
 
-    const newNotification = new Notification({
-      title,
-      desc,
-      type,
-      isRead: false,
-    });
-
-    user.notifications.push(newNotification);
-    await user.save();
-
-    console.log(`Notification created for ${userEmail}: ${title}`);
-
     // Also send email
     await sendNotificationEmail(userEmail, title, desc, type);
     console.log(`Email sent to ${userEmail} for notification.`);

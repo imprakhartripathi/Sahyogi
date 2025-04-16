@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../models/Users";
+import User, { IUser } from "../models/Users"; // Make sure to import IUser interface
 
 const editUserController = async (
   req: Request,
@@ -10,49 +10,62 @@ const editUserController = async (
   try {
     const { email, updates } = req.body as {
       email: string;
-      updates: Partial<{
-        fullName: string;
-        password: string;
-        imageURL: string;
-        contactNumber: number;
-        sex: string;
-        bio: string;
-        orgName: string;
-        orgRole: string;
-      }>;
+      updates: Partial<IUser>;
     };
 
     console.log("Email:", email, "Updates:", updates);
 
-    if (!email || !updates || Object.keys(updates).length === 0) {
-      res.status(400).json({ message: "Email and valid updates are required" });
+    if (!email) {
+      res.status(400).json({ message: "Email is required" });
+      return;
+    }
+
+    if (!updates || Object.keys(updates).length === 0) {
+      res.status(400).json({ message: "Valid updates are required" });
       return;
     }
 
     // Prevent changing restricted fields
-    const restrictedFields = ["email"];
+    const restrictedFields = ["email", "_id", "__v"] as const;
     for (const field of restrictedFields) {
-      if (updates.hasOwnProperty(field)) {
-        res
-          .status(400)
-          .json({ message: `Cannot update restricted field: ${field}` });
+      if (field in updates) {
+        res.status(400).json({ 
+          message: `Cannot update restricted field: ${field}` 
+        });
         return;
       }
     }
 
     const user = await User.findOne({ email });
-
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
 
-    // Apply updates
-    Object.assign(user, updates);
-    await user.save();
+    // Apply updates to only allowed fields
+    const allowedFields: Array<keyof IUser> = [
+      'fullName',
+      'contactNumber',
+      'sex',
+      'bio',
+      'orgName',
+      'orgRole',
+      'imageURL'
+    ];
 
-    console.log("Updated User:", user);
-    res.status(200).json({ message: "User updated successfully", user });
+    for (const field of allowedFields) {
+      if (field in updates && updates[field] !== undefined) {
+        (user as any)[field] = updates[field];
+      }
+    }
+
+    const updatedUser = await user.save();
+
+    console.log("Updated User:", updatedUser);
+    res.status(200).json({ 
+      message: "User updated successfully", 
+      user: updatedUser.toObject() 
+    });
   } catch (error) {
     console.error("Error updating user:", error);
     res.status(500).json({ message: "Internal server error" });

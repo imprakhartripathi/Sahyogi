@@ -1,1 +1,30 @@
-<pre><p>{{userData.notifications | json}}</p></pre>
+<div class="parent">
+    <h2 mat-dialog-title>Notifications</h2>
+  <mat-accordion>
+    <mat-expansion-panel
+      *ngFor="let notif of notifications"
+      (opened)="markAsRead(user.email, notif._id, notif.isRead)"
+      [expanded]="false"
+      [class.read]="notif.isRead"
+    >
+      <mat-expansion-panel-header>
+        <div class="header-content">
+          <div class="left">
+            <span class="title-text">{{ notif.title }}</span>
+          </div>
+          <div class="center">
+            <span class="date-text">{{ notif.createdAt | date: 'MMM d, y, h:mm a' }}</span>
+          </div>
+          <div class="right">
+            <span *ngIf="!notif.isRead" class="unread-dot"></span>
+            <mat-chip color="primary" selected>{{ formatNotificationType(notif.type) }}</mat-chip>
+          </div>
+        </div>
+      </mat-expansion-panel-header>
+
+      <div class="notification-body">
+        <p>{{ notif.desc }}</p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

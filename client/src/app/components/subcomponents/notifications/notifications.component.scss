@@ -1,0 +1,146 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent {
+  padding: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: $bg-light-blue;
+  
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0; /* Remove scrollbar space */
+    height: 0;
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+    color: white;
+  }
+}
+
+mat-expansion-panel {
+  color: white;
+  border-radius: 12px !important;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  min-height: 100px;
+  background-color: lighten($primary-dark, 5%);
+
+  &.read {
+    opacity: 0.6;
+    background-color: lighten($primary-dark, 3%);
+  }
+
+  .mat-expansion-panel-header {
+    align-items: center;
+    height: 100px !important; // force consistent minimum height
+    border-radius: 12px !important;
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 16px;
+
+      .left {
+        flex: 1;
+        .title-text {
+          font-size: 16px;
+          font-weight: 500;
+          color: white;
+        }
+      }
+
+      .center {
+        flex: 1;
+        text-align: center;
+        .date-text {
+          font-size: 14px;
+          color: #bbb;
+        }
+      }
+
+      .right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+
+        .mat-chip {
+          font-weight: bold;
+          width: 150px !important; 
+          text-align: center;
+          justify-content: center;
+          background-color: $mat-blue-light;
+          color: white;
+        }
+
+        .unread-dot {
+          width: 10px;
+          height: 10px;
+          background-color: #42a5f5;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .notification-body {
+    padding: 10px 16px;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+
+    p {
+      margin: 0 0 10px 0;
+      line-height: 1.5;
+    }
+
+    button {
+      background-color: $mat-blue-light;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken($mat-blue-light, 10%);
+      }
+    }
+  }
+}
+
+/* For better expansion panel animation */
+.mat-expansion-panel-content {
+  transition: all 0.3s ease-out;
+}
+
+/* For dark mode consistency */
+@media (prefers-color-scheme: dark) {
+  mat-expansion-panel {
+    background-color: lighten($primary-dark, 5%);
+    
+    &.read {
+      background-color: lighten($primary-dark, 3%);
+    }
+  }
+}

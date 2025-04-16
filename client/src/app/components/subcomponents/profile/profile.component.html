@@ -1,15 +1,147 @@
-<div class="parent" *ngIf="user">
-  <h1>{{ userData.fullName }}</h1>
-  <p>Token Issued At: {{ issuedate }}</p> <!-- Display the formatted date -->
-  <div *ngIf="userData">
-  <h2>User Details</h2>
-  <p>Full Name: {{ userData.fullName }}</p>
-  <p>Email: {{ userData.email }}</p>
-  <!-- Add more user details as needed -->
+<div class="parent">
+  <div class="profile-container" *ngIf="user">
+  <div class="profile-header">
+    <h1>User Profile</h1>
+    <div class="action-buttons">
+      <button mat-icon-button (click)="toggleEditMode()" matTooltip="Edit Profile">
+        <mat-icon>{{ isEditing ? "cancel" : "edit" }}</mat-icon>
+      </button>
+      <button mat-icon-button (click)="logout()" matTooltip="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+      <button mat-icon-button (click)="dialog.closeAll()" matTooltip="Close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
 
-  <!-- <pre>{{userData | json}}</pre> -->
+  <div class="profile-content">
+    <div class="profile-details">
+      <!-- [rest of the profile-details content remains the same] -->
+      <div *ngIf="!isEditing">
+        <h2 class="user-name">{{ userData?.fullName }}</h2>
+        <p class="token-info">Token Issued At: {{ issuedate }}</p>
+
+        <mat-divider></mat-divider>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">person</mat-icon>
+          <span class="detail-label">Full Name:</span>
+          <span class="detail-value">{{ userData?.fullName }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">email</mat-icon>
+          <span class="detail-label">Email:</span>
+          <span class="detail-value">{{ userData?.email }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">phone</mat-icon>
+          <span class="detail-label">Phone:</span>
+          <span class="detail-value">{{ userData?.contactNumber }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">wc</mat-icon>
+          <span class="detail-label">Gender:</span>
+          <span class="detail-value">{{ userData?.sex }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">info</mat-icon>
+          <span class="detail-label">Bio:</span>
+          <span class="detail-value">{{ userData?.bio }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">business</mat-icon>
+          <span class="detail-label">Organization:</span>
+          <span class="detail-value">{{ userData?.orgName }}</span>
+        </div>
+
+        <div class="detail-item">
+          <mat-icon class="detail-icon">work</mat-icon>
+          <span class="detail-label">Role:</span>
+          <span class="detail-value">{{ userData?.orgRole }}</span>
+        </div>
+      </div>
+
+      <form *ngIf="isEditing" [formGroup]="profileForm" class="edit-form">
+        <!-- [rest of the edit form remains the same] -->
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput formControlName="fullName" />
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" [disabled]="true" />
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="contactNumber" />
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="sex">
+            <mat-option value="Male">Male</mat-option>
+            <mat-option value="Female">Female</mat-option>
+            <mat-option value="Other">Other</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>wc</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="image-url-field">
+          <mat-label>Image URL</mat-label>
+          <input matInput formControlName="imageURL" placeholder="https://example.com/image.jpg">
+          <mat-icon matSuffix>link</mat-icon>
+          <mat-hint>Enter a full URL to your profile image</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="bio" rows="3"></textarea>
+          <mat-icon matSuffix>info</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Organization</mat-label>
+          <input matInput formControlName="orgName" />
+          <mat-icon matSuffix>business</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <input matInput formControlName="orgRole" />
+          <mat-icon matSuffix>work</mat-icon>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-stroked-button type="button" (click)="toggleEditMode()">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" (click)="saveProfile()">
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="profile-image-container">
+      <div class="profile-image-wrapper">
+        <img
+          [src]="userData?.imageURL || 'user.png'"
+          alt="Profile Image"
+          class="profile-image"
+        />
+      </div>
+    </div>
+  </div>
 </div>
-
-<button mat-stroked-button (click)="logout()">Logout</button> 
-<button mat-stroked-button (click)="this.dialog.closeAll()">Close</button>
 </div>

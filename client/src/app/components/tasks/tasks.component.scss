@@ -105,7 +105,7 @@ $mat-blue-light: #3768bb;
   position: relative;
   cursor: pointer;
   margin-bottom: 10px;
-  border: 1px solid lighten($bg-light-blue, 10%);
+  // border: 1px solid lighten($bg-light-blue, 10%);
   transition: transform 0.2s ease;
 
   /* Background will now come from .task-card’s dynamic class */

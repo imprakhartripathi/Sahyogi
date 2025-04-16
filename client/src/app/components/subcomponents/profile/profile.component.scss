@@ -1,3 +1,5 @@
+// @import '~@angular/material/theming';
+
 $primary-dark: #13203a;
 $bg-light-blue: #a8d0ef;
 $border-dark: #394153;
@@ -5,17 +7,163 @@ $mat-blue-dark: #a3baee;
 $mat-blue-light: #3768bb;
 
 .parent {
-    padding: 30px;
-    width: auto;
-    height: 100%;
-    background-color: $bg-light-blue;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
 
-    @media (prefers-color-scheme: dark) {
-        background-color: $primary-dark;
+.parent::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 
+.profile-container {
+  padding: 24px;
+//   height: 100%;
+  max-width: 90vw;
+  background-color: $bg-light-blue;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+    color: white;
+  }
+
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h1 {
+      margin: 0;
+      font-size: 28px; // Increased from 24px
+      font-weight: 500;
     }
 
-    button{
-        margin: 5px;
+    .action-buttons {
+      display: flex;
+      gap: 8px;
     }
+  }
+
+  .profile-content {
+    display: flex;
+    gap: 40px; // Increased gap between text and image
+
+    @media (max-width: 600px) {
+      flex-direction: column-reverse; // Changed to column-reverse to keep image at bottom on mobile
+      align-items: center;
+      gap: 24px;
+    }
+  }
+
+  .profile-image-container {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    order: 2; // Moves image to the right side
+
+    .profile-image-wrapper {
+      position: relative;
+      width: 200px; // Increased from 150px
+      height: 200px; // Increased from 150px
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid $mat-blue-light; // Thicker border
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); // Stronger shadow
+      transition: ease 0.3s;
+
+       &:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .image-url-field {
+      width: 100%;
+      max-width: 250px;
+
+      mat-hint {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .profile-details {
+    flex-grow: 1;
+    order: 1; // Ensures text stays on the left
+    font-size: 16px; // Base font size increased
+
+    .user-name {
+      margin: 0 0 12px 0; // Increased bottom margin
+      font-size: 26px; // Increased from 22px
+      font-weight: 500;
+    }
+
+    .token-info {
+      margin: 0 0 20px 0; // Increased bottom margin
+      font-size: 14px; // Increased from 12px
+      color: rgba(0, 0, 0, 0.6);
+
+      @media (prefers-color-scheme: dark) {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    mat-divider {
+      margin: 16px 0; // Increased margin
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px; // Increased from 12px
+      padding: 6px 0; // Increased padding
+      font-size: 16px; // Explicit font size
+
+      .detail-icon {
+        margin-right: 16px; // Increased from 12px
+        font-size: 20px; // Larger icons
+        color: $mat-blue-light;
+      }
+
+      .detail-label {
+        font-weight: 500;
+        margin-right: 12px; // Increased from 8px
+        min-width: 120px; // Increased from 100px
+        font-size: 16px;
+      }
+
+      .detail-value {
+        flex-grow: 1;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Increased from 16px
+
+    mat-form-field {
+      width: 100%;
+      font-size: 16px;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px; // Increased from 12px
+      margin-top: 24px; // Increased from 16px
+    }
+  }
 }
