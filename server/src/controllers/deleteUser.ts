@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
 import User from "../models/Users";
 
 const deleteUserController = async (
@@ -8,21 +9,29 @@ const deleteUserController = async (
   console.log("Request Body:", req.body);
 
   try {
-    const { email } = req.body as { email: string };
+    const { email, password } = req.body as { email: string; password: string };
 
     console.log("Email:", email);
 
-    if (!email) {
-      res.status(400).json({ message: "Email is required" });
+    if (!email || !password) {
+      res.status(400).json({ message: "Email and password are required" });
       return;
     }
 
-    const user = await User.findOneAndDelete({ email });
+    const user = await User.findOne({ email });
 
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      res.status(401).json({ message: "Invalid password" });
+      return;
+    }
+
+    await User.findOneAndDelete({ email });
 
     console.log("Deleted User:", user);
     res.status(200).json({ message: "User deleted successfully" });

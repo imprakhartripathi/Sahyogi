@@ -3,6 +3,12 @@ import { ITask, TaskSchema } from "./Task";
 import { IProject, ProjectSchema } from "./Project";
 import { INotification, NotificationSchema } from "./Notifications";
 
+export enum ColorTheme {
+  System = "system",
+  Dark = "dark",
+  Light = "light",
+}
+
 export interface IUser extends Document {
   fullName: string;
   email: string;
@@ -18,6 +24,10 @@ export interface IUser extends Document {
   notifications: INotification[];
   tasks: ITask[];
   projects: IProject[];
+
+  notificationsOn: boolean;
+  emailNotificationsOn: boolean;
+  userSetTheme: string;
 }
 
 const UserSchema = new Schema<IUser>({
@@ -35,6 +45,10 @@ const UserSchema = new Schema<IUser>({
   bio: { type: String, default: null },
   orgName: { type: String, default: null },
   orgRole: { type: String, default: null },
+
+  notificationsOn: { type: Boolean, default: true },
+  emailNotificationsOn: { type: Boolean, default: true },
+  userSetTheme: { type: String, default: ColorTheme.System },
 });
 
 export default mongoose.model<IUser>("User", UserSchema);

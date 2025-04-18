@@ -47,9 +47,10 @@ export const createEmailNotification = async (
       throw new Error("User not found for email: " + userEmail);
     }
 
-    // Also send email
-    await sendNotificationEmail(userEmail, title, desc, type);
-    console.log(`Email sent to ${userEmail} for notification.`);
+    if (user.emailNotificationsOn) {
+      await sendNotificationEmail(userEmail, title, desc, type);
+      console.log(`Email sent to ${userEmail} for notification.`);
+    }
 
   } catch (error) {
     console.error("Failed to create notification and send email:", error);

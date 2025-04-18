@@ -26,7 +26,7 @@ $mat-red: #ff5252;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  background: $card-dark;
+  // background: $card-dark;
   min-height: 500px;
   border: 1px solid $border-dark;
 
@@ -43,7 +43,7 @@ $mat-red: #ff5252;
 
 .preview-card {
   mat-card-header {
-    background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
+    // background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
     color: $text-light;
     padding: 16px;
     border-radius: 20px 20px 0 0;
@@ -69,7 +69,7 @@ $mat-red: #ff5252;
   display: flex;
   justify-content: center;
   padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  // background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
 
   mat-radio-group {
@@ -84,12 +84,14 @@ $mat-red: #ff5252;
 
 .legend {
   display: flex;
-  bottom:10px;
+  // bottom:10px;
+
+  margin-bottom: 20px;
   justify-content: center;
   gap: 1rem;  // Reduced from 2rem
   margin-top: 0.5rem;  // Reduced from 1rem
   padding: 0.5rem;  // Reduced from 0.75rem
-  background: rgba(255, 255, 255, 0.05);
+  // background: rgba(255, 255, 255, 0.05);
   border-radius: 80px;
 
   &-item {
@@ -119,9 +121,16 @@ $mat-red: #ff5252;
   }
 }
 
+.conditions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
 ::ng-deep {
   .mat-calendar {
-    background: $card-dark;
+    // background: $card-dark;
     color: $text-light;
 
     .mat-calendar-header {
@@ -181,7 +190,7 @@ $mat-red: #ff5252;
 }
 
 mat-expansion-panel {
-  background: $card-dark;
+  // background: $card-dark;
   color: $text-light;
   border: 1px solid $border-dark;
 

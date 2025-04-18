@@ -10,10 +10,10 @@ import { AiPrioritizationComponent } from '../subcomponents/ai-prioritization/ai
 import { NotificationsComponent } from '../subcomponents/notifications/notifications.component';
 import { AuthenticatorService } from '../../services/authenticator.service/authenticator.service';
 import { CreatorButtonOverlayComponent } from '../subcomponents/creator-button-overlay/creator-button-overlay.component';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-navbar',
   standalone: false,
-
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
   user: any;
   userData: any;
   isCollapsed: boolean = false;
+  hideBadge: boolean = true;
 
   constructor(
     private getCurrentUser: GetCurrentUserService,
@@ -38,7 +39,8 @@ export class NavbarComponent implements OnInit {
     public router: Router,
     private http: HttpClient,
     private dialog: MatDialog,
-    private authService: AuthenticatorService
+    private authService: AuthenticatorService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class NavbarComponent implements OnInit {
       (data) => {
         this.userData = data;
         console.log('User Data:', this.userData);
+        this.badgeVisibility();
       },
       (error) => {
         console.error('Error fetching user data:', error);
@@ -106,14 +109,14 @@ export class NavbarComponent implements OnInit {
   openNotificationsDialog(): void {
     if (!this.notificationDialog) {
       this.notificationDialog = this.dialog.open(NotificationsComponent, {
-        // width: '1000px',
-        // height: '90%',
         maxWidth: 'none',
         panelClass: 'custom-dialog-container',
       });
-      this.notificationDialog
-        .afterClosed()
-        .subscribe(() => (this.notificationDialog = null));
+
+      this.notificationDialog.afterClosed().subscribe(() => {
+        this.notificationDialog = null;
+        window.location.reload(); // ✅ Reload happens AFTER dialog closes
+      });
     }
   }
 
@@ -156,5 +159,31 @@ export class NavbarComponent implements OnInit {
 
   isActive(url: string): boolean {
     return this.router.url === url;
+  }
+
+  badgeVisibility(): void {
+    if (
+      this.userData?.notifications &&
+      this.userData.notifications.some((notif: any) => notif.isRead === false)
+    ) {
+      this.hideBadge = false;
+    } else {
+      this.hideBadge = true;
+    }
+  }
+
+  getUnreadNotificationCount(): number {
+    if (!this.userData?.notifications) return 0;
+
+    return this.userData.notifications.filter(
+      (notif: any) => notif.isRead === false
+    ).length;
+  }
+
+  getNotificationTooltip(): string {
+    const count = this.getUnreadNotificationCount();
+    return count > 0
+      ? `${count} unread notification${count > 1 ? 's' : ''}`
+      : 'No notifications';
   }
 }

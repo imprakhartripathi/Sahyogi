@@ -24,6 +24,7 @@ import editUserController from "./controllers/editUser";
 import deleteUserController from "./controllers/deleteUser";
 import handleSupportMail from "./controllers/supportMailClient";
 import { getNotificationsByEmail, updateNotificationReadState } from "./controllers/notificationsController";
+import changePasswordController from "./controllers/changePassword";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -33,6 +34,7 @@ router.get("/getcurusr", getCurrentUserController);
 router.post("/getuserinfo", userInfoController);
 router.patch("/user/edit", editUserController);
 router.delete("/user/delete", deleteUserController);
+router.post("/user/pwchange", changePasswordController);
 
 // Mail Clients
 router.get('/mail/support', handleSupportMail);

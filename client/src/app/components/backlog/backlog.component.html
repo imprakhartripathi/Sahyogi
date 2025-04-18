@@ -19,14 +19,6 @@
           <span *ngIf="selectedFilter === 'created'">(Created)</span>
           <span *ngIf="selectedFilter === 'deadline'">(Deadline)</span>
         </mat-card-title>
-
-        <mat-card-subtitle *ngIf="!selectedDate">
-          Please select a date to view tasks
-        </mat-card-subtitle>
-
-        <mat-card-subtitle *ngIf="selectedDate && filteredTasks.length === 0">
-          No tasks found for selected date
-        </mat-card-subtitle>
       </mat-card-header>
 
       <!-- Filters -->
@@ -52,7 +44,17 @@
           <span>Both</span>
         </div>
       </div>
+      <mat-divider></mat-divider>
 
+      <div class="conditions">
+         <mat-card-subtitle *ngIf="!selectedDate">
+          Please select a date to view tasks
+        </mat-card-subtitle>
+
+        <mat-card-subtitle *ngIf="selectedDate && filteredTasks.length === 0">
+          No tasks found for selected date
+        </mat-card-subtitle>
+      </div>
       <mat-card-content *ngIf="selectedDate">
         <div class="box">
           <mat-accordion>

@@ -110,10 +110,15 @@
         <button
           class="btn"
           mat-icon-button
-          matTooltip="Notifications"
+          [matTooltip]="getNotificationTooltip()"
           (click)="openNotificationsDialog()"
         >
-          <mat-icon>notifications</mat-icon>
+          <mat-icon
+            matBadge="{{ getUnreadNotificationCount() }}"
+            matBadgeSize="small"
+            [matBadgeHidden]="hideBadge"
+            >notifications</mat-icon
+          >
         </button>
         <button
           class="btn"
@@ -132,7 +137,14 @@
       </div>
     </div>
     <div class="open-btn" *ngIf="isCollapsed">
-      <button class="toggle-btn" matTooltip="Dock Sidebar" mat-icon-button (click)="toggleSidebar()"><mat-icon>chevron_right</mat-icon></button>
+      <button
+        class="toggle-btn"
+        matTooltip="Dock Sidebar"
+        mat-icon-button
+        (click)="toggleSidebar()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
     </div>
     <div class="content">
       <ng-content></ng-content>

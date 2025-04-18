@@ -1,0 +1,140 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent {
+  padding: 20px;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: $bg-light-blue;
+  
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0; /* Remove scrollbar space */
+    height: 0;
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+    color: white;
+  }
+}
+
+.settings-section {
+  margin-bottom: 24px;
+  padding: 30px;
+}
+
+.toggle-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.toggle-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+}
+
+
+.accounts-section mat-card-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  gap: 10px;
+}
+
+.toggle-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.toggle-card {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  background: $border-dark;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.toggle-card.active {
+  border-color: $mat-blue-dark;
+  background-color: $primary-dark;
+}
+
+.settings-section {
+  margin-bottom: 2rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.inner-card {
+  display: flex;
+  flex-direction: column;
+ background-color: $bg-light-blue;
+
+border: 1px solid;
+border-color: $mat-blue-dark;
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+  }
+}
+
+.delete-card {
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-light-blue;
+border-color: $mat-blue-dark;
+border: 1px solid;
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+  }
+
+  color: rgb(134, 0, 0);
+
+  .delete-btn {
+    color: rgb(134, 0, 0);
+
+    &:hover {
+        background-color: rgba(134, 0, 0, 0.171);;
+    }
+  }
+
+  mat-form-field {
+    color: rgb(134, 0, 0)!important;
+  }
+}
+
+.warn-text {
+  color: rgb(134, 0, 0);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}

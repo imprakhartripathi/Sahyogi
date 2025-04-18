@@ -50,7 +50,10 @@ const editUserController = async (
       'bio',
       'orgName',
       'orgRole',
-      'imageURL'
+      'imageURL',
+      'notificationsOn',
+      'emailNotificationsOn',
+      'userSetTheme'
     ];
 
     for (const field of allowedFields) {
