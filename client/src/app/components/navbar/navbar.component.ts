@@ -11,6 +11,16 @@ import { NotificationsComponent } from '../subcomponents/notifications/notificat
 import { AuthenticatorService } from '../../services/authenticator.service/authenticator.service';
 import { CreatorButtonOverlayComponent } from '../subcomponents/creator-button-overlay/creator-button-overlay.component';
 import { Location } from '@angular/common';
+import { TaskDetailsComponent } from '../subcomponents/task-details/task-details.component';
+import { Task } from '../../services/task-manager.service/task-manager.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, map, startWith } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { filter } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Project } from '../../services/project-manager.service/project-manager.service';
+
+
 @Component({
   selector: 'app-navbar',
   standalone: false,
@@ -26,12 +36,17 @@ export class NavbarComponent implements OnInit {
   private creatorDialog: MatDialogRef<CreatorButtonOverlayComponent> | null =
     null;
 
-  imgURL: string = 'user.png';
+  imgURL: string = '';
   value: any;
   user: any;
+  tasks: any;
+  projects: any;
   userData: any;
   isCollapsed: boolean = false;
   hideBadge: boolean = true;
+
+  searchControl = new FormControl('');
+  filteredOptions: any[] = [];
 
   constructor(
     private getCurrentUser: GetCurrentUserService,
@@ -43,20 +58,15 @@ export class NavbarComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit() {
-    this.getCurrentUser.getCurrentUser().subscribe(
-      (data) => {
-        this.user = data;
-        console.log(this.user);
-        console.log(this.user.email);
-        this.fetchUser(this.user.email);
-      },
-      (error) => {
-        console.error('Error fetching user:', error);
-      }
-    );
+  ngOnInit(): void {
+    // Fetch user data and extract tasks/projects
+    this.getCurrentUser.getCurrentUser().subscribe((data) => {
+      this.user = data;
+      console.log(this.user);
+      console.log(this.user.email);
+      this.fetchUser(this.user.email);
+    });
   }
-
   toggleSidebar(): void {
     this.isCollapsed = !this.isCollapsed;
   }
@@ -71,12 +81,82 @@ export class NavbarComponent implements OnInit {
         this.userData = data;
         console.log('User Data:', this.userData);
         this.badgeVisibility();
-        this.imgURL = this.userData.imageURL
+        this.imgURL = this.userData.imageURL;
+
+        this.tasks = data.tasks || [];
+        this.projects = data.projects || [];
+
+        console.log('Tasks:', this.tasks);
+        console.log('Projects:', this.projects);
+
+        // Setup filtering logic
+        this.searchControl.valueChanges
+          .pipe(
+            startWith(''),
+            debounceTime(300),
+            filter((value): value is string => value !== null), // <-- this line fixes the type issue
+            map((value: string) => this._filter(value))
+          )
+          .subscribe((filtered) => {
+            this.filteredOptions = filtered;
+          });
       },
       (error) => {
         console.error('Error fetching user data:', error);
       }
     );
+  }
+
+  private _filter(value: string): (Task | Project)[] {
+    const filterValue = value?.toLowerCase() ?? '';
+
+    // Create an array of task results with a 'type' key
+    const taskResults = (this.tasks ?? []).map((task: Task) => ({
+      ...task,
+      name: task.taskTitle, // Ensure we normalize 'title' to 'name'
+      type: 'Task' as const, // Temporarily add 'type' as 'Task'
+    }));
+
+    // Create an array of project results with a 'type' key
+    const projectResults = (this.projects ?? []).map((project: Project) => ({
+      ...project,
+      name: project.projectTitle, // Normalize 'name' to 'name'
+      type: 'Project' as const, // Temporarily add 'type' as 'Project'
+    }));
+
+    // Combine both task and project results
+    const allResults = [...taskResults, ...projectResults];
+
+    // If no filter value is provided, return all results
+    if (!filterValue) {
+      return allResults;
+    }
+
+    // Filter based on the 'name' property (task title or project name)
+    return allResults.filter((item) =>
+      item.name?.toLowerCase().includes(filterValue)
+    );
+  }
+
+  onOptionSelected(selected: Task | Project): void {
+    // Clear the search input field
+    this.searchControl.setValue('');
+
+    // Type guards to check if the selected item is a Task or Project
+    if ((selected as Task).taskTitle) {
+      // It's a Task, open the TaskDetailsComponent
+      this.dialog.open(TaskDetailsComponent, {
+        width: '600px',
+        data: { task: selected, email: this.user.email },
+      });
+    } else if ((selected as Project).projectTitle) {
+      // It's a Project, navigate to the project details page
+      console.log(
+        'Redirecting to the detailed Project Page with data: ',
+        selected
+      );
+      this.router.navigate(['/project', selected._id]);
+    }
   }
 
   openProfileDialog(): void {

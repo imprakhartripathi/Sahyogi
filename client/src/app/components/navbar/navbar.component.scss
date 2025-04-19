@@ -17,6 +17,11 @@ $mat-blue-light: #3768bb;
   }
 }
 
+::ng-deep .mat-autocomplete-panel {
+  z-index: 9999 !important;
+}
+
+
 .navbar {
   display: flex;
   flex-direction: row;
