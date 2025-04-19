@@ -6,6 +6,12 @@ $border-dark: #333;
 $mat-blue-light: #3768bb;
 $mat-red: #ff5252;
 
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
 .backlog-container {
   margin-top: 100px;
   display: flex;
@@ -15,7 +21,6 @@ $mat-red: #ff5252;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  color: $text-light;
 }
 
 .calendar-card,
@@ -44,7 +49,7 @@ $mat-red: #ff5252;
 .preview-card {
   mat-card-header {
     // background: linear-gradient(135deg, #2c3e50 0%, #1a2a3a 100%);
-    color: $text-light;
+    // color: $text-light;
     padding: 16px;
     border-radius: 20px 20px 0 0;
     
@@ -130,21 +135,14 @@ $mat-red: #ff5252;
 
 ::ng-deep {
   .mat-calendar {
-    // background: $card-dark;
-    color: $text-light;
-
-    .mat-calendar-header {
-      color: $text-light;
-    }
-
-    .mat-calendar-body-cell-content {
-      color: $text-light;
-      border-color: transparent !important;
-    }
 
     .mat-calendar-body-selected {
       background: $mat-blue-light;
       color: white;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: $mat-blue-dark;
+      }
     }
 
     .mat-calendar-table-header {
@@ -183,28 +181,21 @@ $mat-red: #ff5252;
     align-items: center;
     gap: 0.5rem;
     
-    strong {
-      color: rgba($text-light, 0.9);
-    }
+    
   }
 }
 
 mat-expansion-panel {
   // background: $card-dark;
-  color: $text-light;
   border: 1px solid $border-dark;
 
   mat-expansion-panel-header {
-    color: $text-light;
     
     &:hover {
       background: rgba(255, 255, 255, 0.05) !important;
     }
   }
 
-  p {
-    color: rgba($text-light, 0.8);
-  }
 }
 
 @media (max-width: 768px) {

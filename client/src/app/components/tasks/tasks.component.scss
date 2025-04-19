@@ -7,6 +7,7 @@ $mat-blue-light: #3768bb;
 .parent {
   position: relative;
   top: 90px;
+    max-height: 100%;
   width: auto;
   height: auto;
   overflow: auto;
@@ -14,6 +15,16 @@ $mat-blue-light: #3768bb;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0; /* Remove scrollbar space */
+    height: 0;
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
 }
 
 .button-container {
@@ -23,6 +34,17 @@ $mat-blue-light: #3768bb;
   gap: 15px;
   width: 100%;
   padding-left: 10px;
+}
+
+.sorting-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom:0;
+  flex-wrap: wrap;
+}
+
+.sorting-controls mat-button-toggle-group {
+  margin-right: 10px;
 }
 
 .add-task-button {
@@ -36,6 +58,10 @@ $mat-blue-light: #3768bb;
   &:hover {
     background-color: darken($bg-light-blue, 15%);
     transform: scale(1.05);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: black;
+    }
   }
 }
 
@@ -69,7 +95,8 @@ $mat-blue-light: #3768bb;
   border: 2px solid $bg-light-blue;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease;
 
   display: flex;
   flex-direction: column;
@@ -111,18 +138,16 @@ $mat-blue-light: #3768bb;
   /* Background will now come from .task-card’s dynamic class */
   background-color: #a3b9ee62;
 
-
   &:hover {
     transform: scale(1.02);
   }
 
   .task-title {
-    font-weight: 600;
+    font-weight: 450;
     margin-bottom: 5px;
   }
 
   .task-desc {
     font-size: 0.9rem;
-    color: white;
   }
 }

@@ -9,7 +9,23 @@
         >
           Add Task
         </button>
-        <!-- <button class="filter-task-button">🔍 Filter Task</button> -->
+        <div class="sorting-controls">
+          <mat-button-toggle-group
+            [(value)]="dateSortOrder"
+            (change)="sortByDate(dateSortOrder)"
+          >
+            <mat-button-toggle value="newest">Newest First</mat-button-toggle>
+            <mat-button-toggle value="oldest">Oldest First</mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-button-toggle-group
+            [(value)]="complexitySortOrder"
+            (change)="sortByComplexity(complexitySortOrder)"
+          >
+            <mat-button-toggle value="highToLow">High to Low</mat-button-toggle>
+            <mat-button-toggle value="lowToHigh">Low to High</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
       </div>
 
       <div class="task-section-container" cdkDropListGroup>

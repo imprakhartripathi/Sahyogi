@@ -17,7 +17,7 @@ export interface Task {
   taskComplexityPoint: number;
   taskCompletionState: number;
   dateDeadline?: Date;
-  createdAt?: Date;
+  createdAt: Date;
   aiPrioritizedID?: number | null;
   reasonForPrioritizationID?: string | null;
 }

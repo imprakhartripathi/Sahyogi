@@ -21,6 +21,9 @@ export class TasksComponent implements OnInit {
   inProgressTasks: Task[] = [];
   doneTasks: Task[] = [];
 
+  dateSortOrder: 'newest' | 'oldest' = 'newest';
+  complexitySortOrder: 'highToLow' | 'lowToHigh' = 'highToLow';
+
   constructor(
     private taskService: TaskManagerService,
     private getCurrentUser: GetCurrentUserService,
@@ -43,11 +46,12 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  // Modify your loadTasks method to apply initial sorting
   loadTasks(email: string): void {
     this.taskService.getTasks(email).subscribe({
       next: (tasks) => {
         this.tasks = tasks;
-        this.categorizeTasks();
+        this.applySorting(); // Apply sorting when tasks are loaded
       },
       error: (err) => {
         console.error('Error loading tasks:', err);
@@ -154,5 +158,50 @@ export class TasksComponent implements OnInit {
           },
         });
     }
+  }
+
+  sortByDate(order: 'newest' | 'oldest'): void {
+    this.dateSortOrder = order;
+    this.loadTasks(this.user.email); // Reload tasks to reset sorting
+    // OR if you don't want to reload from server:
+    this.applySorting();
+  }
+
+  sortByComplexity(order: 'highToLow' | 'lowToHigh'): void {
+    this.complexitySortOrder = order;
+    this.loadTasks(this.user.email); // Reload tasks to reset sorting
+    // OR if you don't want to reload from server:
+    this.applySorting();
+  }
+
+  private applySorting(): void {
+    // Create a fresh copy of the tasks array to avoid mutating the original
+    let sortedTasks = [...this.tasks];
+
+    // Apply date sorting first
+    sortedTasks.sort((a: Task, b: Task) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+
+    // Then apply complexity sorting (this will maintain relative order from date sort)
+    sortedTasks.sort((a: Task, b: Task) => {
+      const complexityA = a.taskComplexityPoint ?? 0;
+      const complexityB = b.taskComplexityPoint ?? 0;
+
+      // Only sort by complexity if complexities are different
+      if (complexityA !== complexityB) {
+        return this.complexitySortOrder === 'highToLow'
+          ? complexityB - complexityA
+          : complexityA - complexityB;
+      }
+      // If complexities are equal, maintain the previous sort order (by date)
+      return 0;
+    });
+
+    // Update the tasks array with the sorted results
+    this.tasks = sortedTasks;
+    this.categorizeTasks();
   }
 }

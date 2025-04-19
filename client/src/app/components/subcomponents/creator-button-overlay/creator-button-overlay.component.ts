@@ -25,11 +25,22 @@ import { ProjectCreatorComponent } from '../project-creator/project-creator.comp
   `,
   styles: [
     `
+      $primary-dark: #13203a;
+      $bg-light-blue: #a8d0ef;
+      $border-dark: #394153;
+      $mat-blue-dark: #a3baee;
+      $mat-blue-light: #3768bb;
+
       .creator-overlay {
         padding: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        background: $bg-light-blue;
+
+        @media (prefers-color-scheme: dark) {
+          background: $primary-dark;
+        }
       }
       h2 {
         margin-bottom: 20px;
