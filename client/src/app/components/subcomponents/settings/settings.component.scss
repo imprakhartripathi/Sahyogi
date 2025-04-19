@@ -12,7 +12,7 @@ $mat-blue-light: #3768bb;
   flex-direction: column;
   gap: 12px;
   background-color: $bg-light-blue;
-  
+
   /* Hide scrollbar for all browsers */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -55,7 +55,6 @@ $mat-blue-light: #3768bb;
   text-align: center;
 }
 
-
 .accounts-section mat-card-content {
   display: flex;
   flex-direction: row;
@@ -78,7 +77,7 @@ $mat-blue-light: #3768bb;
   padding: 1rem;
   text-align: center;
   cursor: pointer;
-  background: $border-dark;
+  background: rgba(80, 80, 80, 0.257);
   color: white;
   transition: all 0.3s ease;
 }
@@ -99,10 +98,10 @@ $mat-blue-light: #3768bb;
 .inner-card {
   display: flex;
   flex-direction: column;
- background-color: $bg-light-blue;
+  background-color: $bg-light-blue;
 
-border: 1px solid;
-border-color: $mat-blue-dark;
+  border: 1px solid;
+  border-color: $mat-blue-dark;
   @media (prefers-color-scheme: dark) {
     background-color: $primary-dark;
   }
@@ -112,8 +111,8 @@ border-color: $mat-blue-dark;
   display: flex;
   flex-direction: column;
   background-color: $bg-light-blue;
-border-color: $mat-blue-dark;
-border: 1px solid;
+  border-color: $mat-blue-dark;
+  border: 1px solid;
   @media (prefers-color-scheme: dark) {
     background-color: $primary-dark;
   }
@@ -124,12 +123,12 @@ border: 1px solid;
     color: rgb(134, 0, 0);
 
     &:hover {
-        background-color: rgba(134, 0, 0, 0.171);;
+      background-color: rgba(134, 0, 0, 0.171);
     }
   }
 
   mat-form-field {
-    color: rgb(134, 0, 0)!important;
+    color: rgb(134, 0, 0) !important;
   }
 }
 

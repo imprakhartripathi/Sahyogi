@@ -5,9 +5,9 @@
 
     <div class="toggle-card-grid">
       <!-- Theme Toggle -->
-      <div class="toggle-card" [class.active]="settingsForm.get('userSetTheme')?.value" (click)="cycleTheme()">
+      <!-- <div class="toggle-card" [class.active]="settingsForm.get('userSetTheme')?.value" (click)="cycleTheme()">
         <span>Theme: {{ settingsForm.get('userSetTheme')?.value }}</span>
-      </div>
+      </div> -->
 
       <!-- In-App Notifications -->
       <div class="toggle-card" 
@@ -41,27 +41,27 @@
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Current Password</mat-label>
               <input matInput type="password" formControlName="currentPassword" required />
-              <mat-error *ngIf="passwordForm.get('currentPassword')?.hasError('required')">
+              <!-- <mat-error *ngIf="passwordForm.get('currentPassword')?.hasError('required')">
                 Current password is required
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>New Password</mat-label>
               <input matInput type="password" formControlName="newPassword" required />
-              <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">
+              <!-- <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">
                 New password is required
               </mat-error>
               <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('weakPassword')">
                 Password must contain at least 8 characters, one uppercase letter, one number, and one special character
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
 
             <button mat-raised-button 
                     color="primary" 
                     (click)="changePassword()"
-                    [disabled]="passwordForm.invalid">
-              Change Password
+                    [disabled]="passwordForm.invalid || pwChanging">
+              {{ pwChanging ? "Processing" : "Change Password" }}
             </button>
           </form>
         </mat-card-content>
@@ -71,34 +71,34 @@
       <mat-card class="delete-card">
         <mat-card-header>
           <h2 mat-card-title>Delete Account</h2>
+          <!-- <p mat-card-subtitle class="warn-text">This action is permanent and cannot be undone.</p> -->
         </mat-card-header>
         <mat-card-content>
-          <p class="warn-text">This action is permanent and cannot be undone.</p>
           <form [formGroup]="deleteForm">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Email</mat-label>
               <input matInput type="email" formControlName="email" required />
-              <mat-error *ngIf="deleteForm.get('email')?.hasError('required')">
+              <!-- <mat-error *ngIf="deleteForm.get('email')?.hasError('required')">
                 Email is required
               </mat-error>
               <mat-error *ngIf="deleteForm.get('email')?.hasError('invalidEmail')">
                 Please enter a valid email address
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Password</mat-label>
               <input matInput type="password" formControlName="password" required />
-              <mat-error *ngIf="deleteForm.get('password')?.hasError('required')">
+              <!-- <mat-error *ngIf="deleteForm.get('password')?.hasError('required')">
                 Password is required
-              </mat-error>
+              </mat-error> -->
             </mat-form-field>
 
             <button mat-stroked-button 
                     class="delete-btn" 
                     (click)="deleteAccount()"
-                    [disabled]="deleteForm.invalid">
-              Delete Account
+                    [disabled]="deleteForm.invalid || isDeleting">
+              {{ isDeleting ? "Processing" : "Delete Account" }}
             </button>
           </form>
         </mat-card-content>

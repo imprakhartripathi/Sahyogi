@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../enviroments/enviroment';
 import { GetCurrentUserService } from '../../../services/get-current-user.service/get-current-user.service';
 import { UserService } from '../../../services/user.service/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ThemeService } from '../../../services/theme.service/theme.service';
 
 export enum ColorTheme {
   System = 'system',
@@ -33,6 +35,8 @@ export class SettingsComponent implements OnInit {
   userData: any;
   private themeOrder = [ColorTheme.System, ColorTheme.Light, ColorTheme.Dark];
   private savingInProgress = false;
+  isDeleting: boolean = false;
+  pwChanging: boolean = false;
 
   constructor(
     private getCurrentUser: GetCurrentUserService,
@@ -40,7 +44,9 @@ export class SettingsComponent implements OnInit {
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog,
+    private themeService: ThemeService
   ) {
     this.settingsForm = this.fb.group({
       notificationsOn: [true],
@@ -60,6 +66,8 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentTheme = this.themeService.getTheme();
+    this.settingsForm.get('userSetTheme')?.setValue(currentTheme);
     this.initialize();
   }
 
@@ -102,6 +110,12 @@ export class SettingsComponent implements OnInit {
         this.saveSettings();
       }
     });
+
+    this.settingsForm
+      .get('userSetTheme')
+      ?.valueChanges.subscribe((theme: ColorTheme) => {
+        this.onThemeChange(theme);
+      });
   }
 
   private saveSettings() {
@@ -130,6 +144,10 @@ export class SettingsComponent implements OnInit {
     this.settingsForm.get(settingName)?.setValue(!currentValue);
   }
 
+  onThemeChange(theme: ColorTheme): void {
+    this.themeService.setTheme(theme);
+  }
+
   cycleTheme() {
     const currentTheme = this.settingsForm.get('userSetTheme')?.value;
     const currentIndex = this.themeOrder.indexOf(currentTheme);
@@ -140,6 +158,7 @@ export class SettingsComponent implements OnInit {
   changePassword(): void {
     if (this.passwordForm.invalid) return;
 
+    this.pwChanging = true;
     const { currentPassword, newPassword } = this.passwordForm.value;
 
     this.http
@@ -150,10 +169,12 @@ export class SettingsComponent implements OnInit {
       })
       .subscribe({
         next: (res: any) => {
+          this.pwChanging = false;
           this.showSuccess(res.message || 'Password changed successfully');
           this.passwordForm.reset();
         },
         error: (err) => {
+          this.pwChanging = false;
           this.showError(err.error?.message || 'Password change failed');
         },
       });
@@ -162,6 +183,7 @@ export class SettingsComponent implements OnInit {
   deleteAccount(): void {
     if (this.deleteForm.invalid) return;
 
+    this.isDeleting = true;
     const { email, password } = this.deleteForm.value;
 
     if (email !== this.user.email) {
@@ -170,17 +192,19 @@ export class SettingsComponent implements OnInit {
     }
 
     this.http
-      .post(`${environment.backendUrl}/user/delete`, {
-        email,
-        password,
+      .delete(`${environment.backendUrl}/user/delete`, {
+        body: { email, password },
       })
       .subscribe({
         next: () => {
+          this.dialog.closeAll();
+          this.isDeleting = false;
           this.showSuccess('Account deleted successfully');
           localStorage.clear();
-          this.router.navigate(['/login']);
+          this.router.navigate(['/auth']);
         },
         error: (err) => {
+          this.isDeleting = false;
           this.showError(err.error?.message || 'Failed to delete account');
         },
       });
