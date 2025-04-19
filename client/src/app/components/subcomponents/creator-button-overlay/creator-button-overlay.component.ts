@@ -77,7 +77,7 @@ export class CreatorButtonOverlayComponent {
   createProject(): void {
     this.dialogRef.close();
     this.dialog.open(ProjectCreatorComponent, {
-      width: '800px',
+      maxWidth: 'none',
       panelClass: 'custom-dialog-container',
       // Add any other configuration you need for the project creator dialog
     });

@@ -146,7 +146,9 @@ export class NavbarComponent implements OnInit {
     if ((selected as Task).taskTitle) {
       // It's a Task, open the TaskDetailsComponent
       this.dialog.open(TaskDetailsComponent, {
-        width: '600px',
+        width: '500px',
+        panelClass: 'task-creator-dialog',
+        maxWidth: 'none',
         data: { task: selected, email: this.user.email },
       });
     } else if ((selected as Project).projectTitle) {
