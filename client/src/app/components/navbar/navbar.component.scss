@@ -109,10 +109,15 @@ $mat-blue-light: #3768bb;
     }
   }
 
+  img {
+    border-radius: 50% !important;
+  }
+
   .user-img {
     margin: 20px;
     width: 40px;
     transition: 0.3s;
+    border-radius: 50%!important;
     cursor: pointer;
 
     &:hover {

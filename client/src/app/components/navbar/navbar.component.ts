@@ -71,6 +71,7 @@ export class NavbarComponent implements OnInit {
         this.userData = data;
         console.log('User Data:', this.userData);
         this.badgeVisibility();
+        this.imgURL = this.userData.imageURL
       },
       (error) => {
         console.error('Error fetching user data:', error);
