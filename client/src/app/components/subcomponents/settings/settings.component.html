@@ -1,7 +1,7 @@
 <div class="parent">
   <!-- Appearance & Notifications -->
   <mat-card class="settings-section">
-    <mat-card-title>Appearance & Notifications</mat-card-title>
+    <mat-card-title>Notification Settings</mat-card-title>
 
     <div class="toggle-card-grid">
       <!-- Theme Toggle -->
@@ -12,14 +12,16 @@
       <!-- In-App Notifications -->
       <div class="toggle-card" 
            [class.active]="settingsForm.get('notificationsOn')?.value"
-           (click)="toggleSetting('notificationsOn')">
+           (click)="toggleSetting('notificationsOn')"
+           matTooltip="Click To Toggle">
         <span>In-App Notifications</span>
       </div>
 
       <!-- Email Notifications -->
       <div class="toggle-card" 
            [class.active]="settingsForm.get('emailNotificationsOn')?.value"
-           (click)="toggleSetting('emailNotificationsOn')">
+           (click)="toggleSetting('emailNotificationsOn')"
+            matTooltip="Click To Toggle">
         <span>Email Notifications</span>
       </div>
     </div>

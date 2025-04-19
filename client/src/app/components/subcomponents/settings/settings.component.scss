@@ -85,6 +85,12 @@ $mat-blue-light: #3768bb;
 .toggle-card.active {
   border-color: $mat-blue-dark;
   background-color: $primary-dark;
+
+  @media (prefers-color-scheme: light) {
+    border-color: $primary-dark;
+    background-color: $bg-light-blue;
+    color: black;
+  }
 }
 
 .settings-section {
@@ -115,20 +121,29 @@ $mat-blue-light: #3768bb;
   border: 1px solid;
   @media (prefers-color-scheme: dark) {
     background-color: $primary-dark;
+    color: rgb(134, 0, 0);
   }
 
-  color: rgb(134, 0, 0);
+  color: rgb(255, 0, 0);
 
   .delete-btn {
-    color: rgb(134, 0, 0);
+    color: rgb(255, 0, 0);
+
+    @media (prefers-color-scheme: dark) {
+      color: rgb(134, 0, 0);
+    }
 
     &:hover {
       background-color: rgba(134, 0, 0, 0.171);
     }
   }
 
-  mat-form-field {
-    color: rgb(134, 0, 0) !important;
+  &::ng-deep .mat-form-field {
+   color: rgb(255, 0, 0);
+
+    @media (prefers-color-scheme: dark) {
+      color: rgb(134, 0, 0);
+    }
   }
 }
 

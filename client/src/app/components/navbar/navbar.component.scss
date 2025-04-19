@@ -21,7 +21,6 @@ $mat-blue-light: #3768bb;
   z-index: 9999 !important;
 }
 
-
 .navbar {
   display: flex;
   flex-direction: row;
@@ -116,13 +115,18 @@ $mat-blue-light: #3768bb;
 
   img {
     border-radius: 50% !important;
+    width: 40px;
+    height: 40px;
+    object-fit: fill;
   }
 
   .user-img {
     margin: 20px;
     width: 40px;
+    height: 40px;
+    object-fit: fill;
     transition: 0.3s;
-    border-radius: 50%!important;
+    border-radius: 50% !important;
     cursor: pointer;
 
     &:hover {

@@ -6,13 +6,14 @@ $mat-blue-light: #3768bb;
 
 .parent {
   padding: 20px;
+  height: 100%;
   max-height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
   background-color: $bg-light-blue;
-  
+
   /* Hide scrollbar for all browsers */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -29,6 +30,17 @@ $mat-blue-light: #3768bb;
   }
 }
 
+.no-notifications-message {
+  text-align: center;
+  padding: 20px;
+  color: black;
+  font-style: italic;
+
+  @media (prefers-color-scheme: dark) {
+    color: $mat-blue-dark;
+  }
+}
+
 mat-expansion-panel {
   color: white;
   border-radius: 12px !important;
@@ -37,9 +49,17 @@ mat-expansion-panel {
   min-height: 100px;
   background-color: lighten($primary-dark, 5%);
 
+  @media (prefers-color-scheme: light) {
+    background-color: lighten($mat-blue-light, 5%);
+  }
+
   &.read {
     opacity: 0.6;
     background-color: lighten($primary-dark, 3%);
+
+    @media (prefers-color-scheme: light) {
+      background-color: lighten($mat-blue-light, 3%);
+    }
   }
 
   .mat-expansion-panel-header {
@@ -86,18 +106,48 @@ mat-expansion-panel {
 
         .mat-chip {
           font-weight: bold;
-          width: 150px !important; 
-          text-align: center;
-          justify-content: center;
-          background-color: $mat-blue-light;
           color: white;
+
+          @media (prefers-color-scheme: light) {
+            color: $primary-dark !important;
+          }
+        }
+
+        .completion-badge {
+          position: absolute;
+          display: flex;
+          right: 7%; /* Locks to right edge */
+          top: 50%; /* Vertically centers */
+          transform: translateY(-50%); /* Fine-tunes vertical centering */
+          width: 75px;
+          justify-content: center;
+          align-items: center;
+          /* mat-stroked-button style */
+          white-space: nowrap;
+          padding: 0 12px;
+          border: 1px solid currentColor;
+          border-radius: 16px;
+          line-height: 32px;
+          font-size: 14px;
+          font-weight: 500;
+          // background: transparent;
+
+          color: white;
+
+          @media (prefers-color-scheme: light) {
+            color: $primary-dark !important;
+          }
         }
 
         .unread-dot {
           width: 10px;
           height: 10px;
-          background-color: #42a5f5;
+          background-color: $mat-blue-light;
           border-radius: 50%;
+
+          @media (prefers-color-scheme: light) {
+            background-color: $primary-dark;
+          }
         }
       }
     }
@@ -138,7 +188,7 @@ mat-expansion-panel {
 @media (prefers-color-scheme: dark) {
   mat-expansion-panel {
     background-color: lighten($primary-dark, 5%);
-    
+
     &.read {
       background-color: lighten($primary-dark, 3%);
     }
