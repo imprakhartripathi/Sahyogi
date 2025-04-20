@@ -12,6 +12,7 @@ import { BacklogComponent } from './components/backlog/backlog.component';
 import { BrokenRouteComponent } from './components/broken-route/broken-route.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { title } from 'process';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'badrequest', component: BrokenRouteComponent, data: { title: 'Error - Page Not Found' } },
   { path: 'product', component: MainpageComponent, data: { title: 'Welcome to Sahyogi' } },
   { path: 'auth', component: AuthenticatorComponent, data: { title: 'Sahyogi - Authenticator' } },
+  { path: 'forgotpw', component: ForgetPasswordComponent, data: { title: 'Sahyogi - Password Recovery' } },
   { path: 'support', component: SupportComponent, data: { title: 'Sahyogi - Support' } },
   
   // Redirecting Paths

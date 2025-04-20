@@ -25,6 +25,7 @@ import deleteUserController from "./controllers/deleteUser";
 import handleSupportMail from "./controllers/supportMailClient";
 import { getNotificationsByEmail, updateNotificationReadState } from "./controllers/notificationsController";
 import changePasswordController from "./controllers/changePassword";
+import { initiatePasswordReset, validateOtp, validateOtpAndResetPassword } from "./controllers/forgetPassword";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -35,6 +36,11 @@ router.post("/getuserinfo", userInfoController);
 router.patch("/user/edit", editUserController);
 router.delete("/user/delete", deleteUserController);
 router.post("/user/pwchange", changePasswordController);
+
+router.post('/user/initiate-reset', initiatePasswordReset);
+router.post('/user/validate-otp', validateOtp);
+router.post('/user/reset-password', validateOtpAndResetPassword);
+
 
 // Mail Clients
 router.get('/mail/support', handleSupportMail);

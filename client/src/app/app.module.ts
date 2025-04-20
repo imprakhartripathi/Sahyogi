@@ -65,6 +65,8 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ProjectTaskDetailsComponent } from './components/subcomponents/project-task-details/project-task-details.component';
 import { ProjectEditorComponent } from './components/subcomponents/project-editor/project-editor.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +92,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ProjectTaskCreatorComponent,
     TruncatePipe,
     ProjectTaskDetailsComponent,
-    ProjectEditorComponent
+    ProjectEditorComponent,
+    ForgetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -138,7 +141,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CdkMenu,
     CdkMenuItem,
     CdkMenuTrigger,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   providers: [
     provideClientHydration(withEventReplay()),
