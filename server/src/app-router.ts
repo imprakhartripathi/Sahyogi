@@ -4,7 +4,6 @@ const router = express.Router();
 import signupController from "./controllers/signupController";
 import loginController from "./controllers/loginController";
 import getCurrentUserController from "./controllers/getCurrentUserController";
-import genAIController from "./controllers/aiController";
 import userInfoController from "./controllers/userInfoController";
 import logoutController from "./controllers/logoutController";
 
@@ -26,6 +25,7 @@ import handleSupportMail from "./controllers/supportMailClient";
 import { getNotificationsByEmail, updateNotificationReadState } from "./controllers/notificationsController";
 import changePasswordController from "./controllers/changePassword";
 import { initiatePasswordReset, validateOtp, validateOtpAndResetPassword } from "./controllers/forgetPassword";
+import aiController from "./controllers/aiController";
 
 // Auth Routes
 router.post("/signup", signupController);
@@ -46,7 +46,7 @@ router.post('/user/reset-password', validateOtpAndResetPassword);
 router.get('/mail/support', handleSupportMail);
 
 // AI Route
-router.get("/ai/call", genAIController);
+router.get("/ai/call", aiController);
 
 // Task Routes
 router.get("/tasks/get", getTasksController)

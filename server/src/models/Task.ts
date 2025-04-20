@@ -10,7 +10,7 @@ export interface ITask extends Document {
   reasonForPrioritizationID: string | null;
 }
 
-enum TaskCompletionState {
+export enum TaskCompletionState {
   ToDo = 102, // Processing (Task is yet to be started)
   InProgress = 202, // Accepted (Task is currently in progress)
   Done = 200, // OK (Task is completed successfully)

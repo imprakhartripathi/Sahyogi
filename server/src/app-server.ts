@@ -7,11 +7,13 @@ import router from "./app-router";
 import { localClientPort, ngrokPort, serverPort } from "./serversettings";
 import dotenv from "dotenv";
 
-dotenv.config(); // Load environment variables
+import deadlineNotificationController from "./controllers/real.time.notification";
+import cron from 'node-cron';
+
+dotenv.config();
 
 const __dirname = path.resolve();
 
-// Use environment variables for MongoDB connection
 const mongoDBurl = process.env.MONGODB_URI as string;
 if (!mongoDBurl) {
   console.error("❌ MongoDB URI is missing! Set MONGODB_URI in .env");
@@ -25,20 +27,24 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 app.use(router);
-app.use(express.json()); // <---- This is required
+app.use(express.json());
 
 // MongoDB Atlas connection
 mongoose
   .connect(mongoDBurl, {
-    serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds if no connection
+    serverSelectionTimeoutMS: 5000,
   })
   .then(() => {
     console.log("✅ Connected to MongoDB Atlas");
   })
   .catch((error) => {
     console.error("❌ Error connecting to MongoDB Atlas:", error);
-    process.exit(1); // Exit if connection fails
+    process.exit(1); 
   });
+
+
+  // Run at 9 AM and 5 PM IST (3:30 AM and 11:30 AM UTC)
+cron.schedule('30 3,11 * * *', deadlineNotificationController);
 
 app.listen(serverPort, () => {
   console.log(

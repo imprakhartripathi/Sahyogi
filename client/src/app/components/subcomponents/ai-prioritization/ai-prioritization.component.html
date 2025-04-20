@@ -1,7 +1,37 @@
-<div class="parent">
-    <mat-card>
-        <mat-card-title>
-            Task Prioritization Module Coming Soon
-        </mat-card-title>
-    </mat-card>
+<!-- Add this loader for AI processing -->
+<div *ngIf="isProcessingAI" class="ai-processing-overlay">
+  <div class="ai-processing-content">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>AI is analyzing and prioritizing your tasks...</p>
+    <p class="small-text">This may take a few seconds</p>
+  </div>
+</div>
+
+<!-- Rest of your template -->
+<div *ngIf="isLoading" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="prioritizedTasks && !isProcessingAI">
+  <h2>AI Prioritized Tasks</h2>
+
+  <div class="priority-section">
+    <h3>High Priority</h3>
+    <div *ngFor="let task of prioritizedTasks.highPriority" class="task-card">
+      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
+    </div>
+  </div>
+
+  <div class="priority-section">
+    <h3>Medium Priority</h3>
+    <div *ngFor="let task of prioritizedTasks.mediumPriority" class="task-card">
+      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
+    </div>
+  </div>
+
+  <div class="priority-section">
+    <h3>Low Priority</h3>
+    <div *ngFor="let task of prioritizedTasks.lowPriority" class="task-card">
+      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
+    </div>
+  </div>
 </div>
