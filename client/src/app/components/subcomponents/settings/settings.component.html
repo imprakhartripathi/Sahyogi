@@ -59,12 +59,15 @@
               </mat-error> -->
             </mat-form-field>
 
-            <button mat-raised-button 
+            <div class="btn">
+              <button mat-raised-button 
                     color="primary" 
                     (click)="changePassword()"
                     [disabled]="passwordForm.invalid || pwChanging">
               {{ pwChanging ? "Processing" : "Change Password" }}
             </button>
+            <button mat-stroked-button (click)="this.dialog.closeAll()" routerLink="/forgotpw">Forgot Password</button>
+            </div>
           </form>
         </mat-card-content>
       </mat-card>

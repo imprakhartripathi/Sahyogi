@@ -45,7 +45,7 @@ export class SettingsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private userService: UserService,
-    private dialog: MatDialog,
+    public dialog: MatDialog,
     private themeService: ThemeService
   ) {
     this.settingsForm = this.fb.group({

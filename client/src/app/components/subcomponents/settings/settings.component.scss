@@ -105,11 +105,18 @@ $mat-blue-light: #3768bb;
   display: flex;
   flex-direction: column;
   background-color: $bg-light-blue;
-
+  width: 50%;
   border: 1px solid;
   border-color: $mat-blue-dark;
   @media (prefers-color-scheme: dark) {
     background-color: $primary-dark;
+  }
+
+  .btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
   }
 }
 
@@ -117,6 +124,7 @@ $mat-blue-light: #3768bb;
   display: flex;
   flex-direction: column;
   background-color: $bg-light-blue;
+   width: 50%;
   border-color: $mat-blue-dark;
   border: 1px solid;
   @media (prefers-color-scheme: dark) {
