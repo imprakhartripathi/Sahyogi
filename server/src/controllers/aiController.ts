@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/Users";
-import { ITask } from "../models/Task";
+import { ITask, TaskCompletionState } from "../models/Task";
 
 // Define an extended interface for tasks with priority score
 interface IPrioritizedTask extends Omit<ITask, keyof Document> {
@@ -34,7 +34,7 @@ const aiController = async (
 
     // Create an array of plain objects with task data and priority score
     const prioritizedTasks: IPrioritizedTask[] = user.tasks
-      .filter(task => task.taskCompletionState !== 200)
+      .filter(task => task.taskCompletionState !== TaskCompletionState.Done)
       .map(task => {
         const taskObj = task.toObject ? task.toObject() : task;
         const complexityWeight = 0.6;
