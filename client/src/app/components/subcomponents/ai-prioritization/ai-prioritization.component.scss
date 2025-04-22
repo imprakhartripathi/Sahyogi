@@ -1,14 +1,102 @@
-.parent {
+.ai-loader-screen {
     display: flex;
-    padding: 20px;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    mat-card {
-        display: flex;
-        padding: 20px;
-
-        justify-content: center;
-        align-items: center;
+    padding: 30px;
+    text-align: center;
+  
+    .loader-gif {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
     }
-}
+  
+    .loader-text {
+      font-size: 18px;
+      font-weight: 500;
+      color: #555;
+    }
+  }
+  
+  /* Prompt Box Before AI Prioritization */
+  .ai-prompt-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  
+    button {
+      font-size: 16px;
+      padding: 10px 24px;
+    }
+  }
+  
+  /* Task Priority Display */
+  .ai-prioritized-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  
+    .priority-column {
+      flex: 1 1 300px;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background-color: #f8f9fa;
+  
+      h3 {
+        text-align: center;
+        margin-bottom: 16px;
+        font-size: 20px;
+        color: #333;
+      }
+  
+      .task-card {
+        background-color: #fff;
+        margin-bottom: 12px;
+        padding: 16px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+  
+        h4 {
+          margin: 0 0 6px;
+          font-size: 18px;
+          color: #222;
+        }
+  
+        p {
+          margin: 0;
+          font-size: 14px;
+          color: #666;
+        }
+  
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+  
+    .high-priority {
+      border-top: 6px solid #e53935;
+    }
+  
+    .medium-priority {
+      border-top: 6px solid #f9a825;
+    }
+  
+    .low-priority {
+      border-top: 6px solid #43a047;
+    }
+  }
