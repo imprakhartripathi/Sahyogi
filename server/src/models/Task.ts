@@ -11,9 +11,9 @@ export interface ITask extends Document {
 }
 
 export enum TaskCompletionState {
-  ToDo = 102, // Processing (Task is yet to be started)
-  InProgress = 202, // Accepted (Task is currently in progress)
-  Done = 200, // OK (Task is completed successfully)
+  ToDo = 100, // Processing (Task is yet to be started)
+  InProgress = 200, // Accepted (Task is currently in progress)
+  Done = 300, // OK (Task is completed successfully)
 }
 
 
@@ -22,7 +22,7 @@ const TaskSchema = new Schema<ITask>(
     taskTitle: { type: String, required: true },
     taskDesc: { type: String, required: true },
     taskComplexityPoint: { type: Number, required: true },
-    taskCompletionState: { type: Number, default: 100 },
+    taskCompletionState: { type: Number, default: TaskCompletionState.ToDo },
     dateDeadline: { type: Date },
     aiPrioritizedID: { type: Number, default: null },
     reasonForPrioritizationID: { type: String, default: null },
