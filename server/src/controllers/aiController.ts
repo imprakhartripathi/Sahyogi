@@ -31,10 +31,8 @@ const aiController = async (req: Request, res: Response): Promise<void> => {
 
     console.log("User tasks states:", user.tasks.map(t => t.taskCompletionState));
 
-
     // Create an array of plain objects with task data and priority score
     const prioritizedTasks: IPrioritizedTask[] = user.tasks
-
       .filter((task) => task.taskCompletionState !== TaskCompletionState.Done)
       .map((task) => {
         const taskObj = task.toObject ? task.toObject() : task;
@@ -56,10 +54,16 @@ const aiController = async (req: Request, res: Response): Promise<void> => {
             ? 1 // Deadline passed or today - highest urgency
             : Math.max(0, 1 - daysUntilDeadline / 14); // Linear decay over 14 days
 
-        // Calculate priority score
-        const priorityScore =
+        // Calculate base priority score
+        let priorityScore =
           complexityWeight * normalizedComplexity +
           deadlineWeight * normalizedDeadline;
+
+        // Boost priority for overdue tasks
+        if (daysUntilDeadline < 0) {
+          const overdueFactor = 1.2; // Increase to make overdue tasks more important
+          priorityScore *= overdueFactor;
+        }
 
         return {
           ...taskObj,
