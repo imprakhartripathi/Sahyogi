@@ -1,3 +1,35 @@
+$primary-dark: #13203a;
+$bg-light-blue: #a8d0ef;
+$border-dark: #394153;
+$mat-blue-dark: #a3baee;
+$mat-blue-light: #3768bb;
+
+.parent {
+  padding: 20px;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: $bg-light-blue;
+
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0; /* Remove scrollbar space */
+    height: 0;
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: $primary-dark;
+    color: white;
+  }
+}
+
 .ai-loader-screen {
     display: flex;
     flex-direction: column;
@@ -54,6 +86,12 @@
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       background-color: #f8f9fa;
+      max-height: 100vh;
+      height: 100%;
+
+      @media (prefers-color-scheme: dark) {
+        background-color: $mat-blue-dark;
+      }
   
       h3 {
         text-align: center;

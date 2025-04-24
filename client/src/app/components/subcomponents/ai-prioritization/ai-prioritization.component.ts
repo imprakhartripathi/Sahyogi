@@ -6,6 +6,9 @@ import { GetCurrentUserService } from '../../../services/get-current-user.servic
 import { UserService } from '../../../services/user.service/user.service';
 import { timer } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { Task } from '../../../services/task-manager.service/task-manager.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ai-prioritization',
@@ -24,7 +27,8 @@ export class AiPrioritizationComponent {
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private getCurrentUser: GetCurrentUserService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -97,5 +101,13 @@ export class AiPrioritizationComponent {
             },
           });
       });
+  }
+  openTaskDetails(task: Task): void {
+    const dialogRef = this.dialog.open(TaskDetailsComponent, {
+      width: '500px',
+      panelClass: 'task-creator-dialog',
+      maxWidth: 'none',
+      data: { task, email: this.user.email }, // Pass email separately
+    });
   }
 }
