@@ -1,37 +1,40 @@
-<!-- Add this loader for AI processing -->
-<div *ngIf="isProcessingAI" class="ai-processing-overlay">
-  <div class="ai-processing-content">
-    <mat-spinner diameter="50"></mat-spinner>
-    <p>AI is analyzing and prioritizing your tasks...</p>
-    <p class="small-text">This may take a few seconds</p>
+<!-- AI Initial Loader Animation (GIF or spinner) -->
+<div *ngIf="isProcessingAI" class="ai-loader-screen">
+    <img src="Add a Gif here" alt="AI Loading" class="loader-gif" />
+    <p class="loader-text">The AI is gearing up to sort your tasks...</p>
   </div>
-</div>
-
-<!-- Rest of your template -->
-<div *ngIf="isLoading" class="loading-spinner">
-  <mat-spinner></mat-spinner>
-</div>
-<div *ngIf="prioritizedTasks && !isProcessingAI">
-  <h2>AI Prioritized Tasks</h2>
-
-  <div class="priority-section">
-    <h3>High Priority</h3>
-    <div *ngFor="let task of prioritizedTasks.highPriority" class="task-card">
-      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
+  
+  <!-- AI Prompt (visible after loading) -->
+  <div *ngIf="!isProcessingAI && !prioritizedTasks" class="ai-prompt-box">
+    <h2>Do you want to prioritize your tasks using AI?</h2>
+    <button mat-raised-button color="primary" (click)="callAIPrioritization(user.email)">
+      Prioritize my task
+    </button>
+  </div>
+  
+  <!-- Final Output: Prioritized Tasks -->
+  <div *ngIf="prioritizedTasks && !isProcessingAI" class="ai-prioritized-container">
+    <div class="priority-column high-priority">
+      <h3>High Priority</h3>
+      <div *ngFor="let task of prioritizedTasks.highPriority" class="task-card">
+        <h4>{{ task.taskTitle }}</h4>
+        <p>Due: {{ task.dateDeadline | date }}</p>
+      </div>
+    </div>
+  
+    <div class="priority-column medium-priority">
+      <h3>Medium Priority</h3>
+      <div *ngFor="let task of prioritizedTasks.mediumPriority" class="task-card">
+        <h4>{{ task.taskTitle }}</h4>
+        <p>Due: {{ task.dateDeadline | date }}</p>
+      </div>
+    </div>
+  
+    <div class="priority-column low-priority">
+      <h3>Low Priority</h3>
+      <div *ngFor="let task of prioritizedTasks.lowPriority" class="task-card">
+        <h4>{{ task.taskTitle }}</h4>
+        <p>Due: {{ task.dateDeadline | date }}</p>
+      </div>
     </div>
   </div>
-
-  <div class="priority-section">
-    <h3>Medium Priority</h3>
-    <div *ngFor="let task of prioritizedTasks.mediumPriority" class="task-card">
-      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
-    </div>
-  </div>
-
-  <div class="priority-section">
-    <h3>Low Priority</h3>
-    <div *ngFor="let task of prioritizedTasks.lowPriority" class="task-card">
-      {{ task.taskTitle }} - Due: {{ task.dateDeadline | date }}
-    </div>
-  </div>
-</div>
