@@ -79,7 +79,7 @@ const createProjectTaskController = async (
           email,
           "New Project Task Created",
           `Task "${taskTitle}" has been added to your Project ${project.projectTitle}.`,
-          NotificationType.Task
+          NotificationType.ProjectTask
         );
     
         await createEmailNotification(
