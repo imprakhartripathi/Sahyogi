@@ -12,7 +12,7 @@ Sahyogi is an AI-powered task and project management tool inspired by Jira, desi
 ✅ Intuitive UI/UX – Designed for a seamless and distraction-free experience.
 
 ## Tech Stack
-🔹 Frontend – Angular 19 (SSR, Dynamic Hydration)<br>
+🔹 Frontend – Angular 19<br>
 🔹 Backend – Express.js (Node.js)<br>
 🔹 Database – MongoDB<br>
 🔹 Authentication – JWT, bcrypt<br>
