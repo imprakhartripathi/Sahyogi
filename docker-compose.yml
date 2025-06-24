@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # ng serve runs on 5000 inside the container
+    restart: always
+    depends_on:
+      - server
+    command: ng serve --host 0.0.0.0 --port 5000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    restart: always
+    environment:
+      - NODE_ENV=production

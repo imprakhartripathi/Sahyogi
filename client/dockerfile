@@ -1,0 +1,21 @@
+# Use official Node.js LTS image
+FROM node:20-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install -g @angular/cli \
+    && npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the port Angular will run on
+EXPOSE 5000
+
+# Start the Angular dev server on port 5000
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "5000"]

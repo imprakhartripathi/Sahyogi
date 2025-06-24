@@ -22,9 +22,16 @@ import deleteProjectTaskController from "./controllers/deleteProjectTask";
 import editUserController from "./controllers/editUser";
 import deleteUserController from "./controllers/deleteUser";
 import handleSupportMail from "./controllers/supportMailClient";
-import { getNotificationsByEmail, updateNotificationReadState } from "./controllers/notificationsController";
+import {
+  getNotificationsByEmail,
+  updateNotificationReadState,
+} from "./controllers/notificationsController";
 import changePasswordController from "./controllers/changePassword";
-import { initiatePasswordReset, validateOtp, validateOtpAndResetPassword } from "./controllers/forgetPassword";
+import {
+  initiatePasswordReset,
+  validateOtp,
+  validateOtpAndResetPassword,
+} from "./controllers/forgetPassword";
 import aiController from "./controllers/aiController";
 
 // Auth Routes
@@ -37,19 +44,18 @@ router.patch("/user/edit", editUserController);
 router.delete("/user/delete", deleteUserController);
 router.post("/user/pwchange", changePasswordController);
 
-router.post('/user/initiate-reset', initiatePasswordReset);
-router.post('/user/validate-otp', validateOtp);
-router.post('/user/reset-password', validateOtpAndResetPassword);
-
+router.post("/user/initiate-reset", initiatePasswordReset);
+router.post("/user/validate-otp", validateOtp);
+router.post("/user/reset-password", validateOtpAndResetPassword);
 
 // Mail Clients
-router.get('/mail/support', handleSupportMail);
+router.get("/mail/support", handleSupportMail);
 
 // AI Route
 router.get("/ai/call", aiController);
 
 // Task Routes
-router.get("/tasks/get", getTasksController)
+router.get("/tasks/get", getTasksController);
 router.post("/tasks/create", createTaskController);
 router.patch("/tasks/edit", editTaskController);
 router.delete("/tasks/delete", deleteTaskController);
@@ -68,7 +74,11 @@ router.delete("/projects/tasks/delete", deleteProjectTaskController);
 
 // Notifications
 router.get("/user/notifications/get", getNotificationsByEmail);
-router.put("/user/notifications/read", updateNotificationReadState)
+router.put("/user/notifications/read", updateNotificationReadState);
 
+router.get("/ping", (req, res) => {
+  res.status(200).send("01110000 01101111 01101110 01100111");
+  console.log("Everything Good");
+});
 
 export default router;
