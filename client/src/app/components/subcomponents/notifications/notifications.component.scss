@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $primary-dark: #13203a;
 $bg-light-blue: #a8d0ef;
 $border-dark: #394153;
@@ -47,18 +49,18 @@ mat-expansion-panel {
   margin-bottom: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   min-height: 100px;
-  background-color: lighten($primary-dark, 5%);
+  background-color: color.adjust($primary-dark, $lightness: 5%);
 
   @media (prefers-color-scheme: light) {
-    background-color: lighten($mat-blue-light, 5%);
+    background-color: color.adjust($mat-blue-light, $lightness: 5%);
   }
 
   &.read {
     opacity: 0.6;
-    background-color: lighten($primary-dark, 3%);
+    background-color: color.adjust($primary-dark, $lightness: 3%);
 
     @media (prefers-color-scheme: light) {
-      background-color: lighten($mat-blue-light, 3%);
+      background-color: color.adjust($mat-blue-light, $lightness: 3%);
     }
   }
 
@@ -173,7 +175,7 @@ mat-expansion-panel {
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: darken($mat-blue-light, 10%);
+        background-color: color.adjust($mat-blue-light, $lightness: -10%);
       }
     }
   }
@@ -187,10 +189,10 @@ mat-expansion-panel {
 /* For dark mode consistency */
 @media (prefers-color-scheme: dark) {
   mat-expansion-panel {
-    background-color: lighten($primary-dark, 5%);
+    background-color: color.adjust($primary-dark, $lightness: 5%);
 
     &.read {
-      background-color: lighten($primary-dark, 3%);
+      background-color: color.adjust($primary-dark, $lightness: 3%);
     }
   }
 }

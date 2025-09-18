@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $primary-dark: #13203a;
 $bg-light-blue: #a8d0ef;
 $border-dark: #394153;
@@ -56,7 +58,7 @@ $mat-blue-light: #3768bb;
   transition: background-color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background-color: darken($bg-light-blue, 15%);
+    background-color: color.adjust($bg-light-blue, $lightness: -15%);
     transform: scale(1.05);
 
     @media (prefers-color-scheme: dark) {
@@ -74,7 +76,7 @@ $mat-blue-light: #3768bb;
   transition: background-color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background-color: darken(#f0f0f0, 15%);
+    background-color: color.adjust(#f0f0f0, $lightness: -15%);
     transform: scale(1.05);
   }
 }

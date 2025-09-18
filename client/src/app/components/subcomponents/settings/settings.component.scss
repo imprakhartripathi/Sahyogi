@@ -127,12 +127,12 @@ $mat-blue-light: #3768bb;
    width: 50%;
   border-color: $mat-blue-dark;
   border: 1px solid;
+  color: rgb(255, 0, 0);
+  
   @media (prefers-color-scheme: dark) {
     background-color: $primary-dark;
     color: rgb(134, 0, 0);
   }
-
-  color: rgb(255, 0, 0);
 
   .delete-btn {
     color: rgb(255, 0, 0);
