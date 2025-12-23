@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: '', component: DashboardComponent, data: { title: 'Sahyogi - Dashboard' }, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasksComponent, data: { title: 'Sahyogi - Task Management' }, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent, data: { title: 'Sahyogi - Project Management' }, canActivate: [AuthGuard] },
-  { path: 'backlog', component: BacklogComponent, data: { title: 'Sahyogi - Backlog' }, canActivate: [AuthGuard] },
+  { path: 'deadlines', component: BacklogComponent, data: { title: 'Sahyogi - Deadlines' }, canActivate: [AuthGuard] },
   { path: 'project/:_id', component: ProjectDetailsComponent, data: { title: 'Sahyogi - Project Details' }, canActivate: [AuthGuard] },
 
   // Un-Guarded Paths
@@ -32,6 +32,7 @@ const routes: Routes = [
   
   // Redirecting Paths
   { path: 'dashboard', redirectTo: '' },
+  {path: 'backlog', redirectTo: 'deadlines'},
   { path: 'mainpage', redirectTo: 'product' },
   { path: '**', redirectTo: 'badrequest' },
   { path: 'broken', redirectTo: 'badrequest' }
