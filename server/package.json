@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cd src && nodemon app-server.ts",
+    "build": "tsc",
     "fresh": "cls && npm start",
     "setup": "npm i && npm fund && cls && npm start",
     "client": " cd .. && cd client && ng s --no-hmr"
