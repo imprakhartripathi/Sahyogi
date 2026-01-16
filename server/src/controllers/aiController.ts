@@ -104,6 +104,14 @@ const aiController = async (req: Request, res: Response): Promise<void> => {
       message:
         "Tasks successfully prioritized based on complexity and deadline",
     });
+
+    // if you are looking at this and thinking, "this shiz is not AI or anything related to ML", you will be absolutely correct,
+    // this is not the actual AI/ML implementation of this concept, it's just a cheap workaround as we were unable to add the model here on time....
+    // and since then it's been like that, and now you will be thinking, "if you are writing this comment right now, then you have time to do it",
+    // and you will be correct (partially), I do have time here and there, I do think of implementing the model in TS, just don't get enough time to do it.
+    // The day I'll get sufficient time to implement it, this comment will be removed, and this logic will be different. Until then, don't waste your time
+    // reading this comment as I wasted my time writing it lol...... (Jan 16th, 2026).      -PT
+    
   } catch (error) {
     console.error("An error occurred:", error);
     res
